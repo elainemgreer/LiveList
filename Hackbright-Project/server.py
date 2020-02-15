@@ -13,6 +13,7 @@ from API_Tests import get_events_list_by_metro_area_and_date, get_metro_id
 
 
 
+
 app = Flask(__name__)
 
 # Required to use Flask sessions and the debug toolbar
@@ -50,7 +51,8 @@ def get_events_list():
 @app.route('/map')
 def get_map():
 
-    return render_template("GooglemapsAPI.html")
+
+    return render_template("basic_map.html")
 
     
 

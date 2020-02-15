@@ -1,9 +1,20 @@
+{% extends 'base.html' %}
+
+
 <!DOCTYPE html>
 <html>
+
 <head>
-    <title></title>
+    {% block head %}
+    <title>EVENTS SITE</title>
+    
+    {% endblock %}
 </head>
+
+
+
 <body>
+    {% block body %}
     <h1> WELCOME TO MY WEBSITE<h1>
 
     <form action="/events">
@@ -15,7 +26,9 @@
  <input type="text" name="max_date"><br>
 
   <input type="submit" value="Submit">
+  
 </form>
-
+{% endblock %}
 </body>
+
 </html>
