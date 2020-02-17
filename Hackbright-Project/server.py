@@ -29,7 +29,6 @@ def index():
     return render_template("homepage.html")
 
 
-
 @app.route('/events')
 def get_events_list():
     """Uses metro ID to get list of events around user."""

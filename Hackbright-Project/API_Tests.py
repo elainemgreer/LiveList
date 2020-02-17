@@ -8,6 +8,7 @@ api_key = os.environ['SK_KEY']
 
 
 
+
 # def get_metro_id(latitude, longitude):
 #     """Gets metro ID of user to use to find events"""
 
