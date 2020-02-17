@@ -39,6 +39,163 @@
       <script>
 
 
+    // function initMap() {
+  // The location of SF and hackbright
+      // const sanFrancisco = {lat: 37.7749, lng: -122.4194};
+      // const hackBright = {lat: 37.7888, lng: -122.4116};
+      
+
+    // // The map, centered at SF
+    //   const map = new google.maps.Map(
+    //       document.getElementById('map'), {zoom: 10, center: sanFrancisco });
+    // // The marker, positioned at SF
+
+
+      // // set markers for locations
+      // const sfMarker = new google.maps.Marker({
+      // position: sanFrancisco,
+      // title: 'San Francisco',
+      // map: map});
+// }
+
+      // const hBMarker = new google.maps.Marker({
+      // position: hackBright ,
+      // title: 'Hackbright',
+      // map: map}); 
+
+
+      // //add event listener to marker
+      // sfMarker.addListener('click', () => {
+      // alert('You have clicked something');
+      // });
+
+
+      // const sfInfo = new google.maps.InfoWindow({
+      // content: '<h1>San Francisco!</h1>'
+      // });
+
+      // sfInfo.open(map, sfMarker); 
+    
+      function initMap () {
+
+         var locations = [
+      ['Los Angeles', 34.052235, -118.243683],
+      ['Santa Monica', 34.024212, -118.496475],
+      ['Redondo Beach', 33.849182, -118.388405],
+      ['Newport Beach', 33.628342, -117.927933],
+      ['Long Beach', 33.770050, -118.193739]
+    ];
+ 
+
+    var map = new google.maps.Map(document.getElementById('map'), {
+      zoom: 10,
+      center: new google.maps.LatLng(51.530616, -0.123125),
+      mapTypeId: google.maps.MapTypeId.ROADMAP
+    });
+
+    var infowindow = new google.maps.InfoWindow();
+
+    var marker, i;
+    var markers = new Array();
+
+    for (i = 0; i < locations.length; i++) {  
+      marker = new google.maps.Marker({
+        position: new google.maps.LatLng(locations[i][1], locations[i][2]),
+        map: map
+      });
+
+      markers.push(marker);
+
+      google.maps.event.addListener(marker, 'click', (function(marker, i) {
+        return function() {
+          infowindow.setContent(locations[i][0]);
+          infowindow.open(map, marker);
+        }
+      })(marker, i));
+    }
+
+    function AutoCenter() {
+      //  Create a new viewpoint bound
+      var bounds = new google.maps.LatLngBounds();
+      //  Go through each...
+      $.each(markers, function (index, marker) {
+      bounds.extend(marker.position);
+      });
+      //  Fit these bounds to the map
+      map.fitBounds(bounds);
+    }
+    AutoCenter();
+}
+
+    //   var locations = [
+    //   ['Los Angeles', 34.052235, -118.243683],
+    //   ['Santa Monica', 34.024212, -118.496475],
+    //   ['Redondo Beach', 33.849182, -118.388405],
+    //   ['Newport Beach', 33.628342, -117.927933],
+    //   ['Long Beach', 33.770050, -118.193739]
+    // ];
+
+
+    //   var count=0;
+
+
+    //   for (count = 0; count < locations.length; count++) {  
+
+    //   var marker = new google.maps.Marker({
+    //       position: new google.maps.LatLng(locations[count][1], locations[count][2]),
+    //       map: map
+    //       });
+
+    //   marker.info = new google.maps.InfoWindow({
+    //       content: locations [count][0]
+    //       });
+
+
+    //   google.maps.event.addListener(marker, 'click', function() {  
+    //       // this = marker
+    //       var marker_map = this.getMap();
+    //       this.info.open(marker_map, this);
+          // Note: If you call open() without passing a marker, the InfoWindow will use the position specified upon construction through the InfoWindowOptions object literal.
+        //   });
+        // }
+
+
+
+
+
+
+
+
+    //   for (const i in locations) {
+    //         marker = new google.maps.Marker({
+    //           position: {lat: locations[count][1], lng: locations[count][2]},
+    //           title: locations[count][0],
+    //           map: map});
+
+    //       }
+              
+          
+  
+      // var infowindow =  new google.maps.InfoWindow({});
+      // var marker, count;
+      // for (count = 0; count < locations.length; count++) {
+      //     marker = new google.maps.Marker({
+      //       position: new google.maps.LatLng(locations[count][1], locations[count][2]),
+      //       map: map,
+      //       title: locations[count][0]
+      //     });
+
+      // google.maps.event.addListener(marker, 'click', (function (marker, count) {
+      //       return function () {
+      //         infowindow.setContent(locations[count][0]);
+      //         infowindow.open(map, marker);
+      //       }
+      //     })(marker, count));
+      //   }
+  //*******************************************
+
+
+
   //   function initMap() {
   // // The location of SF and hackbright
   //     const sanFrancisco = {lat: 37.7749, lng: -122.4194};
@@ -48,49 +205,8 @@
   //   // The map, centered at SF
   //     const map = new google.maps.Map(
   //         document.getElementById('map'), {zoom: 10, center: sanFrancisco });
-  //   // The marker, positioned at SF
 
-
-  //     // set markers for locations
-  //     const sfMarker = new google.maps.Marker({
-  //     position: sanFrancisco,
-  //     title: 'San Francisco',
-  //     map: map});
-
-  //     const hBMarker = new google.maps.Marker({
-  //     position: hackBright ,
-  //     title: 'Hackbright',
-  //     map: map}); 
-
-
-  //     //add event listener to marker
-  //     sfMarker.addListener('click', () => {
-  //     alert('You have clicked something');
-  //     });
-
-
-  //     const sfInfo = new google.maps.InfoWindow({
-  //     content: '<h1>San Francisco!</h1>'
-  //     });
-
-  //     sfInfo.open(map, sfMarker); 
   //   }
-
-  //*******************************************
-
-
-
-    function initMap() {
-  // The location of SF and hackbright
-      const sanFrancisco = {lat: 37.7749, lng: -122.4194};
-      const hackBright = {lat: 37.7888, lng: -122.4116};
-      
-
-    // The map, centered at SF
-      const map = new google.maps.Map(
-          document.getElementById('map'), {zoom: 10, center: sanFrancisco });
-
-    }
   
 
   // // Apply custom styles to a map. In this example, we just make the
@@ -111,8 +227,8 @@
   // });
 
 
-  // // Ask user to enter a location. Geocode the location to get its coordinates
-  // // and drop a marker onto the map.
+  // Ask user to enter a location. Geocode the location to get its coordinates
+  // and drop a marker onto the map.
   // $('#geocode-address').on('click', () => {
   //   const userAddress = prompt('Enter a location');
 
@@ -248,7 +364,7 @@
 
 
     <script async defer
-    src="https://maps.googleapis.com/maps/api/js?key=API_KEYcallback=initMap">
+    src="https://maps.googleapis.com/maps/api/js?key=API_KEY=initMap">
     </script>
 
 

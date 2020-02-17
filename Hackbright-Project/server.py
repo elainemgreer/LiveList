@@ -16,12 +16,10 @@ from API_Tests import get_events_list_by_metro_area_and_date, get_metro_id
 
 app = Flask(__name__)
 
-# Required to use Flask sessions and the debug toolbar
+
 app.secret_key = "ABC"
 
-# Normally, if you use an undefined variable in Jinja2, it fails
-# silently. This is horrible. Fix this so that, instead, it raises an
-# error.
+
 app.jinja_env.undefined = StrictUndefined
 
 
@@ -35,9 +33,11 @@ def index():
 @app.route('/events')
 def get_events_list():
     """Uses metro ID to get list of events around user."""
-    metro_id = request.args.get("metro_id")
+    city = request.args.get("city")
     min_date = request.args.get("min_date")
     max_date = request.args.get("max_date")
+
+    metro_id = get_metro_id(city)
 
 
     event_list = get_events_list_by_metro_area_and_date(metro_id, min_date, max_date)
@@ -46,6 +46,7 @@ def get_events_list():
     # metro_id = str(metro_id)
 
     return render_template('events.html', event_list=event_list)
+
 
 
 @app.route('/map')
