@@ -35,8 +35,10 @@ api_key = os.environ['SK_KEY']
 
 # metro_id = get_metro_id(37.788920, -122.411535)
 
+
+
 def get_metro_id(city):
-    """Gets metro ID of user to use to find events"""
+    """Uses city that user enters to find metro id of city."""
 
 
     request_string = (f'https://api.songkick.com/api/3.0/search/locations.json?query={city}&apikey={api_key}')
@@ -62,7 +64,7 @@ def get_metro_id(city):
 
 
 def get_events_list_by_metro_area_and_date(metro_id, min_date, max_date):
-    """Uses metro ID to get list of events around user."""
+    """Uses metro ID and min/max dates to generate list of events."""
 
     metro_id = str(metro_id)
 
@@ -103,14 +105,14 @@ def get_events_list_by_metro_area_and_date(metro_id, min_date, max_date):
 
 
 
-events_list = get_events_list_by_metro_area_and_date('26330', '2020-02-17', '2020-02-17')
-# print(event_list)
+# events_list = get_events_list_by_metro_area_and_date('9179', '2020-02-17', '2020-02-17')
+
 
 
 
 
 ### FINISH THIS FUNCTION to make a dictionary of venues with lat/long coordinates 
-def get_locations(event_list):
+def get_locations(events_list):
 
     # venue_names = []
     # lat_lng_tuples = []
@@ -148,15 +150,21 @@ def get_locations(event_list):
 
     for event in events_list:
 
-        event_location = []
+        if event['venue']['lat'] and event['venue']['lng'] != None:
 
-        venue = event['venue']['displayName']
-        lat = event['venue']['lat']
-        lng = event['venue']['lng']
-        event_location.append(venue)
-        event_location.append(lat)
-        event_location.append(lng)
-        event_locations.append(event_location)
+            event_location = []
+
+
+            name = event['displayName']
+            venue = event['venue']['displayName']
+            lat = event['venue']['lat']
+            lng = event['venue']['lng']
+
+            event_location.append(name)
+            event_location.append(venue)
+            event_location.append(lat)
+            event_location.append(lng)
+            event_locations.append(event_location)
 
         # for event in events_list:
 
@@ -172,7 +180,7 @@ def get_locations(event_list):
     return event_locations
 
 
-get_locations(events_list)
+# get_locations(events_list)
 
 
 

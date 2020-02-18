@@ -8,7 +8,9 @@ from model import connect_to_db, db, User
 
 import requests
 
-from API_Tests import get_events_list_by_metro_area_and_date, get_metro_id
+from API_Tests import get_events_list_by_metro_area_and_date, get_metro_id, get_locations
+
+import json
 
 
 
@@ -25,8 +27,15 @@ app.jinja_env.undefined = StrictUndefined
 
 @app.route('/')
 def index():
-    """Homepage."""
+    """Homepage for events list."""
     return render_template("homepage.html")
+
+
+@app.route('/mapindex')
+def mapindex():
+    """Map events list homepage."""
+
+    return render_template("maphomepage.html")
 
 
 @app.route('/events')
@@ -51,8 +60,29 @@ def get_events_list():
 @app.route('/map')
 def get_map():
 
+    city = request.args.get("city")
+    min_date = request.args.get("min_date")
+    max_date = request.args.get("max_date")
 
-    return render_template("basic_map.html")
+
+    #pass city in to get metro ID
+    metro_id = get_metro_id(city)
+    print(metro_id)
+
+    #pass metro id and dates in to get list of events
+    events_list = get_events_list_by_metro_area_and_date(metro_id, min_date, max_date)
+    print(events_list)
+
+    # pass events list in to get event locations
+    event_locations = get_locations(events_list)
+    print(event_locations)
+    # event_locations = json.dumps(event_locations)
+
+
+
+    return render_template("basic_map.html", event_locations=event_locations)
+
+
 
     
 

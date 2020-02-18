@@ -73,20 +73,23 @@
 
       // sfInfo.open(map, sfMarker); 
     
-      function initMap () {
+    function initMap() {
 
-         var locations = [
-      ['Los Angeles', 34.052235, -118.243683],
-      ['Santa Monica', 34.024212, -118.496475],
-      ['Redondo Beach', 33.849182, -118.388405],
-      ['Newport Beach', 33.628342, -117.927933],
-      ['Long Beach', 33.770050, -118.193739]
-    ];
+        var locations = {{ event_locations | tojson }}; 
+        console.log(locations)
+
+    //      var locations = [
+    //   ['Los Angeles', 34.052235, -118.243683],
+    //   ['Santa Monica', 34.024212, -118.496475],
+    //   ['Redondo Beach', 33.849182, -118.388405],
+    //   ['Newport Beach', 33.628342, -117.927933],
+    //   ['Long Beach', 33.770050, -118.193739]
+    // ];
  
 
     var map = new google.maps.Map(document.getElementById('map'), {
       zoom: 10,
-      center: new google.maps.LatLng(51.530616, -0.123125),
+      // center: new google.maps.LatLng(51.530616, -0.123125),
       mapTypeId: google.maps.MapTypeId.ROADMAP
     });
 
@@ -97,7 +100,7 @@
 
     for (i = 0; i < locations.length; i++) {  
       marker = new google.maps.Marker({
-        position: new google.maps.LatLng(locations[i][1], locations[i][2]),
+        position: new google.maps.LatLng(locations[i][2], locations[i][3]),
         map: map
       });
 
@@ -105,7 +108,7 @@
 
       google.maps.event.addListener(marker, 'click', (function(marker, i) {
         return function() {
-          infowindow.setContent(locations[i][0]);
+          infowindow.setContent(locations[i][0], locations[i][1]);
           infowindow.open(map, marker);
         }
       })(marker, i));
@@ -121,8 +124,9 @@
       //  Fit these bounds to the map
       map.fitBounds(bounds);
     }
-    AutoCenter();
-}
+    AutoCenter(); 
+  }
+
 
     //   var locations = [
     //   ['Los Angeles', 34.052235, -118.243683],
@@ -361,7 +365,7 @@
 
 
     <script async defer
-    src="https://maps.googleapis.com/maps/api/js?key=API_KEY=initMap">
+    src="https://maps.googleapis.com/maps/api/js?key=AIzaSyAqQ4QGcEPRs82Gf_qpRg9UqsLgkxYH0kI&callback=initMap">
     </script>
 
 
