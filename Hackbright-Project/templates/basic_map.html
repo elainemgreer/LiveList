@@ -27,6 +27,8 @@
     <!--The div element for the map -->
     <div id="map"></div>
 
+    <button type="button" id="button">Click Me!</button>
+
 
 
 
@@ -321,40 +323,40 @@
   //
   // For reference, here's documenation on the Geolocation API:
   //     https://developer.mozilla.org/en-US/docs/Web/API/Geolocation
-  // $('#geolocate-me').on('click', () => {
-  //   // If the browser has geolocation-capabilities, it'll be stored on a global
-  //   // object called `navigator`. (Most modern browsers will have this.)
-  //   //
-  //   // If `navigator.geolocation` is `undefined`, then your user has a pretty
-  //   // old browser :(
-  //   if (navigator.geolocation) {
-  //     // `navigator.geolocation.getCurrentPosition` takes in two args:
-  //     //
-  //     // - A function that is called when we successfully get the
-  //     //   user's location
-  //     //
-  //     // - A function that's called when we can't get the user's location
-  //     //   (probably because they didn't allow your page to access it)
-  //     navigator.geolocation.getCurrentPosition(
-  //       // The success function:
-  //       (currPosition) => {
-  //         alert('Going to your location now!');
+  $('#button').on('click', () => {
+    // If the browser has geolocation-capabilities, it'll be stored on a global
+    // object called `navigator`. (Most modern browsers will have this.)
+    //
+    // If `navigator.geolocation` is `undefined`, then your user has a pretty
+    // old browser :(
+    if (navigator.geolocation) {
+      // `navigator.geolocation.getCurrentPosition` takes in two args:
+      //
+      // - A function that is called when we successfully get the
+      //   user's location
+      //
+      // - A function that's called when we can't get the user's location
+      //   (probably because they didn't allow your page to access it)
+      navigator.geolocation.getCurrentPosition(
+        // The success function:
+        (currPosition) => {
+          alert('Going to your location now!');
 
-  //         map.setCenter({
-  //           lat: currPosition.coords.latitude,
-  //           lng: currPosition.coords.longitude
-  //         });
-  //         map.setZoom(18);
-  //       },
-  //       // The unsuccessful function:
-  //       () => {
-  //         alert('Unable to get your location :(');
-  //       }
-  //     );
-  //   } else {
-  //     alert(`Your browser doesn't support geolocation`);
-  //   }
-  // });
+          map.setCenter({
+            lat: currPosition.coords.latitude,
+            lng: currPosition.coords.longitude
+          });
+          map.setZoom(18);
+        },
+        // The unsuccessful function:
+        () => {
+          alert('Unable to get your location :(');
+        }
+      );
+    } else {
+      alert(`Your browser doesn't support geolocation`);
+    }
+  });
 
 
 
