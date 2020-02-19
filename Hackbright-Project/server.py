@@ -62,6 +62,18 @@ def get_events_list():
 
 
 
+@app.route('/userlocation', methods=['POST'])
+def postmethod():
+
+    user_location = request.get_json()
+    print(user_location)
+
+    return jsonify(user_location)
+
+
+
+
+
 @app.route('/map')
 def get_map():
 
@@ -90,13 +102,8 @@ def get_map():
 
 
 
-@app.route('/postmethod', methods=['POST'])
-def postmethod():
-    data = request.get_json()
-    print(data)
-    return jsonify(data)
 
-    
+
 
 
 

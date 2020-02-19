@@ -36,6 +36,26 @@ api_key = os.environ['SK_KEY']
 # metro_id = get_metro_id(37.788920, -122.411535)
 
 
+def make_lat_lng_dict(user_location):
+
+    lat_lng = user_location['location']
+    print(lat_lng)
+    return lat_lng
+
+
+
+
+
+
+
+
+    
+make_lat_lng_dict({'location': {'lat': 37.7888301, 'lng': -122.41160099999999}})
+
+
+
+
+
 
 def get_metro_id(city):
     """Uses city that user enters to find metro id of city."""
