@@ -1,6 +1,6 @@
 from jinja2 import StrictUndefined
 
-from flask import (Flask, render_template, redirect, request, flash, session)
+from flask import (Flask, render_template, redirect, request, flash, session, jsonify)
 
 from flask_debugtoolbar import DebugToolbarExtension
 
@@ -90,7 +90,13 @@ def get_map():
 
 
 
+@app.route('/postmethod', methods=['POST'])
+def postmethod():
+    data = request.get_json()
+    print(data)
+    return jsonify(data)
 
+    
 
 
 
