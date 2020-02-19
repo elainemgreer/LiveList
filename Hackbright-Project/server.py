@@ -15,7 +15,6 @@ import json
 
 
 
-
 app = Flask(__name__)
 
 
@@ -25,10 +24,13 @@ app.secret_key = "ABC"
 app.jinja_env.undefined = StrictUndefined
 
 
+
 @app.route('/')
 def index():
     """Homepage for events list."""
     return render_template("homepage.html")
+
+
 
 
 @app.route('/mapindex')
@@ -36,6 +38,8 @@ def mapindex():
     """Map events list homepage."""
 
     return render_template("maphomepage.html")
+
+
 
 
 @app.route('/events')
@@ -54,6 +58,7 @@ def get_events_list():
     # metro_id = str(metro_id)
 
     return render_template('events.html', event_list=event_list)
+
 
 
 
@@ -81,6 +86,11 @@ def get_map():
 
 
     return render_template("basic_map.html", event_locations=event_locations)
+
+
+
+
+
 
 
 
