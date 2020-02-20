@@ -37,8 +37,12 @@
 
       <script>
 
+      //You might notice this code uses "var" instead of "const"...this was in the 
+      //code I found, and when I tried to change to "const", it broke my code so I 
+      //decided to just stick with "var", haha! 
 
 
+    // initializes map, sets to dom element 'map'
     function initMap() {
 
       var map = new google.maps.Map(document.getElementById('map'), {
@@ -48,24 +52,23 @@
     });
 
 
-
+    // locations list sent from Flask
     var locations = {{ event_locations | tojson }}; 
     console.log(locations)
 
 
-
-    // var map = new google.maps.Map(document.getElementById('map'), {
-    //   zoom: 10,
-    //   // center: new google.maps.LatLng(51.530616, -0.123125),
-    //   mapTypeId: google.maps.MapTypeId.ROADMAP
-    // });
-
+    //sets variable info window to be a new google maps info window
     var infowindow = new google.maps.InfoWindow();
 
+    // sets marker and list of markers to variables
     var marker, i;
     var markers = new Array();
 
-    for (i = 0; i < locations.length; i++) {  
+    // this is similar to a while loop in Python! Keeps looping while i is less than
+    //the length of the locations list, adding to i each time through the loop. In each iteration
+    //it adds a new marker + sets the position to the lat/lng by indexing into my locations
+    //list and specifies where the marker should go (map)...adds marker to marker list each time through
+    for (i = 0; i < locations.length; i++) { 
       marker = new google.maps.Marker({
         position: new google.maps.LatLng(locations[i][2], locations[i][3]),
         map: map
@@ -73,14 +76,22 @@
 
       markers.push(marker);
 
+
+      //adds event listening to each marker so that on click, the info window opens, and
+      //the content is set to certain things in my locations list (for me, it's venue name and
+      // the artists playing at the event)
       google.maps.event.addListener(marker, 'click', (function(marker, i) {
         return function() {
           infowindow.setContent(locations[i][0], locations[i][1]);
           infowindow.open(map, marker);
         }
       })(marker, i));
-    
 
+
+    
+      // This part was in the code I found on stack overflow and when I looked it up, it seems that
+      //it basically makes it so that when you look at the map you'll be seeing all of the markers
+      //and it will zoom out accordingly 
     function AutoCenter() {
       //  Create a new viewpoint bound
       var bounds = new google.maps.LatLngBounds();

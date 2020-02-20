@@ -9,51 +9,28 @@ api_key = os.environ['SK_KEY']
 
 
 
-# def get_metro_id(latitude, longitude):
-#     """Gets metro ID of user to use to find events"""
+
+def get_metro_id_by_lat_lng(latitude, longitude):
+    """Gets metro ID of user to use to find events"""
 
 
-#     request_string = (f'https://api.songkick.com/api/3.0/search/locations.json?location=geo:{latitude},{longitude}&apikey={api_key}')
+    request_string = (f'https://api.songkick.com/api/3.0/search/locations.json?location=geo:{latitude},{longitude}&apikey={api_key}')
 
-#     metro_id_results = requests.get(request_string)
+    metro_id_results = requests.get(request_string)
 
-#     json = metro_id_results.json()
-
-#     # print(json)
-
-#     # pp_json = pprint(json)
-
-#     # print(pp_json)
-
-#     location = json['resultsPage']['results']['location']
-#     city_dict = location[0]
-#     metro = city_dict['metroArea']
-#     metro_id = metro['id']
-
-#     return metro_id
+    json = metro_id_results.json()
 
 
-# metro_id = get_metro_id(37.788920, -122.411535)
+    location = json['resultsPage']['results']['location']
+    city_dict = location[0]
+    metro = city_dict['metroArea']
+    metro_id = metro['id']
+
+    return metro_id
 
 
-def make_lat_lng_dict(user_location):
-
-    lat_lng = user_location['location']
-    print(lat_lng)
-    return lat_lng
-
-
-
-
-
-
-
-
-    
-make_lat_lng_dict({'location': {'lat': 37.7888301, 'lng': -122.41160099999999}})
-
-
-
+# metro_id = get_metro_id(l)
+# print(metro_id)
 
 
 
@@ -99,13 +76,10 @@ def get_events_list_by_metro_area_and_date(metro_id, min_date, max_date):
     events_json = requests.get('https://api.songkick.com/api/3.0/events.json',
             params=payload)
 
-    # event_results = requests.get(request_string)
 
     events_json = events_json.json()
-    # return events_json
 
     
-
     # num_events = events_json['resultsPage']['totalEntries'] 
     # print("*************" num_events "******************")
 
@@ -113,13 +87,6 @@ def get_events_list_by_metro_area_and_date(metro_id, min_date, max_date):
     events_list = events_json['resultsPage']['results']['event']
 
 
-
-    # for event in events_list:
-
-    #     events_dict['name'] = (event['displayName'])
-    #     events_dict['venue'] = (event['venue']['displayName'])
-    #     events_dict['date'] = (event['start']['date'])
-    #     events_dict['time'] = (event['start']['time'])
 
     return events_list
 
@@ -131,8 +98,45 @@ def get_events_list_by_metro_area_and_date(metro_id, min_date, max_date):
 
 
 
-### FINISH THIS FUNCTION to make a dictionary of venues with lat/long coordinates 
 def get_locations(events_list):
+
+
+    event_locations = []
+
+    for event in events_list:
+
+        if event['venue']['lat'] and event['venue']['lng'] != None:
+
+            event_location = []
+
+
+            name = event['displayName']
+            venue = event['venue']['displayName']
+            lat = event['venue']['lat']
+            lng = event['venue']['lng']
+
+            event_location.append(name)
+            event_location.append(venue)
+            event_location.append(lat)
+            event_location.append(lng)
+            event_locations.append(event_location)
+
+
+    return event_locations
+
+
+
+
+
+
+
+
+
+
+# get_locations(events_list)
+
+
+
 
     # venue_names = []
     # lat_lng_tuples = []
@@ -165,47 +169,6 @@ def get_locations(events_list):
     # for i in range(len(lat_lng_tuples)):
     #     venue_dict[venue] = i
     #     i = i + 1
-
-    event_locations = []
-
-    for event in events_list:
-
-        if event['venue']['lat'] and event['venue']['lng'] != None:
-
-            event_location = []
-
-
-            name = event['displayName']
-            venue = event['venue']['displayName']
-            lat = event['venue']['lat']
-            lng = event['venue']['lng']
-
-            event_location.append(name)
-            event_location.append(venue)
-            event_location.append(lat)
-            event_location.append(lng)
-            event_locations.append(event_location)
-
-        # for event in events_list:
-
-        #     # venue = event['venue']['displayName']
-        #     # lat = event['venue']['lat']
-        #     # lng = event['venue']['lng']
-        #     # event_location.append(venue)
-        #     # event_location.append(lat)
-        #     # event_location.append(lng)
-       
-        #     events.append(event_location)
-
-    return event_locations
-
-
-# get_locations(events_list)
-
-
-
-
-
 
 
 

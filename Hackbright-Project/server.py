@@ -25,10 +25,10 @@ app.jinja_env.undefined = StrictUndefined
 
 
 
-@app.route('/')
-def index():
-    """Homepage for events list."""
-    return render_template("homepage.html")
+# @app.route('/')
+# def index():
+#     """Homepage for events list."""
+#     return render_template("homepage.html")
 
 
 
@@ -42,33 +42,88 @@ def mapindex():
 
 
 
-@app.route('/events')
-def get_events_list():
-    """Uses metro ID to get list of events around user."""
-    city = request.args.get("city")
-    min_date = request.args.get("min_date")
-    max_date = request.args.get("max_date")
+# @app.route('/events')
+# def get_events_list():
+#     """Uses metro ID to get list of events around user."""
+#     city = request.args.get("city")
+#     min_date = request.args.get("min_date")
+#     max_date = request.args.get("max_date")
 
-    metro_id = get_metro_id(city)
-
-
-    event_list = get_events_list_by_metro_area_and_date(metro_id, min_date, max_date)
+#     metro_id = get_metro_id(city)
 
 
-    # metro_id = str(metro_id)
-
-    return render_template('events.html', event_list=event_list)
+#     event_list = get_events_list_by_metro_area_and_date(metro_id, min_date, max_date)
 
 
+#     # metro_id = str(metro_id)
+
+#     return render_template('events.html', event_list=event_list)
 
 
-@app.route('/userlocation', methods=['POST'])
-def postmethod():
+
+
+
+
+@app.route('/eventsbyuserlocation', methods=['POST'])
+def get_events_by_user_location():
+
 
     user_location = request.get_json()
-    print(user_location)
+    print("1st", user_location)
+    json = jsonify(user_location)
 
-    return jsonify(user_location)
+    # min_date = request.form.get("min_date")
+    # print(min_date)
+    # max_date = request.form.get("max_date")
+    # print(max_date)
+   
+    user_location =  jsonify(user_location)
+    print("************", user_location)
+
+    # latitude = user_location['location']['lat']
+    # print(latitude)
+    # longitude = user_location['location']['lng']
+    # print(longitude)
+ 
+
+    # metro_id = get_metro_id(latitude, longitude)
+    # print(metro_id)
+
+    return json
+
+
+
+    # events_list = get_events_list_by_metro_area_and_date(metro_id, min_date, max_date)
+   
+
+    # event_locations = get_locations(events_list)
+   
+
+    # return render_template("basic_map.html", event_locations=event_locations)
+    
+
+
+    # # city = request.args.get("city")
+    # min_date = request.args.get("min_date")
+    # max_date = request.args.get("max_date")
+
+
+    # #pass city in to get metro ID
+    # metro_id = get_metro_id(city)
+    # print(metro_id)
+
+    # #pass metro id and dates in to get list of events
+    # events_list = get_events_list_by_metro_area_and_date(metro_id, min_date, max_date)
+  
+    # # pass events list in to get event locations
+    # event_locations = get_locations(events_list)
+
+    # # event_locations = json.dumps(event_locations)
+
+
+
+    # return render_template("basic_map.html", event_locations=event_locations)
+
 
 
 
@@ -77,23 +132,30 @@ def postmethod():
 @app.route('/map')
 def get_map():
 
-    city = request.args.get("city")
+    lat = request.args.get("lat")
+   
+    lng = request.args.get("lng")
+ 
+    # json = jsonify(lng)
+    # print(json)
     min_date = request.args.get("min_date")
+    print(min_date)
     max_date = request.args.get("max_date")
+    print(max_date)
 
 
-    #pass city in to get metro ID
-    metro_id = get_metro_id(city)
-    print(metro_id)
+    # #pass city in to get metro ID
+    # metro_id = get_metro_id(latlng)
+    # print(metro_id)
 
-    #pass metro id and dates in to get list of events
-    events_list = get_events_list_by_metro_area_and_date(metro_id, min_date, max_date)
-    print(events_list)
+    # #pass metro id and dates in to get list of events
+    # events_list = get_events_list_by_metro_area_and_date(metro_id, min_date, max_date)
+    # print(events_list)
 
-    # pass events list in to get event locations
-    event_locations = get_locations(events_list)
-    print(event_locations)
-    # event_locations = json.dumps(event_locations)
+    # # pass events list in to get event locations
+    # event_locations = get_locations(events_list)
+    # print(event_locations)
+    # # event_locations = json.dumps(event_locations)
 
 
 
@@ -104,6 +166,35 @@ def get_map():
 
 
 
+ # events_list = get_events_list_by_metro_area_and_date(metro_id, min_date, max_date)
+   
+
+    # event_locations = get_locations(events_list)
+   
+
+    # return render_template("basic_map.html", event_locations=event_locations)
+   
+
+    # # city = request.args.get("city")
+    # min_date = request.args.get("min_date")
+    # max_date = request.args.get("max_date")
+
+
+    # #pass city in to get metro ID
+    # metro_id = get_metro_id(city)
+    # print(metro_id)
+
+    # #pass metro id and dates in to get list of events
+    # events_list = get_events_list_by_metro_area_and_date(metro_id, min_date, max_date)
+  
+    # # pass events list in to get event locations
+    # event_locations = get_locations(events_list)
+
+    # # event_locations = json.dumps(event_locations)
+
+
+
+    # return render_template("basic_map.html", event_locations=event_locations)
 
 
 
