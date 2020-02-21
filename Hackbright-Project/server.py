@@ -4,11 +4,10 @@ from flask import (Flask, render_template, redirect, request, flash, session, js
 
 from flask_debugtoolbar import DebugToolbarExtension
 
-from model import connect_to_db, db, User
 
 import requests
 
-from API_Tests import get_events_list_by_metro_area_and_date, get_metro_id, get_locations
+# from API_Tests import get_events_list_by_metro_area_and_date, get_metro_id, get_locations
 
 import json
 
@@ -64,32 +63,32 @@ def mapindex():
 
 
 
-@app.route('/eventsbyuserlocation', methods=['POST'])
-def get_events_by_user_location():
+# @app.route('/eventsbyuserlocation', methods=['POST'])
+# def get_events_by_user_location():
 
 
-    user_location = request.get_json()
-    print("1st", user_location)
-    json = jsonify(user_location)
+#     user_location = request.get_json()
+#     print("1st", user_location)
+#     json = jsonify(user_location)
 
-    # min_date = request.form.get("min_date")
-    # print(min_date)
-    # max_date = request.form.get("max_date")
-    # print(max_date)
+#     # min_date = request.form.get("min_date")
+#     # print(min_date)
+#     # max_date = request.form.get("max_date")
+#     # print(max_date)
    
-    user_location =  jsonify(user_location)
-    print("************", user_location)
+#     user_location =  jsonify(user_location)
+#     print("************", user_location)
 
-    # latitude = user_location['location']['lat']
-    # print(latitude)
-    # longitude = user_location['location']['lng']
-    # print(longitude)
+#     # latitude = user_location['location']['lat']
+#     # print(latitude)
+#     # longitude = user_location['location']['lng']
+#     # print(longitude)
  
 
-    # metro_id = get_metro_id(latitude, longitude)
-    # print(metro_id)
+#     # metro_id = get_metro_id(latitude, longitude)
+#     # print(metro_id)
 
-    return json
+#     return json
 
 
 
@@ -132,11 +131,14 @@ def get_events_by_user_location():
 @app.route('/map')
 def get_map():
 
-    lat = request.args.get("lat")
-   
-    lng = request.args.get("lng")
+
+    print(request.args)
+    print(request.form)
+    latlng = request.args.get('latlng')
+    print(latlng)
  
-    # json = jsonify(lng)
+    # latlngjson = jsonify(latlng)
+    # print(latlng)
     # print(json)
     min_date = request.args.get("min_date")
     print(min_date)
@@ -157,9 +159,11 @@ def get_map():
     # print(event_locations)
     # # event_locations = json.dumps(event_locations)
 
+    return redirect("/mapindex")
 
 
-    return render_template("basic_map.html", event_locations=event_locations)
+
+    # return render_template("basic_map.html", event_locations=event_locations)
 
 
 
