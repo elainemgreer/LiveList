@@ -16,8 +16,10 @@ class User(db.Model):
     __tablename__ = "users"
 
     user_id = db.Column(db.Integer, autoincrement=True, primary_key=True)
+    name = db.Column(db.String(64), nullable=True)
     email = db.Column(db.String(64), nullable=True)
     password = db.Column(db.String(64), nullable=True)
+    # default_location = db.Column(db.String(64), nullable=True)
    
 
     def __repr__(self):
@@ -27,32 +29,36 @@ class User(db.Model):
 
 
 
-class Genre(db.Model):
-    """Music genre"""
+# class Event(db.Model):
+#     """Musical Event"""
 
-    __tablename__ = "genres"
+#     __tablename__ = "events"
 
-    genre_id = db.Column(db.Integer, autoincrement=True, primary_key=True)
-    genre_name = db.Column(db.String(50), nullable=True)
-
-
-    def __repr__(self):
-        """Provide representation of genre when printed."""
-
-        return f"<Genre genre_id={self.genre_id} name={self.genre_name}>"
+#     event_id = db.Column(db.Integer, autoincrement=True, primary_key=True)
+#     event_name = db.Column(db.String(50), nullable=True)
+#     event_venue = db.Column(db.String(50), nullable=True)
+#     event_date = db.Column(db.dateTime)
+#     event_time = db.Column(db.dateTime)
 
 
-class UserGenre(db.Model):
 
-    __tablename__ = "user_genres"
+#     def __repr__(self):
+#         """Provide representation of genre when printed."""
 
-    user_genre_id = db.Column(db.Integer, autoincrement=True, primary_key=True)
-    user_id = db.Column(db.Integer, db.ForeignKey('users.user_id'), nullable=False)
-    genre_id = db.Column(db.Integer, db.ForeignKey('genres.genre_id'), nullable=False)
+#         return f"<Genre genre_id={self.genre_id} name={self.genre_name}>"
 
-    def __repr__(self):
 
-        return f"<UserGenre user_id={self.user_id} genre_id={self.genre_id}>"
+# class UserEvent(db.Model):
+
+#     __tablename__ = "user_events"
+
+#     user_event_id = db.Column(db.Integer, autoincrement=True, primary_key=True)
+#     user_id = db.Column(db.Integer, db.ForeignKey('users.user_id'), nullable=False)
+#     event_id = db.Column(db.Integer, db.ForeignKey('genres.genre_id'), nullable=False)
+
+#     def __repr__(self):
+
+#         return f"<UserEvent user_id={self.user_id} event_id={self.event_id}>"
 
 
 
@@ -63,7 +69,7 @@ def connect_to_db(app):
     """Connect the database to our Flask app."""
 
     # Configure to use our PstgreSQL database
-    app.config['SQLALCHEMY_DATABASE_URI'] = 'postgresql:///ratings'
+    app.config['SQLALCHEMY_DATABASE_URI'] = 'postgresql:///users'
     app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
     db.app = app
     db.init_app(app)

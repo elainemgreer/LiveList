@@ -34,28 +34,23 @@ def get_metro_id_by_lat_lng(latitude, longitude):
 
 
 
-def get_metro_id(city):
-    """Uses city that user enters to find metro id of city."""
+# def get_metro_id(city):
+#     """Uses city that user enters to find metro id of city."""
 
 
-    request_string = (f'https://api.songkick.com/api/3.0/search/locations.json?query={city}&apikey={api_key}')
+#     request_string = (f'https://api.songkick.com/api/3.0/search/locations.json?query={city}&apikey={api_key}')
 
-    metro_id_results = requests.get(request_string)
+#     metro_id_results = requests.get(request_string)
 
-    json = metro_id_results.json()
+#     json = metro_id_results.json()
 
-    # print(json)
 
-    # pp_json = pprint(json)
+#     location = json['resultsPage']['results']['location']
+#     city_dict = location[0]
+#     metro = city_dict['metroArea']
+#     metro_id = metro['id']
 
-    # print(pp_json)
-
-    location = json['resultsPage']['results']['location']
-    city_dict = location[0]
-    metro = city_dict['metroArea']
-    metro_id = metro['id']
-
-    return metro_id
+#     return metro_id
 
 
 
