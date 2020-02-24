@@ -1,0 +1,105 @@
+{% extends 'base.html' %}
+
+{% block head %}
+    
+
+<style>
+       /* Set the size of the div element that contains the map */
+       #geosearch {
+        color: green;
+               
+       }
+
+       #citysearch {
+        color: green;
+  
+        
+       }
+
+   /*    #map {
+        height: 500px;  /* The height is 400 pixels */
+        width: 40%;  /* The width is the width of the web page */
+        display: inline-block;*/
+
+
+
+</style>
+
+
+
+{% endblock %}
+
+
+
+{% block body %}
+
+
+  <a href="/register">Register</a>
+  <a href="/login">Login</a>
+
+
+
+
+    <h1> EVENT SEARCH! </h1>
+
+  <!--   <div id="map"></div> -->
+
+    <div id="geosearch">
+
+   <form id='#dateform' action="/map">  
+
+      Search by your location:
+      <br>
+      Min Date<br>
+      <input id="mind" type="text" name="min_date"> <br>
+
+      Max Date<br>
+     <input id="maxd" type="text" name="max_date"><br>
+
+     <input hidden id="location" type="text" name="location">
+
+    <input id="submit" type="submit" value="Submit">
+
+  </form>
+</div>
+
+
+<div id="citysearch">
+
+    <form id='#citysearch' action="/citymap">
+
+     Search by City:<br>
+      <input id="city" type="text" name="city"><br>
+      Min Date<br>
+      <input id="mind" type="text" name="min_date"> <br>
+
+      Max Date<br>
+     <input id="maxd" type="text" name="max_date"><br>
+
+
+      <input id="submit" type="submit" value="Submit">
+
+    </form>
+  </div>
+
+
+   
+
+     </div>
+
+
+<!--  <script src="/static/maphomescript.js"></script> -->  
+
+<script src="https://code.jquery.com/jquery-3.4.1.js"></script>
+<script src="/static/homescript.js"></script>
+<!-- <script async defer
+src="https://maps.googleapis.com/maps/api/js?key=AIzaSyB1u15AdnG9Vd7D0uxI5lk5xp9h5UhvQZM&callback=initMap">
+</script> -->
+
+
+
+{% endblock %}
+
+
+
+

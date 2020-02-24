@@ -1,0 +1,57 @@
+{% extends 'base.html' %}
+
+
+{% block head %}
+
+  <style>
+       /* Set the size of the div element that contains the map */
+      #map {
+        height: 600px;  /* The height is 400 pixels */
+        width: 80%;  /* The width is the width of the web page */
+       }
+    </style>
+
+    <script type="text/javascript" src="/static/eventsmapscript.js"></script>
+
+<script async defer
+  src="https://maps.googleapis.com/maps/api/js?key=AIzaSyB1u15AdnG9Vd7D0uxI5lk5xp9h5UhvQZM&callback=initMap">
+</script>
+
+<script src="/static/eventsmapscript.js"></script>
+
+
+
+
+{% endblock %}
+
+
+
+
+{% block body %}
+
+
+   <h3>Events Map</h3>
+    <!--The div element for the map -->
+   
+
+    <button type="button" id="button">Find My Location</button>
+
+
+
+ <div id="map"></div>
+
+
+
+ <div> {% for event in event_list %}</div>
+
+          <li><b>{{ event['displayName'] }}</b></li>
+          <li>{{ event['venue']['displayName'] }}</li>
+          <li> {{ event['start']['date'] }}</li>
+          <li> {{ event['start']['time'] }}</li>
+          <br>
+
+        {% endfor %}
+
+
+
+  {% endblock %}
