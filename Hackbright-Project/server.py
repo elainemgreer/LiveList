@@ -130,7 +130,15 @@ def get_saved_events():
         print(events_to_save)
 
 
+
+
     return redirect("/")
+
+
+@app.route("/savedeventsmap")
+def show_saved_events():
+
+    
 
 
         
