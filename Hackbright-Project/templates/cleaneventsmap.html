@@ -50,9 +50,9 @@
           <li>{{ event['venue']['displayName'] }}</li>
           <li> {{ event['start']['date'] }}</li>
           <li> {{ event['start']['time'] }}</li>
-          <br>
-
+        <button id="save" name="save">Save Event</button>
         {% endfor %}
+       
 </div>
 
 
@@ -72,7 +72,7 @@ function initMap() {
       // // center: new google.maps.LatLng(51.530616, -0.123125),
       // // mapTypeId: google.maps.MapTypeId.ROADMAP
       var map = new google.maps.Map(document.getElementById('map'), {
-          center: {lat: 40.674, lng: -73.945},
+          // center: {lat: 40.674, lng: -73.945},
           zoom: 12,
           styles: [
             {elementType: 'geometry', stylers: [{color: '#242f3e'}]},
@@ -159,7 +159,7 @@ function initMap() {
 
     
 
-    var locations = {{ event_locations | tojson }}; 
+    var locations = {{ close_events | tojson | safe}}; 
     console.log(locations)
 
 

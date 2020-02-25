@@ -12,6 +12,8 @@ from API_Tests import get_events_list_by_metro_area_and_date, get_metro_id_by_la
 
 import json
 
+import datetime
+
 
 
 app = Flask(__name__)
@@ -56,24 +58,50 @@ def get_map():
     location = json.loads(location)
     lat = location["lat"]
     lng = location["lng"]
+
+
     
-
-
     # pass city in to get metro ID
     metro_id = get_metro_id_by_lat_lng(lat, lng)
     print(metro_id)
 
+    d = datetime.datetime.today()
+    print(d)
+    print(d.year, d.month, d.day)
+    print("************************************")
+    print("datetime day", d.day)
+
+    date_list = max_date.split("-")
+    day = int(date_list[2])
+    print(day)
+    print(d.day)
+
+    now = datetime.datetime.now()
+    print("now", now)
+
+    if day <= d.day - 1:
+        flash(f'This date has already passed. Please choose a valid date.')
+        return redirect("/")
+
+    else:
+
+
     #pass metro id and dates in to get list of events
-    event_list = get_events_list_by_metro_area_and_date(metro_id, min_date, max_date)
-    print(event_list)
+        event_list = get_events_list_by_metro_area_and_date(metro_id, min_date, max_date)
+        
+        # pass events list in to get event locations
+        event_locations = get_locations(event_list)
+     
+        # event_locations = json.dumps(event_locations)
+        close_events = []
 
-    # pass events list in to get event locations
-    event_locations = get_locations(event_list)
-    print(event_locations)
-    # event_locations = json.dumps(event_locations)
+        for event in event_locations:
+            if lat - event[2] <= .4:
+                close_events.append(event)
+       
 
 
-    return render_template("cleaneventsmap.html", event_locations=event_locations, event_list=event_list)
+    return render_template("cleaneventsmap.html", close_events=close_events, event_list=event_list)
 
 
 
@@ -97,6 +125,7 @@ def get_city_map():
 
     # pass city in to get metro ID
     metro_id = get_metro_id_by_city(city)
+
     print(metro_id)
 
     #pass metro id and dates in to get list of events
@@ -104,12 +133,12 @@ def get_city_map():
     print(event_list)
 
     # pass events list in to get event locations
-    event_locations = get_locations(event_list)
-    print(event_locations)
+    close_events = get_locations(event_list)
+    
     # event_locations = json.dumps(event_locations)
 
 
-    return render_template("cleaneventsmap.html", event_locations=event_locations, event_list=event_list)
+    return render_template("cleaneventsmap.html", close_events=close_events, event_list=event_list)
 
 
 
@@ -225,6 +254,50 @@ def logout_process():
  
 
 #     metro_id = get_metro_id(latitude, longitude)
+
+
+
+# @app.route('/map')
+# def get_map():
+#     """Display map showing events in the city entered by the user."""
+
+
+#     location = request.args.get("location")
+#     min_date = request.args.get("min_date")
+#     max_date = request.args.get("max_date")
+#     print("*" * 100)
+#     print(location, min_date, max_date)
+#     print("*" * 100)
+
+#     location = json.loads(location)
+#     lat = location["lat"]
+#     lng = location["lng"]
+    
+
+
+#     # pass city in to get metro ID
+#     metro_id = get_metro_id_by_lat_lng(lat, lng)
+#     print(metro_id)
+
+#     #pass metro id and dates in to get list of events
+#     event_list = get_events_list_by_metro_area_and_date(metro_id, min_date, max_date)
+#     print(event_list)
+
+#     # pass events list in to get event locations
+#     event_locations = get_locations(event_list)
+#     print("*" * 100)
+#     print(event_locations)
+#     print("*" * 100)
+#     # event_locations = json.dumps(event_locations)
+#     close_events = []
+
+#     for event in event_locations:
+#         if lat - event[2] <= .3:
+#             print("yes")
+    
+
+
+#     return render_template("cleaneventsmap.html", event_locations=event_locations, event_list=event_list)
 
     
 
