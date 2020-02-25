@@ -16,13 +16,11 @@
         overflow: scroll;
         display: inline-block;
        }
+
+
     </style>
 
-   <!--  <script type="text/javascript" src="/static/eventsmapscript.js"></script> -->
-
-<script async defer
-  src="https://maps.googleapis.com/maps/api/js?key=AIzaSyB1u15AdnG9Vd7D0uxI5lk5xp9h5UhvQZM&callback=initMap">
-</script>
+    
 
 
 {% endblock %}
@@ -55,13 +53,15 @@
        
 </div>
 
+<!-- <script type="text/javascript" src="/static/eventsmapscript.js"></script> -->
 
-
+<script async defer
+  src="https://maps.googleapis.com/maps/api/js?key=AIzaSyB1u15AdnG9Vd7D0uxI5lk5xp9h5UhvQZM&callback=initMap">
+</script>
 
 <script>
 
-
-"use strict"
+  "use strict"
 
 
 
@@ -206,13 +206,15 @@ function initMap() {
   }
 }
 
+</script>
 
-  
-
-  
-
-    </script>
+{% endblock %}
 
 
 
-  {% endblock %}
+
+
+
+
+
+

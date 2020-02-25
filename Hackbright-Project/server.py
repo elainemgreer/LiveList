@@ -4,13 +4,15 @@ from flask import (Flask, render_template, redirect, request, flash, session, js
 
 from flask_debugtoolbar import DebugToolbarExtension
 
+from model import connect_to_db, db, User
 
 import requests
 
-# from API_Tests import get_events_list_by_metro_area_and_date, get_metro_id, get_locations
+from API_Tests import get_events_list_by_metro_area_and_date, get_metro_id_by_lat_lng, get_locations, get_metro_id_by_city
 
 import json
 
+import datetime
 
 
 
@@ -23,299 +25,244 @@ app.secret_key = "ABC"
 app.jinja_env.undefined = StrictUndefined
 
 
-
-# @app.route('/')
-# def index():
-#     """Homepage for events list."""
-#     return render_template("homepage.html")
+### homepage
 
 
-
-
-@app.route('/mapindex')
+@app.route('/')
 def mapindex():
     """Map events list homepage."""
 
-    return render_template("maphomepage.html")
-
-
-
-
-# @app.route('/events')
-# def get_events_list():
-#     """Uses metro ID to get list of events around user."""
-#     city = request.args.get("city")
-#     min_date = request.args.get("min_date")
-#     max_date = request.args.get("max_date")
-
-#     metro_id = get_metro_id(city)
-
-
-#     event_list = get_events_list_by_metro_area_and_date(metro_id, min_date, max_date)
-
-
-#     # metro_id = str(metro_id)
-
-#     return render_template('events.html', event_list=event_list)
+    return render_template("homepage2.html")
 
 
 
 
 
-
-# @app.route('/eventsbyuserlocation', methods=['POST'])
-# def get_events_by_user_location():
-
-
-#     user_location = request.get_json()
-#     print("1st", user_location)
-#     json = jsonify(user_location)
-
-#     # min_date = request.form.get("min_date")
-#     # print(min_date)
-#     # max_date = request.form.get("max_date")
-#     # print(max_date)
-   
-#     user_location =  jsonify(user_location)
-#     print("************", user_location)
-
-#     # latitude = user_location['location']['lat']
-#     # print(latitude)
-#     # longitude = user_location['location']['lng']
-#     # print(longitude)
- 
-
-#     # metro_id = get_metro_id(latitude, longitude)
-#     # print(metro_id)
-
-#     return json
-
-
-
-    # events_list = get_events_list_by_metro_area_and_date(metro_id, min_date, max_date)
-   
-
-    # event_locations = get_locations(events_list)
-   
-
-    # return render_template("basic_map.html", event_locations=event_locations)
-    
-
-
-    # # city = request.args.get("city")
-    # min_date = request.args.get("min_date")
-    # max_date = request.args.get("max_date")
-
-
-    # #pass city in to get metro ID
-    # metro_id = get_metro_id(city)
-    # print(metro_id)
-
-    # #pass metro id and dates in to get list of events
-    # events_list = get_events_list_by_metro_area_and_date(metro_id, min_date, max_date)
-  
-    # # pass events list in to get event locations
-    # event_locations = get_locations(events_list)
-
-    # # event_locations = json.dumps(event_locations)
-
-
-
-    # return render_template("basic_map.html", event_locations=event_locations)
-
-
-
-
-
-
+## events by lat/lng
 @app.route('/map')
 def get_map():
+    """Display map showing events in the city entered by the user."""
 
 
-    print(request.args)
-    print(request.form)
-    latlng = request.args.get('latlng')
-    print(latlng)
- 
-    # latlngjson = jsonify(latlng)
-    # print(latlng)
-    # print(json)
+    location = request.args.get("location")
     min_date = request.args.get("min_date")
-    print(min_date)
     max_date = request.args.get("max_date")
-    print(max_date)
+    print("*" * 100)
+    print(location, min_date, max_date)
+    print("*" * 100)
+
+    location = json.loads(location)
+    lat = location["lat"]
+    lng = location["lng"]
 
 
-    # #pass city in to get metro ID
-    # metro_id = get_metro_id(latlng)
-    # print(metro_id)
+    
+    # pass city in to get metro ID
+    metro_id = get_metro_id_by_lat_lng(lat, lng)
+    print(metro_id)
 
-    # #pass metro id and dates in to get list of events
-    # events_list = get_events_list_by_metro_area_and_date(metro_id, min_date, max_date)
-    # print(events_list)
+    # d = datetime.datetime.today()
+    # print(d)
+    # print(d.year, d.month, d.day)
+    # print("************************************")
+    # print("datetime day", d.day)
 
-    # # pass events list in to get event locations
-    # event_locations = get_locations(events_list)
-    # print(event_locations)
-    # # event_locations = json.dumps(event_locations)
+    # date_list = max_date.split("-")
+    # day = int(date_list[2])
+    # print(day)
+    # print(d.day)
 
-    return redirect("/mapindex")
+    # now = datetime.datetime.now()
+    # print("now", now)
 
+    # if day <= d.day - 1:
+    #     flash(f'This date has already passed. Please choose a valid date.')
+    #     return redirect("/")
 
+    # else:
 
-    # return render_template("basic_map.html", event_locations=event_locations)
+    #pass metro id and dates in to get list of events
+    event_list = get_events_list_by_metro_area_and_date(metro_id, min_date, max_date)
+    
+    # pass events list in to get event locations
+    event_locations = get_locations(event_list)
+ 
+    # event_locations = json.dumps(event_locations)
+    close_events = []
 
+    for event in event_locations:
+        if lat - event[2] <= .3:
+            close_events.append(event)
 
+    # length = len(close_events)
+    # ids = []
 
+    # for i in range(length):
+    #     ids.append(i)
 
+    #     print(ids)
 
+    print(close_events)
 
- # events_list = get_events_list_by_metro_area_and_date(metro_id, min_date, max_date)
-   
+    id = 0
 
-    # event_locations = get_locations(events_list)
-   
+    for event_object in close_events:
+        event_object.append(id)
+        id += 1
 
-    # return render_template("basic_map.html", event_locations=event_locations)
-   
-
-    # # city = request.args.get("city")
-    # min_date = request.args.get("min_date")
-    # max_date = request.args.get("max_date")
-
-
-    # #pass city in to get metro ID
-    # metro_id = get_metro_id(city)
-    # print(metro_id)
-
-    # #pass metro id and dates in to get list of events
-    # events_list = get_events_list_by_metro_area_and_date(metro_id, min_date, max_date)
-  
-    # # pass events list in to get event locations
-    # event_locations = get_locations(events_list)
-
-    # # event_locations = json.dumps(event_locations)
-
-
-
-    # return render_template("basic_map.html", event_locations=event_locations)
-
+    print(close_events)
 
 
     
 
-
-# @app.route("/register", methods=["GET"])
-# def register_form():
-
-#     return render_template('register_form.html')
+    return render_template("eventsmap.html", close_events=close_events)
 
 
-# @app.route("/register", methods=["POST"])
-# def register_process():
 
-#     email = request.form.get('email')
-#     password = request.form.get('password')
 
-#     if User.query.filter_by(email=email).all():
-#         return redirect("/")
 
-#     else:
-#         # add to database
-#         user = User(email=email, password=password)
-#         db.session.add(user)
-#         db.session.commit()
+@app.route("/saveevents", methods=["GET", "POST"])
+def get_saved_events():
+
+    if request.method == "POST":
+
+        events_to_save = request.form.getlist("events")
+        print(events_to_save)
+
+
+    return redirect("/")
+
+
+        
+
+
+
+
+
+
+
+
+## route for displaying map by city search
+@app.route('/citymap')
+def get_city_map():
+    """Display map showing events in the city entered by the user."""
+
+
+    city = request.args.get("city")
+    min_date = request.args.get("min_date")
+    max_date = request.args.get("max_date")
+    print("*" * 100)
+    print(city, min_date, max_date)
+    print("*" * 100)
+
+
+
+    # pass city in to get metro ID
+    metro_id = get_metro_id_by_city(city)
+
+    print(metro_id)
+
+    #pass metro id and dates in to get list of events
+    event_list = get_events_list_by_metro_area_and_date(metro_id, min_date, max_date)
+    print(event_list)
+
+    # pass events list in to get event locations
+    close_events = get_locations(event_list)
+    
+    # event_locations = json.dumps(event_locations)
+
+
+    return render_template("cleaneventsmap.html", close_events=close_events, event_list=event_list)
+
+
+
+
+
+
+
+# REGISTRATION AND USER LOGIN  *******************************************
+
+
+
+@app.route("/register")
+def register_form():
+
+
+    return render_template('register.html')
+
+
+
+
+@app.route("/register", methods=["POST"])
+def register_process():
+
+    name = request.form.get('name')
+    email = request.form.get('email')
+    password = request.form.get('password')
+
+    if User.query.filter_by(email=email).all():
+        return redirect("/")
+
+    else:
+        # add to database
+        user = User(email=email, password=password, name=name)
+        db.session.add(user)
+        db.session.commit()
      
 
-#     return redirect("/")
+    return redirect("/")
 
 
 
-# @app.route("/login", methods=["GET"])
-# def login_form():
 
-#     return render_template('login_form.html')
+@app.route("/login", methods=["GET"])
+def login_form():
+
+    return render_template('login.html')
 
 
 
-# @app.route("/login", methods=["POST"])
-# def login_process():
 
-#     email = request.form.get('email')
-#     password = request.form.get('password')
+@app.route("/login", methods=["POST"])
+def login_process():
 
-#     if User.query.filter(email == email, password == password).all():
+    email = request.form.get('email')
+    password = request.form.get('password')
+
+    if User.query.filter(email == email, password == password).all():
         
         
-#         # query user_id
-#         user = User.query.filter(email ==email, password ==password).first()
+        # query user_id
+        user = User.query.filter(email ==email, password ==password).first()
 
-#         session['current_user'] = user.user_id
-#         ## fix sessions- left off here, try to find session notes for reference
+        session['current_user'] = user.user_id
+        ## fix sessions- left off here, try to find session notes for reference
         
-#         flash(f'Logged in! Hi User # {user.user_id}')
+        flash(f'Logged in! Hi {user.name}')
         
-#         return redirect(f"/{user.user_id}")
+        return redirect("/")
 
-#     else:
-#         flash("Invalid Email and Password")
+    else:
+        flash("Invalid Email and Password")
         
-#         return redirect("/")  
+        return redirect("/")  
 
-#     return redirect("/")
-
-
-# @app.route("/logout")
-# def logout_process():
-#     session.clear()
-#     flash("You've been logged out!")
-
-#     return redirect("/")
-
-# # <form action='/{{ user.user_id }}' method='post'>
-# @app.route("/users")
-# def user_list():
-#     """Show list of users."""
-
-#     users = User.query.all()
-#     return render_template("user_list.html", users=users)
-
-
-# @app.route("/users/<int:user_id>")
-# def user_details(user_id):
-
-#     user = User.query.get(user_id)
-#     user_id = user.user_id
-#     user_zip = user.zipcode
-#     user_age = user.age
-
-#     user_ratings = Rating.query.filter(user_id == user_id).all()
-
-
-#     return render_template('user_details.html', user_id=user_id, user_zip=user_zip, user_age=user_age, user_ratings=user_ratings)
+    return redirect("/")
 
 
 
-# @app.route("/movies")
-# def movie_list():
-#     """Show list of users."""
 
-#     movies = Movie.query.all()
-#     return render_template("movie_list.html", movies=movies)
+@app.route("/logout")
+def logout_process():
+    session.clear()
+    flash("You've been logged out!")
 
-
-# @app.route("/movies/<int:movie_id>")
-# def movie_details(movie_id):
-
-#     movie = Movie.query.get(movie_id)
-#     movie_id = movie.movie_id
-#     user_zip = user.zipcode
-#     user_age = user.age
-
-#     user_ratings = Rating.query.filter(user_id == user_id).all()
+    return redirect("/")
 
 
-#     return render_template('user_details.html', user_id=user_id, user_zip=user_zip, user_age=user_age, user_ratings=user_ratings)
+
+
+
 
 
 if __name__ == "__main__":
