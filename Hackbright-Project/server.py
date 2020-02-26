@@ -12,7 +12,7 @@ from API_Tests import get_events_list_by_metro_area_and_date, get_metro_id_by_la
 
 import json
 
-import datetime
+from datetime import datetime
 
 import os
 
@@ -38,7 +38,7 @@ app.jinja_env.undefined = StrictUndefined
 def mapindex():
     """Map events list homepage."""
 
-    return render_template("homepage2.html")
+    return render_template("homepage.html")
 
 
 
@@ -167,10 +167,36 @@ def get_saved_events():
 
             saved_events.append(new_event)
 
-            ### change date and time into datetime objects instead of strings!!
-            event = Event(event_id=new_event[0], event_name=new_event[1], event_venue=new_event[2], event_date=new_event[5], event_time=new_event[6])
-            db.session.add(event)
-            db.session.commit()
+
+            if 'current_user' in session:
+                user_id = session['current_user']
+                
+            else: 
+                flash(f'Please log in to save events!')
+
+            if time is not None:
+
+                time_object = datetime.strptime(time, '%H:%M:%S')
+                print("***", time, "*******")
+
+            if date is not None:
+
+                date_object = datetime.strptime(date, '%Y-%m-%d')
+                print(date_object)
+            ## change date and time into datetime objects instead of strings!!
+
+            if Event.query.filter_by(event_id=event_id).all():
+                flash(f'Event already saved')
+
+            else:
+
+                event = Event(event_id=new_event[0], event_name=new_event[1], event_venue=new_event[2], event_date=date_object, event_time=time_object)
+                db.session.add(event)
+                db.session.commit()
+
+                user_event = UserEvent(user_id=user_id, event_id=event_id)
+                db.session.add(user_event)
+                db.session.commit()
 
 
         print(saved_events)
@@ -283,6 +309,7 @@ def register_process():
     password = request.form.get('password')
 
     if User.query.filter_by(email=email).all():
+        flash(f'Already registered! Please login.')
         return redirect("/")
 
     else:
@@ -311,35 +338,33 @@ def login_process():
     email = request.form.get('email')
     password = request.form.get('password')
 
-    if User.query.filter(email == email, password == password).all():
-        
-        
-        # query user_id
-        user = User.query.filter(email ==email, password ==password).first()
+    user = User.query.filter_by(email=email).first()
 
-        session['current_user'] = user.user_id
-        ## fix sessions- left off here, try to find session notes for reference
-        
-        flash(f'Logged in! Hi {user.name}')
-        
-        return redirect("/")
+    if not user:
+        flash("No such user")
+        return redirect("/login")
 
-    else:
-        flash("Invalid Email and Password")
-        
-        return redirect("/")  
+    if user.password != password:
+        flash("Incorrect password")
+        return redirect("/login")
+
+    session["user_id"] = user.user_id
+
+    flash("Logged in!")
 
     return redirect("/")
+
 
 
 
 
 @app.route("/logout")
 def logout_process():
-    session.clear()
-    flash("You've been logged out!")
 
-    return redirect("/")
+    if user in session:
+        del session["user_id"]
+        flash("Logged Out.")
+        return redirect("/")
 
 
 

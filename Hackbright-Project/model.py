@@ -34,9 +34,9 @@ class Event(db.Model):
 
     __tablename__ = "events"
 
-    event_id = db.Column(db.Integer, autoincrement=True, primary_key=True)
-    event_name = db.Column(db.String(50), nullable=True)
-    event_venue = db.Column(db.String(50), nullable=True)
+    event_id = db.Column(db.Integer, primary_key=True)
+    event_name = db.Column(db.String(100), nullable=True)
+    event_venue = db.Column(db.String(100), nullable=True)
     event_date = db.Column(db.DateTime, nullable=True)
     event_time = db.Column(db.DateTime, nullable=True)
 
