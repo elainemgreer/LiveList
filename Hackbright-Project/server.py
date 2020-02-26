@@ -8,11 +8,17 @@ from model import connect_to_db, db, User
 
 import requests
 
-from API_Tests import get_events_list_by_metro_area_and_date, get_metro_id_by_lat_lng, get_locations, get_metro_id_by_city
+from API_Tests import get_events_list_by_metro_area_and_date, get_metro_id_by_lat_lng, get_locations, get_metro_id_by_city, get_event_from_ids
 
 import json
 
 import datetime
+
+import os
+
+
+
+api_key = os.environ['SK_KEY']
 
 
 
@@ -83,6 +89,8 @@ def get_map():
 
     #pass metro id and dates in to get list of events
     event_list = get_events_list_by_metro_area_and_date(metro_id, min_date, max_date)
+
+    print("**************", event_list, "*******************")
     
     # pass events list in to get event locations
     event_locations = get_locations(event_list)
@@ -91,7 +99,7 @@ def get_map():
     close_events = []
 
     for event in event_locations:
-        if lat - event[2] <= .3:
+        if lat - event[2] <= .2:
             close_events.append(event)
 
     # length = len(close_events)
@@ -104,13 +112,13 @@ def get_map():
 
     print(close_events)
 
-    id = 0
+    # id = 0
 
-    for event_object in close_events:
-        event_object.append(id)
-        id += 1
+    # for event_object in close_events:
+    #     event_object.append(id)
+    #     id += 1
 
-    print(close_events)
+    # print(close_events)
 
 
     
@@ -129,16 +137,75 @@ def get_saved_events():
         events_to_save = request.form.getlist("events")
         print(events_to_save)
 
+        event_info = request.form.getlist("eventinfo")
+
+        saved_events = []
+
+        for event_id in events_to_save:
+            event = get_event_from_ids(event_id)
+            print(event)
+
+
+            new_event = []
+
+            event_id = event['id']
+            name = event['displayName']
+            venue = event['venue']['displayName']
+            lat = event['venue']['lat']
+            lng = event['venue']['lng']
+
+            new_event.append(event_id)
+            new_event.append(name)
+            new_event.append(venue)
+            new_event.append(lat)
+            new_event.append(lng)
+           
+
+            saved_events.append(new_event)
+
+
+        print(saved_events)
+        
+        return render_template("userevents.html", saved_events=saved_events)
+   
+
+        
+
+
+
+
+
+        # events = []
+
+        # for event in event_info:
+        #     event = [event]
+        #     events.append(event)
+
+        # print(events)
+
+      
+
+        # saved_events = []
+
+        # for event_id in events_to_save:
+        #     for event in event_info:
+        #         if event[4] == event_id:
+        #             saved_events.append(event)
+
+        # print(saved_events)
+
+
+  
 
 
 
     return redirect("/")
 
 
-@app.route("/savedeventsmap")
-def show_saved_events():
+# @app.route("/savedeventsmap")
+# def show_saved_events():
 
-    
+
 
 
         

@@ -104,17 +104,19 @@ def get_locations(events_list):
 
             event_location = []
 
-
+            event_id = event['id']
             name = event['displayName']
             venue = event['venue']['displayName']
             lat = event['venue']['lat']
             lng = event['venue']['lng']
+
 
             event_location.append(name)
             event_location.append(venue)
             event_location.append(lat)
             event_location.append(lng)
             event_locations.append(event_location)
+            event_location.append(event_id)
 
 
     return event_locations
@@ -122,12 +124,29 @@ def get_locations(events_list):
 
 
 
+def generate_ids(event_list):
+
+
+    length = len(event_list)
+    ids = []
+
+    for i in range(length):
+        ids.append(i)
+
+        print(ids)
 
 
 
+def get_event_from_ids(event_id):
 
+    request_string = (f'https://api.songkick.com/api/3.0/events/{event_id}.json?apikey={api_key}')
+    
+    event_to_save = requests.get(request_string)
+    event_to_save = event_to_save.json()
 
+    event_to_save = event_to_save['resultsPage']['results']['event']
 
+    return event_to_save
 # get_locations(events_list)
 
 
