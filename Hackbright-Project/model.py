@@ -29,36 +29,36 @@ class User(db.Model):
 
 
 
-# class Event(db.Model):
-#     """Musical Event"""
+class Event(db.Model):
+    """Musical Event"""
 
-#     __tablename__ = "events"
+    __tablename__ = "events"
 
-#     event_id = db.Column(db.Integer, autoincrement=True, primary_key=True)
-#     event_name = db.Column(db.String(50), nullable=True)
-#     event_venue = db.Column(db.String(50), nullable=True)
-#     event_date = db.Column(db.dateTime)
-#     event_time = db.Column(db.dateTime)
-
-
-
-#     def __repr__(self):
-#         """Provide representation of genre when printed."""
-
-#         return f"<Genre genre_id={self.genre_id} name={self.genre_name}>"
+    event_id = db.Column(db.Integer, autoincrement=True, primary_key=True)
+    event_name = db.Column(db.String(50), nullable=True)
+    event_venue = db.Column(db.String(50), nullable=True)
+    event_date = db.Column(db.DateTime, nullable=True)
+    event_time = db.Column(db.DateTime, nullable=True)
 
 
-# class UserEvent(db.Model):
 
-#     __tablename__ = "user_events"
+    def __repr__(self):
+        """Provide representation of genre when printed."""
 
-#     user_event_id = db.Column(db.Integer, autoincrement=True, primary_key=True)
-#     user_id = db.Column(db.Integer, db.ForeignKey('users.user_id'), nullable=False)
-#     event_id = db.Column(db.Integer, db.ForeignKey('genres.genre_id'), nullable=False)
+        return f"<Event event_id={self.event_id} name={self.event_name}>"
 
-#     def __repr__(self):
 
-#         return f"<UserEvent user_id={self.user_id} event_id={self.event_id}>"
+class UserEvent(db.Model):
+
+    __tablename__ = "user_events"
+
+    user_event_id = db.Column(db.Integer, autoincrement=True, primary_key=True)
+    user_id = db.Column(db.Integer, db.ForeignKey('users.user_id'), nullable=False)
+    event_id = db.Column(db.Integer, db.ForeignKey('events.event_id'), nullable=False)
+
+    def __repr__(self):
+
+        return f"<UserEvent user_id={self.user_id} event_id={self.event_id}>"
 
 
 

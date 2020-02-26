@@ -4,7 +4,7 @@ from flask import (Flask, render_template, redirect, request, flash, session, js
 
 from flask_debugtoolbar import DebugToolbarExtension
 
-from model import connect_to_db, db, User
+from model import connect_to_db, db, User, Event, UserEvent
 
 import requests
 
@@ -153,19 +153,28 @@ def get_saved_events():
             venue = event['venue']['displayName']
             lat = event['venue']['lat']
             lng = event['venue']['lng']
+            date = event['start']['date']
+            time = event['start']['time']
 
             new_event.append(event_id)
             new_event.append(name)
             new_event.append(venue)
             new_event.append(lat)
             new_event.append(lng)
+            new_event.append(date)
+            new_event.append(time)
            
 
             saved_events.append(new_event)
 
+            ### change date and time into datetime objects instead of strings!!
+            event = Event(event_id=new_event[0], event_name=new_event[1], event_venue=new_event[2], event_date=new_event[5], event_time=new_event[6])
+            db.session.add(event)
+            db.session.commit()
+
 
         print(saved_events)
-        
+
         return render_template("userevents.html", saved_events=saved_events)
    
 
@@ -198,8 +207,6 @@ def get_saved_events():
   
 
 
-
-    return redirect("/")
 
 
 # @app.route("/savedeventsmap")
