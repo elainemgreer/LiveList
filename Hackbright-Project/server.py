@@ -110,7 +110,7 @@ def get_map():
 
     #     print(ids)
 
-    print(close_events)
+    print("*******", close_events, "********")
 
     # id = 0
 
@@ -301,13 +301,15 @@ def get_city_map():
 
     #pass metro id and dates in to get list of events
     event_list = get_events_list_by_metro_area_and_date(metro_id, min_date, max_date)
-    print(event_list)
+   
 
     # pass events list in to get event locations
     event_locations = get_locations(event_list)
+    print(event_locations)
     
     # event_locations = json.dumps(event_locations)
-    close_events = []
+    close_events = event_locations
+   
 
 
     return render_template("eventsmap.html", close_events=close_events, event_list=event_list)

@@ -109,6 +109,9 @@ def get_locations(events_list):
             venue = event['venue']['displayName']
             lat = event['venue']['lat']
             lng = event['venue']['lng']
+            date = event['start']['date']
+            time = event['start']['time']
+            url = event['uri']
 
 
             event_location.append(name)
@@ -117,6 +120,9 @@ def get_locations(events_list):
             event_location.append(lng)
             event_locations.append(event_location)
             event_location.append(event_id)
+            event_location.append(date)
+            event_location.append(time)
+            event_location.append(url)
 
 
     return event_locations

@@ -6,13 +6,13 @@
 <style>
        /* Set the size of the div element that contains the map */
        #geosearch {
-        color: green;
+        color: black;
         display: inline-block;
            
        }
 
        #citysearch {
-        color: green;
+        color: black;
         display: inline-block;
         
        }  
@@ -21,7 +21,14 @@
         display: inline-block;
         vertical-align: top;
        }*/
+       #mind {
+        display: inline-block;
 
+       }
+
+       #maxd {
+        display: inline-block;
+       }
        
 
        #map {
@@ -50,26 +57,25 @@
 
 
 
-    <h1> EVENT SEARCH! </h1>
+    <h1> Search for Events Near You</h1>
 
-    <div id="map"></div>
-
-
-
-
-<div id="search">
+    <div id="search">
 
     <div id="geosearch">
 
    <form id='#dateform' action="/map">  
 
-      Search by your location:
+
       <br>
+      <div id="mind">
       Min Date<br>
       <input id="mind" type="text" name="min_date"> <br>
+    </div>
 
+    <div id="maxd">
       Max Date<br>
      <input id="maxd" type="text" name="max_date"><br>
+   </div>
 
      <input hidden id="location" type="text" name="location">
 
@@ -77,6 +83,15 @@
 
   </form>
 </div>
+<br>
+<br>
+
+    <div id="map"></div>
+
+
+
+
+
 
 
 <div id="citysearch">
