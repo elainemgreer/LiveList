@@ -19,7 +19,7 @@ function initMap() {
         //create map and set to user's position
         map = new google.maps.Map(document.getElementById('map'), {
         center: pos,
-        zoom: 10
+        zoom: 15
 
       });
 

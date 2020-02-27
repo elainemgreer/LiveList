@@ -7,19 +7,27 @@
        /* Set the size of the div element that contains the map */
        #geosearch {
         color: green;
-               
+        display: inline-block;
+           
        }
 
        #citysearch {
         color: green;
-  
+        display: inline-block;
         
        }  
 
+    /*   #search {
+        display: inline-block;
+        vertical-align: top;
+       }*/
+
+       
+
        #map {
         height: 500px;  /* The height is 400 pixels */
-        width: 40%;  /* The width is the width of the web page */
-        display: inline-block;
+        width: 100%;  /* The width is the width of the web page */
+       /* display: inline-block;*/
       }
 
 
@@ -45,6 +53,11 @@
     <h1> EVENT SEARCH! </h1>
 
     <div id="map"></div>
+
+
+
+
+<div id="search">
 
     <div id="geosearch">
 
@@ -83,11 +96,7 @@
 
     </form>
   </div>
-
-
-   
-
-     </div>
+</div>
 
 
 <!--  <script src="/static/maphomescript.js"></script> -->  

@@ -134,6 +134,7 @@ def get_saved_events():
 
     if request.method == "POST":
 
+        # get events that user wants to save
         events_to_save = request.form.getlist("events")
         print(events_to_save)
 
@@ -141,11 +142,12 @@ def get_saved_events():
 
         saved_events = []
 
+        # loop through event ids and request event data
         for event_id in events_to_save:
             event = get_event_from_ids(event_id)
             print(event)
 
-
+            #create new event
             new_event = []
 
             event_id = event['id']
@@ -164,15 +166,8 @@ def get_saved_events():
             new_event.append(date)
             new_event.append(time)
            
-
+            # add new event to saved events list
             saved_events.append(new_event)
-
-
-            if 'current_user' in session:
-                user_id = session['current_user']
-                
-            else: 
-                flash(f'Please log in to save events!')
 
             if time is not None:
 
@@ -183,20 +178,54 @@ def get_saved_events():
 
                 date_object = datetime.strptime(date, '%Y-%m-%d')
                 print(date_object)
-            ## change date and time into datetime objects instead of strings!!
+           
 
-            if Event.query.filter_by(event_id=event_id).all():
-                flash(f'Event already saved')
+            # check is there is a user in session
+            if "user_id" in session:
+                user_id = session["user_id"]
 
-            else:
 
-                event = Event(event_id=new_event[0], event_name=new_event[1], event_venue=new_event[2], event_date=date_object, event_time=time_object)
-                db.session.add(event)
-                db.session.commit()
+                if Event.query.filter_by(event_id=event_id).all():
+                    flash(f'You have saved this event!')
 
-                user_event = UserEvent(user_id=user_id, event_id=event_id)
-                db.session.add(user_event)
-                db.session.commit()
+                else:
+                    event = Event(event_id=new_event[0], event_name=new_event[1], event_venue=new_event[2], event_date=date_object, event_time=time_object)
+                    db.session.add(event)
+                    db.session.commit()
+
+                    user_event = UserEvent(user_id=user_id, event_id=event_id)
+                    db.session.add(user_event)
+                    db.session.commit()
+
+                # user = User.query.filter_by(user_id=user_id).first()
+                
+            else: 
+                flash(f'Please log in to save events!')
+
+
+            # if time is not None:
+
+            #     time_object = datetime.strptime(time, '%H:%M:%S')
+            #     print("***", time, "*******")
+
+            # if date is not None:
+
+            #     date_object = datetime.strptime(date, '%Y-%m-%d')
+            #     print(date_object)
+           
+
+                # check if event saved
+
+
+            # else:
+
+            #     event = Event(event_id=new_event[0], event_name=new_event[1], event_venue=new_event[2], event_date=date_object, event_time=time_object)
+            #     db.session.add(event)
+            #     db.session.commit()
+
+            #     user_event = UserEvent(user_id=user_id, event_id=event_id)
+            #     db.session.add(user_event)
+            #     db.session.commit()
 
 
         print(saved_events)
@@ -275,12 +304,13 @@ def get_city_map():
     print(event_list)
 
     # pass events list in to get event locations
-    close_events = get_locations(event_list)
+    event_locations = get_locations(event_list)
     
     # event_locations = json.dumps(event_locations)
+    close_events = []
 
 
-    return render_template("cleaneventsmap.html", close_events=close_events, event_list=event_list)
+    return render_template("eventsmap.html", close_events=close_events, event_list=event_list)
 
 
 
@@ -348,22 +378,57 @@ def login_process():
         flash("Incorrect password")
         return redirect("/login")
 
-    session["user_id"] = user.user_id
+    else:
+
+
+        session["user_id"] = user.user_id
+
+        user_id = session.get("user_id")
+    
+
+        event_objects = UserEvent.query.filter_by(user_id=user.user_id).all()
+
+        event_ids = []
+        for event in event_objects:
+            event_id = event.event_id
+            event_ids.append(event_id)
+
+        print(event_ids)
+
+        events = []
+        for event_id in event_ids:
+            event_object = Event.query.filter_by(event_id=event_id).all()
+            print("***", event_object, "******")
+
+
+    # print(saved_events)
 
     flash("Logged in!")
 
     return redirect("/")
 
 
+# @app.route("/users/<int:user_id>")
+# def user_detail(user_id):
+#     """Show info about user."""
+
+#     user = User.query.get(user_id)
+#     return render_template("user.html", user=user)
+  
 
 
 
 @app.route("/logout")
 def logout_process():
 
-    if user in session:
+    ### put correct value here 
+    if "user_id" in session:
         del session["user_id"]
         flash("Logged Out.")
+        return redirect("/")
+
+    else:
+        flash(f'You are not logged in!')
         return redirect("/")
 
 
