@@ -15,7 +15,7 @@ class User(db.Model):
 
     __tablename__ = "users"
 
-    user_id = db.Column(db.Integer, autoincrement=True, primary_key=True)
+    user_id = db.Column(db.Integer, autoincrement=True, primary_key=True, nullable=False)
     name = db.Column(db.String(64), nullable=True)
     email = db.Column(db.String(64), nullable=True)
     password = db.Column(db.String(64), nullable=True)
@@ -34,11 +34,14 @@ class Event(db.Model):
 
     __tablename__ = "events"
 
-    event_id = db.Column(db.Integer, primary_key=True)
+    event_id = db.Column(db.Integer, primary_key=True, nullable=False)
     event_name = db.Column(db.String(100), nullable=True)
     event_venue = db.Column(db.String(100), nullable=True)
     event_date = db.Column(db.DateTime, nullable=True)
     event_time = db.Column(db.DateTime, nullable=True)
+    event_url = db.Column(db.String(200), nullable=True)
+    event_lat = db.Column(db.Float, nullable= False)
+    event_lng = db.Column(db.Float, nullable=False)
 
 
 
@@ -52,7 +55,7 @@ class UserEvent(db.Model):
 
     __tablename__ = "user_events"
 
-    user_event_id = db.Column(db.Integer, autoincrement=True, primary_key=True)
+    user_event_id = db.Column(db.Integer, autoincrement=True, primary_key=True, nullable=False)
     user_id = db.Column(db.Integer, db.ForeignKey('users.user_id'), nullable=False)
     event_id = db.Column(db.Integer, db.ForeignKey('events.event_id'), nullable=False)
 

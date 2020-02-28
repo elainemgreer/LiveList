@@ -35,10 +35,69 @@ app.jinja_env.undefined = StrictUndefined
 
 
 @app.route('/')
-def mapindex():
+def geolocationindex():
     """Map events list homepage."""
 
     return render_template("homepage.html")
+
+
+
+@app.route('/cityindex')
+def cityindex():
+    """Map events list homepage."""
+
+    return render_template("citysearchpage.html")
+
+
+
+
+
+@app.route('/getuserevents/<int:user_id>')
+def eventsindex(user_id):
+    """Map events list homepage."""
+
+
+    user = User.query.get(user_id)
+
+
+    user_events = UserEvent.query.filter_by(user_id=user_id).all()
+
+    event_ids = []
+
+    # loop through events user saved and append event ids to list to search later
+    for event in user_events:
+        event_id = event.event_id
+        event_ids.append(event_id)
+
+
+    print(event_ids)
+
+    events = []
+
+    for event_id in event_ids:
+        event = Event.query.filter_by(event_id=event_id).first()
+        events.append(event)
+
+
+    print("******", events, "************")
+
+
+
+    # user_events = []
+
+    # # loop through event ids and save event objects to list
+    # for event_id in event_ids:
+    #     event_object = Event.query.filter_by(event_id=event_id).all()
+    #     user_events.append(event_object)
+
+    # print(user_events)
+
+
+    return render_template("usersavedeventindex.html", user=user, events=events)
+
+
+
+
 
 
 
@@ -138,7 +197,7 @@ def get_saved_events():
         events_to_save = request.form.getlist("events")
         print(events_to_save)
 
-        event_info = request.form.getlist("eventinfo")
+        # event_info = request.form.getlist("eventinfo")
 
         saved_events = []
 
@@ -157,6 +216,9 @@ def get_saved_events():
             lng = event['venue']['lng']
             date = event['start']['date']
             time = event['start']['time']
+            url = event['uri']
+
+
 
             new_event.append(event_id)
             new_event.append(name)
@@ -165,6 +227,7 @@ def get_saved_events():
             new_event.append(lng)
             new_event.append(date)
             new_event.append(time)
+            new_event.append(url)
            
             # add new event to saved events list
             saved_events.append(new_event)
@@ -192,7 +255,8 @@ def get_saved_events():
                     flash(f'You have saved this event!')
 
                 else:
-                    event = Event(event_id=new_event[0], event_name=new_event[1], event_venue=new_event[2], event_date=date_object, event_time=time_object)
+                    event = Event(event_id=new_event[0], event_name=new_event[1], event_venue=new_event[2],
+                     event_date=date_object, event_time=time_object, event_url=new_event[7], event_lat=new_event[3], event_lng=new_event[4])
                     db.session.add(event)
                     db.session.commit()
 
@@ -392,6 +456,7 @@ def login_process():
 
     if user.password != password:
         flash("Incorrect password")
+
         return redirect("/login")
 
     else:
@@ -399,30 +464,29 @@ def login_process():
 
         session["user_id"] = user.user_id
 
-        user_id = session.get("user_id")
+        flash("Logged in!")
+
+        return redirect(f"/getuserevents/{user.user_id}")
     
 
-        event_objects = UserEvent.query.filter_by(user_id=user.user_id).all()
+        # event_objects = UserEvent.query.filter_by(user_id=user.user_id).all()
 
-        event_ids = []
-        for event in event_objects:
-            event_id = event.event_id
-            event_ids.append(event_id)
+        # event_ids = []
+        # for event in event_objects:
+        #     event_id = event.event_id
+        #     event_ids.append(event_id)
 
-        print(event_ids)
+        # print(event_ids)
 
-        events = []
-        for event_id in event_ids:
-            event_object = Event.query.filter_by(event_id=event_id).all()
-            print("***", event_object, "******")
+        # events = []
+        # for event_id in event_ids:
+        #     event_object = Event.query.filter_by(event_id=event_id).all()
+        #     print("***", event_object, "******")
 
 
     # print(saved_events)
 
-    flash("Logged in!")
-
-    return redirect("/")
-
+ 
 
 # @app.route("/users/<int:user_id>")
 # def user_detail(user_id):
