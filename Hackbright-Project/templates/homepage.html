@@ -37,6 +37,7 @@
        /* display: inline-block;*/
       }
 
+      
 
 
 </style>
@@ -59,22 +60,22 @@
 
     <h1> Search for Events Near You</h1>
 
-    <div id="search">
 
-    <div id="geosearch">
+
+  <div id="geosearch">
 
    <form id='#dateform' action="/map">  
-
 
       <br>
       <div id="mind">
       Min Date<br>
-      <input id="mind" type="text" name="min_date"> <br>
+      <input id="mind" type="date" name="mind" min="min"><br>
     </div>
+
 
     <div id="maxd">
       Max Date<br>
-     <input id="maxd" type="text" name="max_date"><br>
+     <input id="maxd" type="date" name="maxd" min="min"><br>
    </div>
 
      <input hidden id="location" type="text" name="location">
@@ -82,15 +83,13 @@
     <input id="submit" type="submit" value="Submit">
 
   </form>
+
 </div>
 <br>
 <br>
 
+
     <div id="map"></div>
-
-
-
-
 
 
 
@@ -111,7 +110,13 @@
 
     </form>
   </div>
-</div>
+
+
+
+
+
+
+
 
 
 <!--  <script src="/static/maphomescript.js"></script> -->  
@@ -123,6 +128,7 @@ src="https://maps.googleapis.com/maps/api/js?key=AIzaSyB1u15AdnG9Vd7D0uxI5lk5xp9
 </script>
 
 <script src="/static/homescript.js"></script>
+<script src="/static/datecitysearch.js"></script>
 
 
 

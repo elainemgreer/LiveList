@@ -174,6 +174,9 @@ def get_saved_events():
                 time_object = datetime.strptime(time, '%H:%M:%S')
                 print("***", time, "*******")
 
+            else:
+                time_object = None
+
             if date is not None:
 
                 date_object = datetime.strptime(date, '%Y-%m-%d')
@@ -231,7 +234,8 @@ def get_saved_events():
         print(saved_events)
 
         return render_template("userevents.html", saved_events=saved_events)
-   
+        # return redirect("eventsmap.html", saved_events=saved_events)
+       
 
         
 
@@ -313,6 +317,16 @@ def get_city_map():
 
 
     return render_template("eventsmap.html", close_events=close_events, event_list=event_list)
+
+
+
+# @app.route('/auto.json')
+# def autocomplete():
+
+#     prefix = request.args.get('prefix')
+#     results = t.prefix_search(prefix)
+#     return jsonify(results)
+
 
 
 

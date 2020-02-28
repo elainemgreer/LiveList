@@ -1,0 +1,413 @@
+{% extends 'base.html' %}
+
+
+{% block head %}
+
+  <style>
+       /* Set the size of the div element that contains the map */
+      #map {
+        height: 500px;  /* The height is 400 pixels */
+        width: 100%;  /* The width is the width of the web page */
+
+       }
+
+      #eventlist {
+        height: 700px;
+        overflow: scroll;
+       }
+
+
+    </style>
+
+    
+
+
+{% endblock %}
+
+
+
+
+{% block body %}
+
+
+   <h3>YOUR EVENTS</h3>
+
+
+
+ <div id="map"></div>
+
+
+<div id="eventlist">
+
+    <form id="eventstosave" name= "eventstosave" action="/saveevents" method="POST">
+
+      {% for event in saved_events %}
+        <br>
+
+          <li>{{ event[1] }}</li>
+          <li>{{ event[2] }}</li>
+           <li>{{ event[5] }}</li>
+          <li>{{ event[6] }}</li>
+        <br>
+       
+        {% endfor %}
+          <br>
+        
+
+    </form>
+
+       
+</div>
+
+
+
+<!-- <script type="text/javascript" src="/static/eventsmapscript.js"></script> -->
+
+<script async defer
+  src="https://maps.googleapis.com/maps/api/js?key=AIzaSyB1u15AdnG9Vd7D0uxI5lk5xp9h5UhvQZM&callback=initMap">
+</script>
+
+<script>
+
+  "use strict"
+
+
+      function initMap() {
+
+      // var map = new google.maps.Map(document.getElementById('map'), {
+      // // zoom: 50,
+      // // center: new google.maps.LatLng(51.530616, -0.123125),
+      // // mapTypeId: google.maps.MapTypeId.ROADMAP
+      var map = new google.maps.Map(document.getElementById('map'), {
+          // center: {lat: 40.674, lng: -73.945},
+          zoom: 13,
+          styles: [
+  {
+    "elementType": "geometry",
+    "stylers": [
+      {
+        "color": "#ebe3cd"
+      }
+    ]
+  },
+  {
+    "elementType": "labels.text.fill",
+    "stylers": [
+      {
+        "color": "#523735"
+      }
+    ]
+  },
+  {
+    "elementType": "labels.text.stroke",
+    "stylers": [
+      {
+        "color": "#f5f1e6"
+      }
+    ]
+  },
+  {
+    "featureType": "administrative",
+    "elementType": "geometry.stroke",
+    "stylers": [
+      {
+        "color": "#c9b2a6"
+      }
+    ]
+  },
+  {
+    "featureType": "administrative.land_parcel",
+    "elementType": "geometry.stroke",
+    "stylers": [
+      {
+        "color": "#dcd2be"
+      }
+    ]
+  },
+  {
+    "featureType": "administrative.land_parcel",
+    "elementType": "labels",
+    "stylers": [
+      {
+        "visibility": "off"
+      }
+    ]
+  },
+  {
+    "featureType": "administrative.land_parcel",
+    "elementType": "labels.text.fill",
+    "stylers": [
+      {
+        "color": "#ae9e90"
+      }
+    ]
+  },
+  {
+    "featureType": "landscape.natural",
+    "elementType": "geometry",
+    "stylers": [
+      {
+        "color": "#dfd2ae"
+      }
+    ]
+  },
+  {
+    "featureType": "poi",
+    "elementType": "geometry",
+    "stylers": [
+      {
+        "color": "#dfd2ae"
+      }
+    ]
+  },
+  {
+    "featureType": "poi",
+    "elementType": "labels.text",
+    "stylers": [
+      {
+        "visibility": "off"
+      }
+    ]
+  },
+  {
+    "featureType": "poi",
+    "elementType": "labels.text.fill",
+    "stylers": [
+      {
+        "color": "#93817c"
+      }
+    ]
+  },
+  {
+    "featureType": "poi.business",
+    "stylers": [
+      {
+        "visibility": "off"
+      }
+    ]
+  },
+  {
+    "featureType": "poi.park",
+    "elementType": "geometry.fill",
+    "stylers": [
+      {
+        "color": "#a5b076"
+      }
+    ]
+  },
+  {
+    "featureType": "poi.park",
+    "elementType": "labels.text",
+    "stylers": [
+      {
+        "visibility": "off"
+      }
+    ]
+  },
+  {
+    "featureType": "poi.park",
+    "elementType": "labels.text.fill",
+    "stylers": [
+      {
+        "color": "#447530"
+      }
+    ]
+  },
+  {
+    "featureType": "road",
+    "elementType": "geometry",
+    "stylers": [
+      {
+        "color": "#f5f1e6"
+      }
+    ]
+  },
+  {
+    "featureType": "road.arterial",
+    "elementType": "geometry",
+    "stylers": [
+      {
+        "color": "#fdfcf8"
+      }
+    ]
+  },
+  {
+    "featureType": "road.highway",
+    "elementType": "geometry",
+    "stylers": [
+      {
+        "color": "#f8c967"
+      }
+    ]
+  },
+  {
+    "featureType": "road.highway",
+    "elementType": "geometry.stroke",
+    "stylers": [
+      {
+        "color": "#e9bc62"
+      }
+    ]
+  },
+  {
+    "featureType": "road.highway.controlled_access",
+    "elementType": "geometry",
+    "stylers": [
+      {
+        "color": "#e98d58"
+      }
+    ]
+  },
+  {
+    "featureType": "road.highway.controlled_access",
+    "elementType": "geometry.stroke",
+    "stylers": [
+      {
+        "color": "#db8555"
+      }
+    ]
+  },
+  {
+    "featureType": "road.local",
+    "elementType": "labels",
+    "stylers": [
+      {
+        "visibility": "off"
+      }
+    ]
+  },
+  {
+    "featureType": "road.local",
+    "elementType": "labels.text.fill",
+    "stylers": [
+      {
+        "color": "#806b63"
+      }
+    ]
+  },
+  {
+    "featureType": "transit.line",
+    "elementType": "geometry",
+    "stylers": [
+      {
+        "color": "#dfd2ae"
+      }
+    ]
+  },
+  {
+    "featureType": "transit.line",
+    "elementType": "labels.text.fill",
+    "stylers": [
+      {
+        "color": "#8f7d77"
+      }
+    ]
+  },
+  {
+    "featureType": "transit.line",
+    "elementType": "labels.text.stroke",
+    "stylers": [
+      {
+        "color": "#ebe3cd"
+      }
+    ]
+  },
+  {
+    "featureType": "transit.station",
+    "elementType": "geometry",
+    "stylers": [
+      {
+        "color": "#dfd2ae"
+      }
+    ]
+  },
+  {
+    "featureType": "water",
+    "elementType": "geometry.fill",
+    "stylers": [
+      {
+        "color": "#b9d3c2"
+      }
+    ]
+  },
+  {
+    "featureType": "water",
+    "elementType": "labels.text.fill",
+    "stylers": [
+      {
+        "color": "#92998d"
+      }
+    ]
+  }
+]
+        });
+      
+
+    
+
+    var locations = {{ saved_events | tojson | safe }}; 
+    console.log(locations)
+
+
+
+    // var map = new google.maps.Map(document.getElementById('map'), {
+    //   zoom: 10,
+    //   // center: new google.maps.LatLng(51.530616, -0.123125),
+    //   mapTypeId: google.maps.MapTypeId.ROADMAP
+    // });
+
+
+
+
+    var infowindow = new google.maps.InfoWindow();
+
+    var marker, i;
+    var markers = new Array();
+
+    for (i = 0; i < locations.length; i++) {  
+      marker = new google.maps.Marker({
+        position: new google.maps.LatLng(locations[i][3], locations[i][4]),
+        map: map
+      });
+
+      
+
+
+     
+      markers.push(marker);
+
+
+
+
+      google.maps.event.addListener(marker, 'click', (function(marker, i) {
+        return function() {
+          infowindow.setContent('<div id="content">' + "EVENT: " + locations[i][1] + '<br>' + 
+      "VENUE: " + locations[i][2] + '<br>' +  "DATE: " + locations[i][5] + '<br>' + "TIME: " +
+      locations[i][6] + "<br>");
+          infowindow.open(map, marker);
+        }
+
+
+      })(marker, i)); 
+    
+
+    function AutoCenter() {
+      //  Create a new viewpoint bound
+      var bounds = new google.maps.LatLngBounds();
+      //  Go through each...
+      $.each(markers, function (index, marker) {
+      bounds.extend(marker.position);
+      });
+      //  Fit these bounds to the map
+      map.fitBounds(bounds);
+    }
+    AutoCenter(); 
+
+  }
+}
+
+
+
+</script>
+
+{% endblock %}
