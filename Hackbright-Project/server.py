@@ -16,6 +16,8 @@ from datetime import datetime
 
 import os
 
+import hashlib
+
 
 
 api_key = os.environ['SK_KEY']
@@ -424,7 +426,9 @@ def register_process():
 
     else:
         # add to database
-        user = User(email=email, password=password, name=name)
+        hashed_pw = hashlib.md5(password.encode()).hexdigest()
+
+        user = User(email=email, password=hashed_pw, name=name)
         db.session.add(user)
         db.session.commit()
      
@@ -454,7 +458,7 @@ def login_process():
         flash("No such user")
         return redirect("/login")
 
-    if user.password != password:
+    if user.password != hashlib.md5(password.encode()).hexdigest():
         flash("Incorrect password")
 
         return redirect("/login")
