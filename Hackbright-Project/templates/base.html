@@ -65,7 +65,12 @@
   <div class="topnav">
   <a class="active" href="/">What's Near Me?</a>
   <a href="/cityindex">City Search</a>
-  <a href="/getuserevents/{{session['user_id']}}">My Saved Events</a>
+
+  {% if session.get('user_id') %}
+  <a class ="saved" id ="saved" href="/getuserevents/{{session['user_id']}}">My Saved Events</a>
+  {% else %}
+  <a class="nav-link disabled" href="/login">Login</a>
+  {% endif %}
 
 
 

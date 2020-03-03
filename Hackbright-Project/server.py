@@ -58,6 +58,7 @@ def cityindex():
 def eventsindex(user_id):
     """Map events list homepage."""
 
+  
 
     user = User.query.get(user_id)
 
@@ -80,8 +81,27 @@ def eventsindex(user_id):
         event = Event.query.filter_by(event_id=event_id).first()
         events.append(event)
 
+    ## query database and check if date is in the past, if so, do not add event to list!!
+
+    future_events = []
+
+    for event in events:
+        Event.query.filter(event.event_date < datetime.now()).all()
+        future_events.append(event)
+
+
+    print("FUTURE", future_events)
+
+
+
 
     print("******", events, "************")
+
+
+    return render_template("usersavedeventindex.html", user=user, events=events)
+
+
+
 
 
 
@@ -95,7 +115,7 @@ def eventsindex(user_id):
     # print(user_events)
 
 
-    return render_template("usersavedeventindex.html", user=user, events=events)
+   
 
 
 
@@ -195,81 +215,83 @@ def get_saved_events():
 
     if request.method == "POST":
 
+        event_id = request.form.get('event_id')
+        print("AJAX", event_id)
+
         # get events that user wants to save
-        events_to_save = request.form.getlist("events")
-        print(events_to_save)
+        # events_to_save = request.form.getlist("events")
+        # print(events_to_save)
 
         # event_info = request.form.getlist("eventinfo")
 
-        saved_events = []
+        # saved_events = []
 
         # loop through event ids and request event data
-        for event_id in events_to_save:
-            event = get_event_from_ids(event_id)
-            print(event)
+        # for event_id in events_to_save:
+        event = get_event_from_ids(event_id)
+        print(event)
 
-            #create new event
-            new_event = []
+        #create new event
+        new_event = []
 
-            event_id = event['id']
-            name = event['displayName']
-            venue = event['venue']['displayName']
-            lat = event['venue']['lat']
-            lng = event['venue']['lng']
-            date = event['start']['date']
-            time = event['start']['time']
-            url = event['uri']
+        event_id = event['id']
+        name = event['displayName']
+        venue = event['venue']['displayName']
+        lat = event['venue']['lat']
+        lng = event['venue']['lng']
+        date = event['start']['date']
+        time = event['start']['time']
+        url = event['uri']
 
 
+        new_event.append(event_id)
+        new_event.append(name)
+        new_event.append(venue)
+        new_event.append(lat)
+        new_event.append(lng)
+        new_event.append(date)
+        new_event.append(time)
+        new_event.append(url)
+       
+        # add new event to saved events list
+        # saved_events.append(new_event)
 
-            new_event.append(event_id)
-            new_event.append(name)
-            new_event.append(venue)
-            new_event.append(lat)
-            new_event.append(lng)
-            new_event.append(date)
-            new_event.append(time)
-            new_event.append(url)
-           
-            # add new event to saved events list
-            saved_events.append(new_event)
+        if time is not None:
 
-            if time is not None:
+            time_object = datetime.strptime(time, '%H:%M:%S')
+            print("***", time, "*******")
 
-                time_object = datetime.strptime(time, '%H:%M:%S')
-                print("***", time, "*******")
+        else:
+            time_object = None
+
+        if date is not None:
+
+            date_object = datetime.strptime(date, '%Y-%m-%d')
+            print(date_object)
+       
+
+        # check is there is a user in session
+        if "user_id" in session:
+            user_id = session["user_id"]
+
+
+            if Event.query.filter_by(event_id=event_id).all():
+                flash(f'You have saved this event!')
 
             else:
-                time_object = None
+                event = Event(event_id=new_event[0], event_name=new_event[1], event_venue=new_event[2],
+                 event_date=date_object, event_time=time_object, event_url=new_event[7], event_lat=new_event[3], event_lng=new_event[4])
+                db.session.add(event)
+                db.session.commit()
 
-            if date is not None:
+                user_event = UserEvent(user_id=user_id, event_id=event_id)
+                db.session.add(user_event)
+                db.session.commit()
 
-                date_object = datetime.strptime(date, '%Y-%m-%d')
-                print(date_object)
-           
-
-            # check is there is a user in session
-            if "user_id" in session:
-                user_id = session["user_id"]
-
-
-                if Event.query.filter_by(event_id=event_id).all():
-                    flash(f'You have saved this event!')
-
-                else:
-                    event = Event(event_id=new_event[0], event_name=new_event[1], event_venue=new_event[2],
-                     event_date=date_object, event_time=time_object, event_url=new_event[7], event_lat=new_event[3], event_lng=new_event[4])
-                    db.session.add(event)
-                    db.session.commit()
-
-                    user_event = UserEvent(user_id=user_id, event_id=event_id)
-                    db.session.add(user_event)
-                    db.session.commit()
-
-                # user = User.query.filter_by(user_id=user_id).first()
-                
-            else: 
-                flash(f'Please log in to save events!')
+            # user = User.query.filter_by(user_id=user_id).first()
+            
+        else: 
+            flash(f'Please log in to save events!')
 
 
             # if time is not None:
@@ -297,10 +319,11 @@ def get_saved_events():
             #     db.session.commit()
 
 
-        print(saved_events)
+       
 
-        return render_template("userevents.html", saved_events=saved_events)
+        # return render_template("userevents.html", saved_events=saved_events)
         # return redirect("eventsmap.html", saved_events=saved_events)
+        return "yo"
        
 
         
