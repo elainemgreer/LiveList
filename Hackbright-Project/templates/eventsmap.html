@@ -182,7 +182,8 @@ function initMap() {
       // // mapTypeId: google.maps.MapTypeId.ROADMAP
       var map = new google.maps.Map(document.getElementById('map'), {
           // center: {lat: 40.674, lng: -73.945},
-          zoom: 13,
+          zoom: 15,
+          center: new google.maps.LatLng({{lat}}, {{lng}}),
           styles: [
   {
     "elementType": "geometry",
@@ -450,6 +451,8 @@ function initMap() {
     var locations = {{ close_events | tojson | safe }}; 
     console.log(locations)
 
+    var userlat = {{ lat }}
+    var userlng = {{ lng }}
 
 
     // var map = new google.maps.Map(document.getElementById('map'), {
@@ -457,6 +460,25 @@ function initMap() {
     //   // center: new google.maps.LatLng(51.530616, -0.123125),
     //   mapTypeId: google.maps.MapTypeId.ROADMAP
     // });
+    var currentmarker = new google.maps.Marker({
+        position: new google.maps.LatLng(userlat, userlng),
+        map: map
+      });
+
+
+          //set infowindow content
+      var currentcontentString = 'You are here!';
+
+      var currentinfowindow = new google.maps.InfoWindow({
+       content: currentcontentString
+       });
+
+      //event listener so infowindow opens on user click
+      
+      currentinfowindow.open(map, currentmarker);
+     
+      google.maps.event.addListener(currentmarker, 'click', function() {
+  });   
 
 
 
@@ -466,6 +488,8 @@ function initMap() {
     var marker, i;
     var markers = new Array();
 
+
+
     for (i = 0; i < locations.length; i++) {  
       marker = new google.maps.Marker({
         position: new google.maps.LatLng(locations[i][2], locations[i][3]),
@@ -474,6 +498,8 @@ function initMap() {
 
       
       markers.push(marker);
+
+      markers.push(currentmarker);
 
 
       google.maps.event.addListener(marker, 'click', (function(marker, i) {

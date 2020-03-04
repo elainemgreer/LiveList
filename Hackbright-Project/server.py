@@ -18,6 +18,8 @@ import os
 
 import hashlib
 
+from geopy import distance
+
 
 
 
@@ -93,13 +95,27 @@ def eventsindex(user_id):
 
     print("FUTURE", future_events)
 
-
-
-
     print("******", events, "************")
 
 
-    return render_template("usersavedeventindex.html", user=user, events=events)
+    events_dict = {}
+
+    for event in future_events:
+
+        events_dict['event'] = {'event_id': event.event_id,
+        'name': event.event_name,
+        'venue': event.event_venue,
+        'date': event.event_date,
+        'time': event.event_time,
+        'url': event.event_url,
+        'lat': event.event_lat,
+        'lng': event.event_lng }
+
+
+    print(events_dict)
+
+
+    return render_template("usersavedeventindex.html", user=user, events=events, events_dict=events_dict)
 
 
 
@@ -175,9 +191,17 @@ def get_map():
     close_events = []
 
     for event in event_locations:
-        if lat - event[2] <= .1:
-            if lng - event[3] <= .1:
-                close_events.append(event)
+        user = (lat, lng)
+        x = (event[2], event[3])
+        event_distance = distance.distance(user, x).km
+        if event_distance <= 5:
+            close_events.append(event)
+
+
+
+
+
+
 
     # length = len(close_events)
     # ids = []
@@ -200,7 +224,7 @@ def get_map():
 
     
 
-    return render_template("eventsmap.html", close_events=close_events)
+    return render_template("eventsmap.html", close_events=close_events,lat=lat, lng=lng)
 
 
 
@@ -470,7 +494,7 @@ def get_city_map():
    
 
 
-    return render_template("eventsmap.html", close_events=close_events, event_list=event_list)
+    return render_template("citysearcheventsmap.html", close_events=close_events, event_list=event_list)
 
 
 
