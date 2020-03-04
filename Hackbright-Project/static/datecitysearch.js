@@ -25,8 +25,8 @@ function openTab(evt, tabName) {
 
 
 // code to restrict user input dates
-var today = new Date().toISOString().split('T')[0];
-document.getElementsByName("mind")[0].setAttribute('min', today);
+// var today = new Date().toISOString().split('T')[0];
+// document.getElementsByName("mind")[0].setAttribute('min', today);
 
 
 var today = new Date().toISOString().split('T')[0];

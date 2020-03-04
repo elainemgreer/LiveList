@@ -20,6 +20,7 @@ import hashlib
 
 
 
+
 api_key = os.environ['SK_KEY']
 
 
@@ -119,12 +120,6 @@ def eventsindex(user_id):
 
 
 
-
-
-
-
-
-
 ## events by lat/lng
 @app.route('/map')
 def get_map():
@@ -180,8 +175,9 @@ def get_map():
     close_events = []
 
     for event in event_locations:
-        if lat - event[2] <= .2:
-            close_events.append(event)
+        if lat - event[2] <= .1:
+            if lng - event[3] <= .1:
+                close_events.append(event)
 
     # length = len(close_events)
     # ids = []
@@ -275,18 +271,29 @@ def get_saved_events():
             user_id = session["user_id"]
 
 
-            if Event.query.filter_by(event_id=event_id).all():
+            # check if user has already saved this event
+            if UserEvent.query.filter_by(event_id=event_id, user_id=user_id).all():
                 flash(f'You have saved this event!')
 
+
+            #check if event is in events database and just add it to user's events if yes
+            if Event.query.filter_by(event_id=event_id).all():
+
+                user_event = UserEvent(user_id=user_id, event_id=event_id)
+                db.session.add(user_event)
+                db.session.commit()
+
+
+            # if event is not in user's or master event database
             else:
                 event = Event(event_id=new_event[0], event_name=new_event[1], event_venue=new_event[2],
                  event_date=date_object, event_time=time_object, event_url=new_event[7], event_lat=new_event[3], event_lng=new_event[4])
                 db.session.add(event)
                 db.session.commit()
 
-                user_event = UserEvent(user_id=user_id, event_id=event_id)
-                db.session.add(user_event)
-                db.session.commit()
+                # user_event = UserEvent(user_id=user_id, event_id=event_id)
+                # db.session.add(user_event)
+                # db.session.commit()
 
             # user = User.query.filter_by(user_id=user_id).first()
             
@@ -362,8 +369,66 @@ def get_saved_events():
 
 
 
+@app.route('/removeevents', methods=["GET", "POST"])
+def remove_events():
 
+    """Remove events from database."""
+
+    if request.method == "POST":
+
+        event_id = request.form.get('event_id')
+        print("AJAX", event_id)
         
+        if "user_id" in session:
+            user_id = session["user_id"]
+            user = User.query.get(user_id)
+            print(user_id)
+
+
+            user_event = UserEvent.query.filter_by(user_id=user_id, event_id=event_id).first()
+            print(user_event)
+            db.session.delete(user_event)
+            db.session.commit()
+
+
+            user_events = UserEvent.query.filter_by(user_id=user_id).all()
+
+            event_ids = []
+
+    # loop through events user saved and append event ids to list to search later
+            for event in user_events:
+                event_id = event.event_id
+                event_ids.append(event_id)
+
+
+            print(event_ids)
+
+            events = []
+
+            for event_id in event_ids:
+                event = Event.query.filter_by(event_id=event_id).first()
+                events.append(event)
+
+
+            # events_dict = {}
+
+            # for event in events:
+
+            #     events_dict[event.event_id] = {'event_id': event.event_id,
+            #     'name': event.event_name,
+            #      'venue': event.event_venue,
+            #       'date': event.event_date,
+            #       'time': event.event_time,
+            #       'url': event.event_url }
+
+
+            # return jsonify(events_dict)
+
+            return render_template('usersavedeventindex.html', events=events, user=user)
+
+
+
+
 
 
 

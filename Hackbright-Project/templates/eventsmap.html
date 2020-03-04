@@ -64,10 +64,12 @@
           <li>{{ event[0] }}</li>
           <li>{{ event[1] }}</li>
           <li>{{ event[6] }}</li>
-        <li> <a href src={{ event[7] }}>Link</a></li>
+        <li> <a href="{{ event[7] }}">Link</a></li>
+      {% if session.get('user_id') %}
        <div class=buttons>
          <div class='button' id={{ event[4] }} name="events" value={{ event[4] }}><i class="far fa-heart border-heart"></i></div>
-</div>
+      </div>
+      {% endif %}
      <br>
           {% endfor %}
         <!-- </form> -->
@@ -121,7 +123,7 @@
 // var btnContainer = document.getElementsByClassName("buttons");
 // btnContainer[0].addEventListener("click", function() { console.log("Hello"); });
 
-var allButtonsOnPage = document.querySelectorAll('button');
+var allButtonsOnPage = document.querySelectorAll('.button');
 
 allButtonsOnPage.forEach(function(button) {
   button.addEventListener('click', function() {
@@ -136,7 +138,7 @@ allButtonsOnPage.forEach(function(button) {
     console.log(formInputs)
 
     $.post('/saveevents', formInputs, (res) => {
-      alert('hi');
+      console.log('hi');
     })
 
   });
