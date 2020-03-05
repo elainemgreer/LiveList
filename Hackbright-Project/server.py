@@ -172,9 +172,20 @@ def events_index(user_id):
     return render_template("usersavedeventindex.html", user=user, events=events, events_dict=events_dict)
 
 
+@app.route("/saveeventsfromwindow")
+def save_from_window():
+
+
+    event_id_window =request.form.get('windowbutton')
+    print("IDIDIDID*******", event_id_window, "*******************")
+
+    return "HI"
+
+
 
 @app.route("/saveevents", methods=["GET", "POST"])
 def save_events():
+
 
     if request.method == "POST":
 

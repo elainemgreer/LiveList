@@ -1,0 +1,243 @@
+{% extends 'base.html' %}
+
+
+{% block head %}
+
+  <style>
+
+ #html-text {
+        float: left;
+        margin-right: 30px;
+}
+ 
+#map-canvas {
+        height: 300px;
+        float: left;
+        width: 500px;
+}
+
+       
+
+       #eventlist {
+        height: 700px;
+        overflow: scroll;
+       }
+
+       .border-heart{
+        color: red;
+        font-size: 21px;
+      }
+
+      .selected-heart{
+        color: red;
+        font-size: 22px;
+      }
+
+
+
+
+       
+
+    </style>
+
+    
+
+
+{% endblock %}
+
+
+
+
+{% block body %}
+
+
+   <h3>Events Map</h3>
+
+
+ <div id="map-canvas"></div>
+
+  <br>
+
+  <h3>Events</h3>
+
+
+<div id="html-text">
+
+  <!--   <form id="eventstosave" name= "eventstosave" action="/saveevents" method="POST"> -->
+<ul>
+
+
+        {% for event in close_events %}
+  <li>    <div id={{ event[4] }}>
+          <li>{{ event[0] }}</li>
+          <li>{{ event[1] }}</li>
+          <li>{{ event[6] }}</li>
+        <li> <a href="{{ event[7] }}">Link</a></li>
+      {% if session.get('user_id') %}
+     
+         <div class='button' id={{ event[4] }} name="events" value={{ event[4] }}><i class="far fa-heart border-heart"></i></div>
+    
+          {% endif %}
+          {% endfor %}
+        </div></li>
+
+
+     </ul>   <!-- </form> -->
+
+</div>
+
+     <!--  <div class="heart"><i class="far fa-heart border-heart"></i></div> -->
+      
+
+    
+    
+      
+
+
+<!-- <script type="text/javascript" src="/static/eventsmapscript.js"></script> -->
+
+ <script src="https://code.jquery.com/jquery-3.4.1.js"></script>
+
+<script src="https://kit.fontawesome.com/c00ec74898.js" crossorigin="anonymous"></script>
+
+<script src="/static/datecitysearch.js"></script>
+
+<script async defer
+  src="https://maps.googleapis.com/maps/api/js?key=AIzaSyB1u15AdnG9Vd7D0uxI5lk5xp9h5UhvQZM&callback=initMap">
+</script>
+
+<script>
+
+// $("#heart").on("click", function() {
+//   $(this).toggleClass("far fa-heart", "fas fa-heart");
+// });
+
+// $('#heart').on('click', (evt) => {
+//   evt.preventDefault();
+
+//   const formInputs = {
+//     'event_id': $('#heart').val(),
+//   };
+//   console.log(formInputs)
+//   console.log("YEPPPPPP")
+
+//   $.post('/saveevents', formInputs, (res) => {
+//     alert(res);
+//   });
+// });
+// 
+
+
+// }
+
+// var btnContainer = document.getElementsByClassName("buttons");
+// btnContainer[0].addEventListener("click", function() { console.log("Hello"); });
+
+var allButtonsOnPage = document.querySelectorAll('.button');
+
+allButtonsOnPage.forEach(function(button) {
+  button.addEventListener('click', function() {
+    id = this.id
+    console.log('hello')
+    console.log(id)
+    
+    const formInputs = {
+      'event_id': id
+    }
+
+    console.log(formInputs)
+
+    $.post('/saveevents', formInputs, (res) => {
+      console.log('hi');
+    })
+
+  });
+});
+
+
+$('.button').on('click',function() {
+  $(this).find("i").toggleClass("far fas selected-heart border-heart");
+});
+
+
+// allButtonsOnPage.forEach(function(button) {
+//   button.addEventListener('click', (evt) =>
+//     evt.preventDefault();
+
+
+//   const formInputs = {
+//     'event_id': $('#heart').val(),
+//   };
+
+//   console.log(formInputs)
+//   console.log("YEPPPPPP")
+
+//   $.post('/saveevents', formInputs, (res) => {
+//     alert(res);
+//   });}
+
+</script>
+
+<script>
+
+
+var allMyMarkers = [];
+var map;
+ 
+function initMap() {
+        var locations = {{ close_events  | tojson }}
+
+   
+         
+        var mapOptions = {
+           center: new google.maps.LatLng(37.788697, -122.411497),
+          zoom: 17
+        };
+         
+        map = new google.maps.Map(document.getElementById("map-canvas"),
+                mapOptions);
+         
+        // draw marker on map
+        for (i = 0; i < locations.length; i++) {
+                marker = new google.maps.Marker({
+                        position: new google.maps.LatLng(locations[i][2], locations[i][3]),
+                        map: map,
+                        id: locations[4]
+                });
+                allMyMarkers.push(marker);
+        }
+}
+ 
+function toggleBounce(selectedID) {
+        var pinID = selectedID.split('_');
+        // loop through our array & check with marker has same ID with the text
+        for(var j=0;j<allMyMarkers.length;j++){
+                if(allMyMarkers[j].id == pinID[1]){
+                        if (allMyMarkers[j].getAnimation() != null) {
+                                allMyMarkers[j].setAnimation(null);
+                        } else {
+                                allMyMarkers[j].setAnimation(google.maps.Animation.BOUNCE);
+                                map.setCenter(allMyMarkers[j].getPosition());
+                        }
+                        break; // stop continue looping
+                }
+        }
+} // end toggleBounce
+
+
+$(document).ready(function() {
+        // init & construct the map
+        initMap();
+         
+        $('#html-text li div').onhover(function(){
+                var selectedID = $(this).attr('id');
+                toggleBounce(selectedID);
+        });
+});
+
+</script>
+
+
+
+
+{% endblock %}

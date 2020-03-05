@@ -59,8 +59,8 @@
 
   <!--   <form id="eventstosave" name= "eventstosave" action="/saveevents" method="POST"> -->
 
-        {% for event in close_events %}
-      <div id={{ event[4] }}>
+        {% for event in events %}
+    
           <li>{{ event[0] }}</li>
           <li>{{ event[1] }}</li>
           <li>{{ event[6] }}</li>
@@ -70,7 +70,6 @@
          <div class='button' id={{ event[4] }} name="events" value={{ event[4] }}><i class="far fa-heart border-heart"></i></div>
       </div>
       {% endif %}
-    </div>
      <br>
           {% endfor %}
         <!-- </form> -->
@@ -139,7 +138,7 @@ allButtonsOnPage.forEach(function(button) {
     console.log(formInputs)
 
     $.post('/saveevents', formInputs, (res) => {
-      console.log('Event has been saved!');
+      console.log('hi');
     })
 
   });
@@ -171,32 +170,7 @@ $('.button').on('click',function() {
 
 <script>
 
-  // "use strict"
-
-  // $(document).on('click', '.info-button', function(){
-
-  //   console.log('hello')
-  //   console.log(id)
-    
-  //   const formInputs = {
-  //     'event_id': id
-  //   }
-
-  //   console.log(formInputs)
-
-  //   $.post('/saveevents', formInputs, (res) => {
-  //     console.log('Event has been saved!');
-  //   })
-
-  // });
-
-
-
-// $(document).on('click', '.info-button', function() {
-//   $(this).find("i").toggleClass("far fas selected-heart border-heart");
-// });
-
-
+  "use strict"
 
 
 
@@ -208,8 +182,7 @@ function initMap() {
       // // mapTypeId: google.maps.MapTypeId.ROADMAP
       var map = new google.maps.Map(document.getElementById('map'), {
           // center: {lat: 40.674, lng: -73.945},
-          zoom: 15,
-          center: new google.maps.LatLng({{lat}}, {{lng}}),
+          zoom: 20,
           styles: [
   {
     "elementType": "geometry",
@@ -474,13 +447,10 @@ function initMap() {
 
     
 
-    var locations = {{ close_events | tojson | safe }}; 
+    var locations = {{ events | tojson | safe }}; 
     console.log(locations)
 
 
-
-    var userlat = {{ lat }}
-    var userlng = {{ lng }}
 
 
     // var map = new google.maps.Map(document.getElementById('map'), {
@@ -488,27 +458,7 @@ function initMap() {
     //   // center: new google.maps.LatLng(51.530616, -0.123125),
     //   mapTypeId: google.maps.MapTypeId.ROADMAP
     // });
-    var currentmarker = new google.maps.Marker({
-        position: new google.maps.LatLng(userlat, userlng),
-        map: map
-      });
-
-
-          //set infowindow content
-      var currentcontentString = 'You are here!';
-
-      var currentinfowindow = new google.maps.InfoWindow({
-       content: currentcontentString
-       });
-
-      //event listener so infowindow opens on user click
-      
-      currentinfowindow.open(map, currentmarker);
-     
-      google.maps.event.addListener(currentmarker, 'click', function() {
-  });   
-
-
+    
 
 
     var infowindow = new google.maps.InfoWindow();
@@ -521,31 +471,26 @@ function initMap() {
     for (i = 0; i < locations.length; i++) {  
       marker = new google.maps.Marker({
         position: new google.maps.LatLng(locations[i][2], locations[i][3]),
-        animation: google.maps.Animation.DROP,
         map: map
       });
 
       
       markers.push(marker);
 
-      markers.push(currentmarker);
-
+   
 
       google.maps.event.addListener(marker, 'click', (function(marker, i) {
         return function() {
           infowindow.setContent('<div id="content">' + "EVENT: " + locations[i][0] + '<br>' + 
       "VENUE: " + locations[i][1] + '<br>' +  "DATE: " + locations[i][5] + '<br>' + "TIME: " +
-      locations[i][6] + "<br>" + "URL: " + "<a href=" + locations[i][7] + ">Buy Tickets</a>" + 
-      '<form action="/saveeventsfromwindow">'+ '<input type="hidden" id=' + locations[4] + 'value=' + locations[4] +'name="windowbutton"><button type="submit" name="windowbutton" id=' + locations[4] + 'value=' + locations[4] +
-      '>Click on it</button>' +'</form>');
-
-
+      locations[i][6] + "<br>" + "URL: " + "<a href=" + locations[i][7] + ">Buy Tickets</a>");
           infowindow.open(map, marker);
         }
 
 
       })(marker, i)); 
-    
+
+
 
     function AutoCenter() {
       //  Create a new viewpoint bound
