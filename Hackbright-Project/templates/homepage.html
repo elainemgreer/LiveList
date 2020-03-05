@@ -1,9 +1,7 @@
 {% extends 'base.html' %}
 
 {% block head %}
-    
-
-<style>
+    <style>
        /* Set the size of the div element that contains the map */
        #geosearch {
         color: black;
@@ -17,10 +15,6 @@
         
        }  
 
-    /*   #search {
-        display: inline-block;
-        vertical-align: top;
-       }*/
        #mind {
         display: inline-block;
 
@@ -37,83 +31,31 @@
        /* display: inline-block;*/
       }
 
-
-  
-      
-
-</style>
-
-
-
+    </style>
 {% endblock %}
 
 
-
 {% block body %}
-
-
- <!--  <a href="/register">Register</a>
-  <a href="/login">Login</a>
-  <a href="/logout">Logout</a> -->
-
-
-
-
-  <div id="geosearch">
-
-   <form id='#dateform' action="/map">  
-
-      <br>
+<div id="geosearch">
+  <form id='#dateform' action="/map"><br>
       <div id="mind">
       Min Date<br>
       <input id="mind" type="date" name="mind" min="min"><br>
-    </div>
+      </div>
 
-
-    <div id="maxd">
+      <div id="maxd">
       Max Date<br>
-     <input id="maxd" type="date" name="maxd" min="min"><br>
-   </div>
+      <input id="maxd" type="date" name="maxd" min="min"><br>
+      </div>
 
-     <input hidden id="location" type="text" name="location">
-
-    <input id="submit" type="submit" value="Submit">
-
+      <input hidden id="location" type="text" name="location">
+      <input id="submit" type="submit" value="Submit">
   </form>
-
 </div>
 <br>
 <br>
+<div id="map"></div>
 
-
-
-
-
-
-
-    <div id="map"></div>
-
-
-
-
-  </div>
-
-
-<script>
-
-
-
-
-</script>
-</script>
-
-
-
-
-
-
-
-<!--  <script src="/static/maphomescript.js"></script> -->  
 
 <script src="https://code.jquery.com/jquery-3.4.1.js"></script>
 
@@ -122,12 +64,6 @@ src="https://maps.googleapis.com/maps/api/js?key=AIzaSyB1u15AdnG9Vd7D0uxI5lk5xp9
 </script>
 
 <script src="/static/homescript.js"></script>
-<script src="/static/datecitysearch.js"></script>
-
 
 
 {% endblock %}
-
-
-
-

@@ -5,15 +5,14 @@
 
 
       body {
-          background-color: #b9d3c2
+            background-color: #b9d3c2
           }
 
-            .topnav {
+          .topnav {
             background-color: #333;
             overflow: hidden;
           }
 
-          /* Style the links inside the navigation bar */
           .topnav a {
             float: left;
             color: #f2f2f2;
@@ -37,54 +36,49 @@
 
         </style>
 
-    <title>Events!</title>
 
-<!--     <link rel="stylesheet" href="/static/css/base.css">
-    <link rel="stylesheet" href="/static/css/index.css"> -->
+  <title>Events!</title>
 
-    <script src="https://code.jquery.com/jquery-3.4.1.js"></script>
+  <script src="https://code.jquery.com/jquery-3.4.1.js"></script>
 
-    {% with messages = get_flashed_messages() %}
-  {% if messages %}
-    <ul class=flashes>
-    {% for message in messages %}
-      <li>{{ message }}</li>
-    {% endfor %}
-    </ul>
-  {% endif %}
-{% endwith %}
+
+  {% with messages = get_flashed_messages() %}
+    {% if messages %}
+      <ul class=flashes>
+        {% for message in messages %}
+        <li>{{ message }}</li>
+        {% endfor %}
+      </ul>
+    {% endif %}
+  {% endwith %}
+
+
 {% block head %}
 {% endblock %}
   </head>
+  
+
   <body>
-        <a href="/register">Register</a>
-        <a href="/login">Login</a>
-        <a href="/logout">Logout</a>
+      <a href="/register">Register</a>
+      <a href="/login">Login</a>
+      <a href="/logout">Logout</a>
+
+      <div class="topnav">
+      <a class="active" href="/">What's Near Me?</a>
+      <a href="/cityindex">City Search</a>
+
+      {% if session.get('user_id') %}
+      <a class ="saved" id ="saved" href="/getuserevents/{{session['user_id']}}">My Saved Events</a>
+      {% else %}
+      <a class="nav-link disabled" href="/login">Login</a>
+      {% endif %}
+      </div>
 
 
-  <div class="topnav">
-  <a class="active" href="/">What's Near Me?</a>
-  <a href="/cityindex">City Search</a>
-
-  {% if session.get('user_id') %}
-  <a class ="saved" id ="saved" href="/getuserevents/{{session['user_id']}}">My Saved Events</a>
-  {% else %}
-  <a class="nav-link disabled" href="/login">Login</a>
-  {% endif %}
+{% block body %}
+{% endblock %}
 
 
-
-</div>
-    {% block body %}
-
-    {% endblock %}
-
-    <script> 
-
-
-
-</script>
-
-  </body>
-</html>
+    </body>
+  </html>
 

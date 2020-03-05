@@ -60,7 +60,7 @@
   <!--   <form id="eventstosave" name= "eventstosave" action="/saveevents" method="POST"> -->
 
         {% for event in close_events %}
-    
+      <div id={{ event[4] }}>
           <li>{{ event[0] }}</li>
           <li>{{ event[1] }}</li>
           <li>{{ event[6] }}</li>
@@ -70,6 +70,7 @@
          <div class='button' id={{ event[4] }} name="events" value={{ event[4] }}><i class="far fa-heart border-heart"></i></div>
       </div>
       {% endif %}
+    </div>
      <br>
           {% endfor %}
         <!-- </form> -->
@@ -138,7 +139,7 @@ allButtonsOnPage.forEach(function(button) {
     console.log(formInputs)
 
     $.post('/saveevents', formInputs, (res) => {
-      console.log('hi');
+      console.log('Event has been saved!');
     })
 
   });
@@ -451,6 +452,8 @@ function initMap() {
     var locations = {{ close_events | tojson | safe }}; 
     console.log(locations)
 
+
+
     var userlat = {{ lat }}
     var userlng = {{ lng }}
 
@@ -493,6 +496,7 @@ function initMap() {
     for (i = 0; i < locations.length; i++) {  
       marker = new google.maps.Marker({
         position: new google.maps.LatLng(locations[i][2], locations[i][3]),
+        animation: google.maps.Animation.DROP,
         map: map
       });
 
@@ -507,6 +511,8 @@ function initMap() {
           infowindow.setContent('<div id="content">' + "EVENT: " + locations[i][0] + '<br>' + 
       "VENUE: " + locations[i][1] + '<br>' +  "DATE: " + locations[i][5] + '<br>' + "TIME: " +
       locations[i][6] + "<br>" + "URL: " + "<a href=" + locations[i][7] + ">Buy Tickets</a>");
+
+
           infowindow.open(map, marker);
         }
 

@@ -1,11 +1,18 @@
 "use strict"
 
+// script for limiting dates on calendar
+var today = new Date().toISOString().split('T')[0];
+document.getElementsByName("mind")[0].setAttribute('min', today);
 
+var today = new Date().toISOString().split('T')[0];
+document.getElementsByName("maxd")[0].setAttribute('min', today);
+
+
+//google maps 
 var map;
 
 function initMap() {
 
-// all dealing with POS must happen INSIDE this function, which must happen INSIDE initmap function!!!
     if (navigator.geolocation) {
       navigator.geolocation.getCurrentPosition(function(position) {
         var pos = {
@@ -15,8 +22,6 @@ function initMap() {
 
         $('#location').val(JSON.stringify(pos))
 
-
-        //create map and set to user's position
         map = new google.maps.Map(document.getElementById('map'), {
         center: pos,
         zoom: 13,
@@ -279,55 +284,32 @@ function initMap() {
     ]
   }
 ]
+  });
 
-      });
-
-      //set infowindow content
-      var contentString = 'You are here!';
-      var infowindow = new google.maps.InfoWindow({
-       content: contentString
-       });
-
-      //set marker
-      var marker = new google.maps.Marker({
-        position: pos,
-        map: map,
-        title: 'marker with infoWindow'
+  //set infowindow content
+  var contentString = 'You are here!';
+  var infowindow = new google.maps.InfoWindow({
+   content: contentString
    });
 
-      //event listener so infowindow opens on user click
-      marker.addListener('click', function() {
-               infowindow.open(map, marker);
+  //set marker
+  var marker = new google.maps.Marker({
+    position: pos,
+    map: map,
+    title: 'marker with infoWindow'
+});
 
-
-      })
+  //event listener so infowindow opens on user click
+  marker.addListener('click', function() {
+           infowindow.open(map, marker);
+  })
 })
 
-
-     
-   
-
-
-
-
-  
-
-  function handleLocationError(browserHasGeolocation, infoWindow, pos) {
+    function handleLocationError(browserHasGeolocation, infoWindow, pos) {
     infoWindow.setPosition(pos);
     infoWindow.setContent(browserHasGeolocation ?
                           'Error: The Geolocation service failed.' :
                           'Error: Your browser doesn\'t support geolocation.');
     infoWindow.open(map);
   }
-
 }}
-
-
-
-
-  
-
-  
-
-
-
