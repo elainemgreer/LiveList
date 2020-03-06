@@ -1,75 +1,54 @@
 {% extends 'base.html' %}
-
-
 {% block head %}
 
-  <style>
-       /* Set the size of the div element that contains the map */
-      #map {
-        height: 400px;  /* The height is 400 pixels */
-        width: 80%;  /* The width is the width of the web page */
-
-       }
+<style>
 
       #eventlist {
         height: 700px;
         overflow: scroll;
        }
 
-
-    </style>
+</style>
 
     
 {% endblock %}
-
-
-
 {% block body %}
 
 
 {% if events %}
-   <h1> Hi, {{ user.name }}! Here are your saved events: </h1>
+<h1> Hi, {{ user.name }}! Here are your saved events: </h1>
+    
 
-
-        {% for event in events %}
-<br>
-   <div id='event' class='event'>
-        <li>{{ event.event_name }}</li>
-        <li>{{ event.event_venue }}</li>
-        <li>{{ event.event_date }}</li>
-        <li>{{ event.event_url }}
-        <div class='buttons'>
-<br>    <div class='button' id={{ event.event_id }} name="events" value={{ event.event_id }}><i class="fas fa-heart selected-heart"></i></div></div></div>
-
+    {% for event in events %}<br>
+<div id='event' class='event'>
+    <li>{{ event.event_name }}</li>
+    <li>{{ event.event_venue }}</li>
+    <li>{{ event.event_date }}</li>
+    <li>{{ event.event_url }}
+    <div class='buttons'>
+<br><div class='button' id={{ event.event_id }} name="events" value={{ event.event_id }}>
+<i class="fas fa-heart selected-heart"></i>
+</div>
+    </div>
+        </div>
 <form action='/showme'>
     <input type="hidden" value={{ event.event_id }} name="event" id="event">
-
     <button type='submit' id={{ event.event_id }} name='event' value={{ event.event_id }}>Show Me!</button>
 </form>
+        {% endfor %}
+
+
+{% else %}
+<h1> You have not saved any events yet, or your events have already passed! </h1>
+ {% endif %}
 
 
 
+<script src="https://code.jquery.com/jquery-3.4.1.js"></script>
 
-         {% endfor %}
-
-
-
-        {% else %}
-
-    <h1> You have not saved any events yet! </h1>
-
-        {% endif %}
-
-
-
-    <div id='map'></div>
-
-
-
+<script src="https://kit.fontawesome.com/c00ec74898.js" crossorigin="anonymous"></script>
 
 <script>
-
-
 
 var allButtonsOnPage = document.querySelectorAll('.button');
 
@@ -94,28 +73,7 @@ allButtonsOnPage.forEach(function(button) {
   });
 });
 
-
-
-
-$('.button').on('click',function() {
-  $(this).find("i").toggleClass("far fas selected-heart border-heart");
-});
-
-
 </script>
-
-
-<script async defer
-  src="https://maps.googleapis.com/maps/api/js?key=AIzaSyB1u15AdnG9Vd7D0uxI5lk5xp9h5UhvQZM&callback=initMap">
-</script>
-
-<script src="https://code.jquery.com/jquery-3.4.1.js"></script>
-
-<script src="https://kit.fontawesome.com/c00ec74898.js" crossorigin="anonymous"></script>
-
-<!-- <script type="text/javascript" src="/static/eventsmapscript.js"></script> -->
-
-
 
 
 {% endblock %}

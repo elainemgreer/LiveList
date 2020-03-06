@@ -1,26 +1,21 @@
 {% extends 'base.html' %}
 
 {% block head %}
-
-
- <link rel="stylesheet" href="//code.jquery.com/ui/1.11.2/themes/smoothness/jquery-ui.css">
+  <link rel="stylesheet" href="//code.jquery.com/ui/1.11.2/themes/smoothness/jquery-ui.css">
   <script src="//code.jquery.com/jquery-1.10.2.js"></script>
   <script src="//code.jquery.com/ui/1.11.2/jquery-ui.js"></script>
+  <script type="text/javascript" src="js/jquery-ui-1.8.custom"></script>
+
     
 
 <style>
  
-
        #citysearch {
         color: black;
         display: inline-block;
         
        }  
 
-    /*   #search {
-        display: inline-block;
-        vertical-align: top;
-       }*/
        #mind {
         display: inline-block;
 
@@ -38,10 +33,7 @@
       }
 
       
-
-
 </style>
-
 
 
 {% endblock %}
@@ -50,14 +42,6 @@
 
 {% block body %}
 
-
- <!--  <a href="/register">Register</a>
-  <a href="/login">Login</a>
-  <a href="/logout">Logout</a> -->
-
-  
-
-   
 
 
 <div id="citysearch">
@@ -92,42 +76,13 @@
 <div id="map"></div>
 
 
-<script>
-
-var source = ['Houston', 'Austin', 'San Francisco', 'Nashville', 'New York', 'Boston'];
-
-$("input#city").autocomplete({
-    source: source,
-    select: function(event, ui) {
-        $("#submit").removeAttr("disabled");
-    }
-}).keyup(function() {
-    var $parentContext = $(this);
-    var matches = $.grep(source, function(n, i) {
-        return $parentContext.val().toLowerCase() == n.toLowerCase();
-    });
-    $("#submit").attr("disabled", !matches.length);
-});
-
-</script>
-
-<!--  <script src="/static/maphomescript.js"></script> -->  
-
-<script type="text/javascript" src="js/jquery-1.4.2.min.js"></script>
-<script type="text/javascript" src="js/jquery-ui-1.8.custom"></script>
-
-<script src="https://code.jquery.com/jquery-3.4.1.js"></script>
-
 <script async defer
 src="https://maps.googleapis.com/maps/api/js?key=AIzaSyB1u15AdnG9Vd7D0uxI5lk5xp9h5UhvQZM&callback=initMap">
 </script>
 
 <script src="/static/citysearchmap.js"></script>
 
+<script src="/static/citysearchpage.js"></script>
 
 
 {% endblock %}
-
-
-
-

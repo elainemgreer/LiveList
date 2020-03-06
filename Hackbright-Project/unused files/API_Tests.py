@@ -2,6 +2,9 @@ import json
 import requests
 from pprint import pprint
 import os
+from geopy import distance
+from model import User, UserEvent, Event
+from datetime import datetime, date
 
 
 api_key = os.environ['SK_KEY']
@@ -134,14 +137,122 @@ def generate_ids(event_list):
 
 def get_event_from_ids(event_id):
 
+
     request_string = (f'https://api.songkick.com/api/3.0/events/{event_id}.json?apikey={api_key}')
     
     event_to_save = requests.get(request_string)
     event_to_save = event_to_save.json()
 
-    event_to_save = event_to_save['resultsPage']['results']['event']
+    event = event_to_save['resultsPage']['results']['event']
 
-    return event_to_save
+    new_event = []
+
+    event_id = event['id']
+    name = event['displayName']
+    venue = event['venue']['displayName']
+    lat = event['venue']['lat']
+    lng = event['venue']['lng']
+    date = event['start']['date']
+    time = event['start']['time']
+    url = event['uri']
+
+    new_event.append(event_id)
+    new_event.append(name)
+    new_event.append(venue)
+    new_event.append(lat)
+    new_event.append(lng)
+    new_event.append(date)
+    new_event.append(time)
+    new_event.append(url)
+
+    return new_event
+
+
+def get_distances(event_locations, user_lat, user_lng):
+
+
+    close_events = []
+
+    for event in event_locations:
+        user = (user_lat, user_lng)
+        x = (event[2], event[3])
+        event_distance = distance.distance(user, x).km
+        if event_distance <= 5:
+            close_events.append(event)
+
+
+    return close_events
+
+
+def get_db_events_by_user_id(user_id):
+
+    user_events = UserEvent.query.filter_by(user_id=user_id).all()
+
+    event_ids = []
+
+    # loop through events user saved and append event ids to list to get event info
+    for event in user_events:
+        event_id = event.event_id
+        event_ids.append(event_id)
+
+    return event_ids
+
+
+def get_db_events_by_event_id(event_ids):
+
+    events = []
+    future = []
+
+    for event_id in event_ids:
+        event = Event.query.filter_by(event_id=event_id).first()
+        events.append(event)
+
+    today = datetime.today()
+  
+    for event in events:
+        event_date = event.event_date
+        if event_date.day >= today.day:
+            future.append(event)
+
+
+    return future
+
+
+def make_time_object(event):
+
+    time = new_event[6]
+    if time is not None:
+
+        time_object = datetime.strptime(time, '%H:%M:%S')
+
+    else:
+        time_object = None
+
+    return time_object
+      
+
+def make_date_object(event):
+
+    date = new_event[5]
+    if date is not None:
+
+        date_object = datetime.strptime(date, '%Y-%m-%d')
+
+    return date_object
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
