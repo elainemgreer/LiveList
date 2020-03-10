@@ -1,0 +1,178 @@
+{% extends 'base.html' %}
+
+{% block head %}
+
+    <meta charset="utf-8">
+
+
+    <title>SHOW ME</title>
+
+{% endblock %}
+
+    {% block body %}
+
+    <!--
+      If you are writing this in Jinja, you'll want to
+      link to the absolute path, "/static/" and NOT the
+      relative path, "static/"
+
+      We use the relative path so you can open this page in a browser without
+      having to run a server.
+    -->
+
+    <link rel="stylesheet" href="../static/bootstrap/css/bootstrap.css"> 
+    <link rel="stylesheet" href="/static/css/landingpagecss.css">  
+
+
+
+    <script src="../static/jquery/jquery-3.3.1.min.js"></script>
+  </head>
+
+  <body class="override">
+    <!-- This navbar does not have responsive features. -->
+    <nav class="navbar sticky-top navbar-light bg-light justify-content-start">
+      <a class="navbar-brand" href="#">Show Me!</a>
+      <a class="nav-link" href="#">Home <span class="sr-only">(current)</span></a>
+      <a class="nav-link" href="#">Link</a>
+      <a class="nav-link disabled" href="#">Disabled</a>
+    </nav>
+
+   <!--  <div class="background-video">
+      <video autoplay muted loop>
+        <source src="../static/images/Unicorn-Around.webm" type="video/webm">
+      </video>
+    </div>
+
+    <header
+      class="container-fluid d-flex justify-content-center align-items-center
+             text-light"
+    >
+      <div class="row">
+          <div class="col">
+            <h1>Website!!!</h1>
+          </div>
+        </div>
+    </header>
+ -->
+    <!-- HOW THIS WORKS
+
+      As you can see, our background video isn't really a background. It's
+      actually another element that *looks* like a background.
+
+      *Usually* HTML block elements work like this:
+
+      +----------------------+
+      |                      |
+      | div.background-video |
+      |                      |
+      +----------------------+
+      |                      |
+      |       header         |
+      |                      |
+      +----------------------+
+
+      But when you open this page in your browser, the block elements look
+      like this:
+
+      +----------------------+
+      | div.background-video |
+      | +----------------------+
+      | |                      |    ...ALL IN ONE LAYER?
+      | |       header         |    HOW IS THIS POSSIBLE??
+      +-|                      |
+        +----------------------+
+      
+      Here's how it works!
+
+      In `static/css/fullscreen-video-bg.css`:
+
+        .background-video {
+          position: relative;
+        }
+
+      The only reason we set `position: relative` is to use `position: absolute`
+      in the CSS rule below:
+
+        .background-video video {
+          position: absolute;
+          top: 0;
+          left: 0;
+          z-index: -1;
+        }
+
+      This makes `div.background-video` stay in *one place*. It tells the browser
+      NOT to mess with the position of the div; it should ALWAYS be anchored to
+      the top, left corner of the screen.
+      
+      Then, the browser calculates the position of `header` as if `div.background-video`
+      isn't taking up space.
+
+      `z-index: -1` pushes `div.background-video` allll the way to the back.
+
+      The rest of the magic happens in JavaScript, so scroll down to the
+      `script` tags at the bottom of the page.
+    -->
+
+    <main class="container my-5">
+      <div class="row pb-5">
+        <div class="col">
+          <div class="card my-3">
+            <div class="card-body">
+              <h3> What's Near Me? </h3>
+              <p>
+                What's going on around you?! Search for musical events in your area.
+              </p>
+              <a class="btn btn-primary" href="#">
+                SHOW ME 
+              </a>
+            </div>
+          </div>
+        </div>
+
+        <div class="col">
+          <div class="card my-3">
+            <div class="card-body">
+              <h3> City Search </h3>
+              <p>
+                Traveling somehwere? Search for events and save upcoming musical events
+                in another city. 
+              </p>
+              <a class="btn btn-primary" href="#">
+                SHOW ME 
+              </a>
+            </div>
+          </div>
+        </div>
+
+        <div class="col">
+          <div class="card my-3">
+            <div class="card-body">
+              <h3> Saved Events </h3>
+              <p>
+                See your personal list of saved events and get directions to the shows
+                you plan to attend! 
+              </p>
+              <a class="btn btn-primary" href="#">
+                SHOW ME
+              </a>
+            </div>
+          </div>
+        </div>
+      </div>
+<!-- 
+      <div class="row py-5">
+        <div
+          class="col d-flex flex-column justify-content-center align-items-center
+                 text-center"
+        >
+          <h1 class="display-3">
+            And there's even more content down here!
+          </h1>
+          <p class="display-4 my-4">
+            Look at how exciting this is!
+          </p> -->
+     <!--    </div>
+      </div> -->
+    </main>
+
+{% endblock %}

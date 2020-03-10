@@ -91,6 +91,7 @@ def get_events_list_by_metro_area_and_date(metro_id, min_date, max_date):
 def get_locations(events_list):
 
 
+
     event_locations = []
 
     for event in events_list:
@@ -108,7 +109,13 @@ def get_locations(events_list):
             time = event['start']['time']
             url = event['uri']
 
+            date = datetime.strptime(date, '%Y-%m-%d')
+            
+            date = date.strftime("%b %d %Y")
 
+            print(time)
+
+      
             event_location.append(name)
             event_location.append(venue)
             event_location.append(lat)
@@ -116,7 +123,21 @@ def get_locations(events_list):
             event_locations.append(event_location)
             event_location.append(event_id)
             event_location.append(date)
-            event_location.append(time)
+
+            if time is not None:
+
+                time_object = datetime.strptime(time, '%H:%M:%S')
+           
+
+                time_string = datetime.strftime(time_object, "%I:%M %p")
+                
+                event_location.append(time_string)
+
+            else:
+
+                event_location.append(time)
+
+
             event_location.append(url)
 
 
@@ -156,6 +177,7 @@ def get_event_from_ids(event_id):
     time = event['start']['time']
     url = event['uri']
 
+
     new_event.append(event_id)
     new_event.append(name)
     new_event.append(venue)
@@ -173,9 +195,9 @@ def get_distances(event_locations, user_lat, user_lng):
 
     close_events = []
 
+    user = (user_lat, user_lng)
 
     for event in event_locations:
-        user = (user_lat, user_lng)
         x = (event[2], event[3])
         event_distance = distance.distance(user, x).km
         if event_distance <= 5:
@@ -212,13 +234,29 @@ def get_db_events_by_event_id(event_ids):
         event = Event.query.filter_by(event_id=event_id).first()
         events.append(event)
 
+    print("DATABASEEVENTS**", events)
+
     today = datetime.today()
+    print("TODAY IS", today)
   
     for event in events:
         event_date = event.event_date
         if event_date.day >= today.day:
             future.append(event)
 
+    print("FUTURE EVENTS:", future)
+
+    for event in future:
+        if event.event_time is not None:
+            time_object = event.event_time
+            time_string = datetime.strftime(time_object, "%I:%M %p")
+            event.event_time = time_string
+
+    for event in future:
+        event_date = event.event_date
+        date_string = date.strftime(event_date, "%b %d %Y")
+        event.event_date = date_string
+               
 
     return future
 

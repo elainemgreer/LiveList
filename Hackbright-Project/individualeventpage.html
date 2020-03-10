@@ -1,0 +1,88 @@
+{% extends 'base.html' %}
+
+{% block head %}
+
+
+
+<style>
+
+       
+
+       #map {
+        height: 500px;  /* The height is 400 pixels */
+        width: 100%;  /* The width is the width of the web page */
+       /* display: inline-block;*/
+      }
+
+      
+
+
+</style>
+
+
+{% endblock %}
+
+
+
+{% block body %}
+
+
+<div>
+<strong>Mode of Travel: </strong>
+<select id="mode" onchange="calcRoute();">
+  <option value="DRIVING">Driving</option>
+  <option value="WALKING">Walking</option>
+  <option value="BICYCLING">Bicycling</option>
+  <option value="TRANSIT">Transit</option>
+</select>
+</div>
+
+
+
+<script>
+
+  function initMap() {
+  var directionsService = new google.maps.DirectionsService();
+  var directionsRenderer = new google.maps.DirectionsRenderer();
+  var userlocation = new google.maps.LatLng(37.7699298, -122.4469157);
+  var eventlocation = new google.maps.LatLng(37.7683909618184, -122.51089453697205);
+  var mapOptions = {
+    zoom: 14,
+    center: userlocation
+  }
+  var map = new google.maps.Map(document.getElementById('map'), mapOptions);
+  directionsRenderer.setMap(map);
+}
+
+function calcRoute() {
+  var selectedMode = document.getElementById('mode').value;
+  var request = {
+      origin: userlocation,
+      destination: eventlocation,
+      // Note that JavaScript allows us to access the constant
+      // using square brackets and a string value as its
+      // "property."
+      travelMode: google.maps.TravelMode[selectedMode]
+  };
+  directionsService.route(request, function(response, status) {
+    if (status == 'OK') {
+      directionsRenderer.setDirections(response);
+    }
+  });
+}
+
+</script>
+
+
+
+<script src="https://code.jquery.com/jquery-3.4.1.js"></script>
+
+<script async defer
+src="https://maps.googleapis.com/maps/api/js?key=AIzaSyB1u15AdnG9Vd7D0uxI5lk5xp9h5UhvQZM&callback=initMap">
+</script>
+
+<script src="/static/citysearchmap.js"></script>
+
+
+
+{% endblock %}

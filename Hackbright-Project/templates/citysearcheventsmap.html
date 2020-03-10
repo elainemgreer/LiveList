@@ -3,13 +3,13 @@
 
   <style>
        /* Set the size of the div element that contains the map */
-       #map {
-        height: 500px;  /* The height is 400 pixels */
-        width: 100%;  /* The width is the width of the web page */
+/*       #map {
+        height: 700px;  /* The height is 400 pixels */
+        /*width: 100%;*/  /* The width is the width of the web page */
        /* display: inline-block;*/
-      }
       
-       #eventlist {
+      
+ /*      #eventlist {
         height: 700px;
         overflow: scroll;
        }
@@ -22,14 +22,14 @@
       .selected-heart{
         color: red;
         font-size: 22px;
-      }
+      }*/
     </style>
 
 {% endblock %}
 {% block body %}
 
 
-<h3>Events Map</h3>
+<!-- <h3>Events Map</h3>
 
   <div id="map"></div><br>
 
@@ -40,15 +40,81 @@
           <div id={{ event[4] }}>
             <li>{{ event[0] }}</li>
             <li>{{ event[1] }}</li>
+            {% if event[6] != None %}
             <li>{{ event[6] }}</li>
+            {% endif %}
+
             <li> <a href="{{ event[7] }}">Link</a></li>
               {% if session.get('user_id') %}
                 <div class='button' id={{ event[4] }} name="events" value={{ event[4] }}><i class="far fa-heart border-heart"></i></div>
               {% endif %}
           </div>
+        {% endfor %} -->
+        <section class="container1 container-fluid">
+
+        <div class="row">
+
+          <div class="col-6" align="center">
+
+            <br>
+            <div class='map'id="map"></div><br>
+            <br>
+            </div>
+
+          <div class="col-6" align="center">
+           <br>
+           <div class='eventslist' id='eventslist'>
+          {% for event in close_events %}
+          <div id='{{ event[4] }}'>
+              {{ event[0] }}
+              <br>
+           {{ event[1] }}
+           <br>
+            {% if event[6] != None %}
+            {{ event[6] }}
+            <br>
+            {% endif %}
+             <a href="{{ event[7] }}">Link</a>
+              {% if session.get('user_id') %}
+              <div class='buttons'>
+                <div class='button' id={{ event[4] }} name="events" value={{ event[4] }}><i class="far fa-heart border-heart"></i></div></div>
+                <hr>
+              {% endif %}
+          </div>
         {% endfor %}
 
+          </div>
+
+          </div>
+        </div>
+     
+      </section>
+
         <div id='eventlist'><script> var events = {{ close_events | tojson }} </script></div>
+
+  <script>
+    var allButtonsOnPage = document.querySelectorAll('.button');
+
+allButtonsOnPage.forEach(function(button) {
+  button.addEventListener('click', function() {
+    id = this.id
+    
+    const formInputs = {
+      'event_id': id
+    }
+
+    $.post('/saveevents', formInputs, (res) => {
+      console.log('Event has been saved!');
+    })
+  });
+});
+
+
+$('.button').on('click',function() {
+  $(this).find("i").toggleClass("far fas selected-heart border-heart");
+  });
+
+</script>
 
 
 <script type="text/javascript" src="/static/citysearchmap.js"></script>

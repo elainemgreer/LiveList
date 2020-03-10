@@ -3,7 +3,7 @@
 {% block head %}
     <style>
        /* Set the size of the div element that contains the map */
-       #geosearch {
+/*       #geosearch {
         color: black;
         display: inline-block;
            
@@ -23,7 +23,7 @@
        #maxd {
         display: inline-block;
        }
-       
+       */
 
        #map {
         height: 500px;  /* The height is 400 pixels */
@@ -36,25 +36,42 @@
 
 
 {% block body %}
-<div id="geosearch">
-  <form id='#dateform' action="/map"><br>
-      <div id="mind">
-      Min Date<br>
-      <input id="mind" type="date" name="mind" min="min"><br>
-      </div>
 
-      <div id="maxd">
-      Max Date<br>
-      <input id="maxd" type="date" name="maxd" min="min"><br>
-      </div>
-
-      <input hidden id="location" type="text" name="location">
-      <input id="submit" type="submit" value="Submit">
-  </form>
-</div>
-<br>
-<br>
+<section class="container1 container-fluid">
+<div class="row">
 <div id="map"></div>
+</div>
+    <div class='searcharea'>
+      <form id='#dateform' action="/map">
+        <div class="row">
+
+          <div class='col-4' align="center">
+            <br>
+            <div id="mind">
+            Min Date: <input id="mind" type="date" name="mind" min="min">
+            </div>
+          </div>
+
+   
+          <div class='col-4' align="center">
+            <br>
+            <div id="maxd">
+            Max Date: <input id="maxd" type="date" name="maxd" min="min">
+            </div>
+          </div>
+         
+          <div class='col-3' align="center">
+            <br>
+            <input hidden id="location" type="text" name="location">
+            <input id="submit" type="submit" value="Submit">
+          </div>
+</div>
+      </form>
+    </div>
+ 
+</section>
+
+
 
 
 <script src="https://code.jquery.com/jquery-3.4.1.js"></script>

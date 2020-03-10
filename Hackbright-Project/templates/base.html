@@ -4,43 +4,18 @@
     <style>
 
 
-      body {
-            background-color: #b9d3c2
-          }
-
-          .topnav {
-            background-color: #333;
-            overflow: hidden;
-          }
-
-          .topnav a {
-            float: left;
-            color: #f2f2f2;
-            text-align: center;
-            padding: 14px 16px;
-            text-decoration: none;
-            font-size: 17px;
-          }
-
-          /* Change the color of links on hover */
-          .topnav a:hover {
-            background-color: #ddd;
-            color: black;
-          }
-
-          /* Add a color to the active/current link */
-          .topnav a.active {
-            background-color: #000000;
-            color: white;
-          }
-
         </style>
+
+    <link href="/static/css/basecss.css" rel="stylesheet">
+
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css" integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
 
 
   <title>Events!</title>
 
   <script src="https://code.jquery.com/jquery-3.4.1.js"></script>
   <script src="https://kit.fontawesome.com/c00ec74898.js" crossorigin="anonymous"></script>
+  <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.0.13/css/all.css">
 
 
   {% with messages = get_flashed_messages() %}
@@ -60,7 +35,51 @@
   
 
   <body>
-      <a href="/register">Register</a>
+
+
+    <div class="homepage">
+      <nav class="navbar navbar-expand-md nav-transparent w-100">
+        <div class="container-fluid">
+          <a class="navbar-brand" href="/">Live List</a>
+          <div id="navbar" class="navbar-collapse collapse navbar-expand-lg">
+            <ul class="navbar-nav">
+        
+            </ul>
+            <ul class="navbar-nav ml-auto">
+                 <li class="nav-item">
+                <a class="nav-link" href="/">Around Me</a>
+              </li>
+              <li class="nav-item">
+                <a class="nav-link" href="/cityindex">City Search</a>
+              </li>
+              {% if session.get('user_id') %}
+              <li class="nav-item">
+                <a class="nav-link" href="/getuserevents/{{session['user_id']}}">My Events</a>
+              </li>
+              {% else %}
+            <a class="nav-link disabled" href="/login">Login</a>
+              {% endif %}
+
+        <li class="nav-item dropdown">
+        <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+          Login
+        </a>
+        <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+          <a class="dropdown-item" href="#">Logout</a>
+          <a class="dropdown-item" href="#">Register</a>
+          <div class="dropdown-divider"></div>
+        </div>
+      </li>
+          </div>
+
+        </div>
+      </nav>
+
+
+
+
+
+<!--       <a href="/register">Register</a>
       <a href="/login">Login</a>
       <a href="/logout">Logout</a>
 
@@ -73,7 +92,14 @@
       {% else %}
       <a class="nav-link disabled" href="/login">Login</a>
       {% endif %}
-      </div>
+      </div> -->
+
+</div>
+
+<script src="/static/fontawesome-markers.min.js"></script>
+
+<script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js" integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo" crossorigin="anonymous"></script>
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js" integrity="sha384-wfSDF2E50Y2D1uUdj0O3uMBJnjuUD4Ih7YwaYd1iqfktj0Uod8GCExl3Og8ifwB6" crossorigin="anonymous"></script>
 
 
 {% block body %}

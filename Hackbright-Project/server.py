@@ -35,6 +35,13 @@ app.secret_key = "ABC"
 app.jinja_env.undefined = StrictUndefined
 
 
+@app.route('/landing')
+def get_landing_page():
+
+    return render_template("landingpage2.html")
+
+
+
 
 
 @app.route('/')
@@ -60,8 +67,12 @@ def get_map():
     """Display map showing events based on geolocation of user."""
 
     location = request.args.get("location")
-    min_date = request.args.get("min_date")
-    max_date = request.args.get("max_date")
+    min_date = request.args.get("mind")
+    max_date = request.args.get("maxd")
+
+    print("*******", min_date)
+    print("********", max_date)
+    print("LOCATION", location)
 
     location = json.loads(location)
 
@@ -82,6 +93,7 @@ def get_map():
  
     # use geopy to filter out events that are far away (make this into helper function)
     close_events = get_distances(event_locations, user_lat, user_lng)
+    print(close_events)
 
 
     return render_template("eventsmap.html", close_events=close_events, user_lat=user_lat, user_lng=user_lng)
@@ -94,9 +106,10 @@ def get_city_map():
     """Display map showing events in the city entered by the user."""
 
     city = request.args.get("city")
-    min_date = request.args.get("min_date")
-    max_date = request.args.get("max_date")
-
+    min_date = request.args.get("mind")
+    max_date = request.args.get("maxd")
+    print("*****", min_date)
+    print("*****", max_date)
     # pass city in to get metro ID
     metro_id = get_metro_id_by_city(city)
 
@@ -105,6 +118,7 @@ def get_city_map():
    
     # pass events list in to get event locations
     close_events = get_locations(event_list)
+    print(close_events)
 
    
     return render_template("citysearcheventsmap.html", close_events=close_events)
@@ -117,6 +131,7 @@ def events_index(user_id):
     """User event page to show events specific users have saved"""
 
     user = User.query.get(user_id)
+    print(user)
 
     event_ids = get_db_events_by_user_id(user_id)
     print("HERE ARE IDSSSS", event_ids)
@@ -137,19 +152,20 @@ def save_events():
     if request.method == "POST":
 
         event_id = request.form.get('event_id')
-        print(event_id)
+        print("ID", event_id)
 
         new_event = get_event_from_ids(event_id)
-        print(new_event)
+        print("EVENT", new_event)
 
         time_object = make_time_object(new_event)
-        print(time_object)
+        print("TIME", time_object)
         date_object = make_date_object(new_event)
-        print(date_object)
+        print("DATE", date_object)
 
          # check is there is a user in session
         
         user_id = session["user_id"]
+        print(user_id)
 
             # check if user has already saved this event
         if UserEvent.query.filter_by(event_id=event_id, user_id=user_id).all():
@@ -163,6 +179,7 @@ def save_events():
             user_event = UserEvent(user_id=user_id, event_id=event_id)
             db.session.add(user_event)
             db.session.commit()
+            print("committed to USER DB!")
 
             # if event is not in user's or master event database, create new event object
         else:
@@ -171,6 +188,11 @@ def save_events():
              event_date=date_object, event_time=time_object, event_url=new_event[7], event_lat=new_event[3], event_lng=new_event[4])
             db.session.add(event)
             db.session.commit()
+
+            user_event = UserEvent(user_id=user_id, event_id=event_id)
+            db.session.add(user_event)
+            db.session.commit()
+            print("committed to USER DB!")
 
        
 

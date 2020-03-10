@@ -10,7 +10,7 @@
 
 <style>
  
-       #citysearch {
+       /*#citysearch {
         color: black;
         display: inline-block;
         
@@ -23,7 +23,7 @@
 
        #maxd {
         display: inline-block;
-       }
+       }*/
        
 
        #map {
@@ -43,44 +43,79 @@
 {% block body %}
 
 
+<section class="container1 container-fluid">
+  
+    <div class="row">
+    <div id="map"></div>
+    </div>
 
 <div id="citysearch">
+ <form id='#citysearch' action="/citymap">
 
-    <form id='#citysearch' action="/citymap">
+  <div class="row">
 
-  
-     <div class="ui-widget">
-      <p> Search by City:</p>
-      <input id="city" type="text" name="city"><br>
-    </div>
+          <div class="col-4">
+            <br>
+           <div class="ui-widget">
+            <label> Enter City: </label>
+          <input id="city" type="text" name="city">
+          </div>
+        </div>
 
-    <div id="mind">
-      Min Date<br>
-      <input id="mind" type="date" name="mind" min="min"><br>
-    </div>
+        <div class="col-2">
+        <div id="mind">
+            From: <input id="mind" type="date" name="mind" min="min"><br>
+          </div>
+        </div>
 
+        <div class="col-2">
+        <div id="maxd">
+        To: <input id="maxd" type="date" name="maxd" min="min"><br>
+         </div>
+       </div>
 
-    <div id="maxd">
-      Max Date<br>
-     <input id="maxd" type="date" name="maxd" min="min"><br>
-   </div>
+        <div class="col-1">
+          <br>
+        <input id="submit" type="submit" disabled="disabled"/>
+      </div>
 
-
-      <input id="submit" type="submit" disabled="disabled"/>
-
-    </form>
   </div>
 
+</form>
+</div>
+
+    <!--   <form id='#dateform' action="/map"><br>
+        <div class="row">
+
+          <div class='col-3' align="center">
+            <div id="mind">
+            Min Date: <input id="mind" type="date" name="mind" min="min">
+            </div>
+          </div>
+
+   
+          <div class='col-3' align="center">
+            <div id="maxd">
+            Max Date: <input id="maxd" type="date" name="maxd" min="min">
+            </div>
+          </div>
+         
+
+            <input hidden id="location" type="text" name="location">
+            <input id="submit" type="submit" value="Submit">
+</div>
+      </form> -->
+ 
+</section>
 
 
-<div id="map"></div>
 
 
 <script async defer
 src="https://maps.googleapis.com/maps/api/js?key=AIzaSyB1u15AdnG9Vd7D0uxI5lk5xp9h5UhvQZM&callback=initMap">
 </script>
 
-<script src="/static/citysearchmap.js"></script>
+<!-- <script src="/static/citysearchmap.js"></script> -->
 
 <script src="/static/citysearchpage.js"></script>
 

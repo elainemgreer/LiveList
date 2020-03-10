@@ -17,16 +17,202 @@ function initMap() {
 var map = new google.maps.Map(document.getElementById('map'), {
     zoom: 15,
     center: new google.maps.LatLng(currentuserlat, currentuserlng),
+    styles: [
+  {
+    "elementType": "geometry",
+    "stylers": [
+      {
+        "color": "#f5f5f5"
+      }
+    ]
+  },
+  {
+    "elementType": "labels.icon",
+    "stylers": [
+      {
+        "visibility": "off"
+      }
+    ]
+  },
+  {
+    "elementType": "labels.text.fill",
+    "stylers": [
+      {
+        "color": "#616161"
+      }
+    ]
+  },
+  {
+    "elementType": "labels.text.stroke",
+    "stylers": [
+      {
+        "color": "#f5f5f5"
+      }
+    ]
+  },
+  {
+    "featureType": "administrative.land_parcel",
+    "elementType": "labels.text.fill",
+    "stylers": [
+      {
+        "color": "#bdbdbd"
+      }
+    ]
+  },
+  {
+    "featureType": "poi",
+    "elementType": "geometry",
+    "stylers": [
+      {
+        "color": "#eeeeee"
+      }
+    ]
+  },
+  {
+    "featureType": "poi",
+    "elementType": "labels.text.fill",
+    "stylers": [
+      {
+        "color": "#757575"
+      }
+    ]
+  },
+  {
+    "featureType": "poi.park",
+    "elementType": "geometry",
+    "stylers": [
+      {
+        "color": "#e5e5e5"
+      }
+    ]
+  },
+  {
+    "featureType": "poi.park",
+    "elementType": "labels.text.fill",
+    "stylers": [
+      {
+        "color": "#9e9e9e"
+      }
+    ]
+  },
+  {
+    "featureType": "road",
+    "elementType": "geometry",
+    "stylers": [
+      {
+        "color": "#ffffff"
+      }
+    ]
+  },
+  {
+    "featureType": "road.arterial",
+    "elementType": "labels.text.fill",
+    "stylers": [
+      {
+        "color": "#757575"
+      }
+    ]
+  },
+  {
+    "featureType": "road.highway",
+    "elementType": "geometry",
+    "stylers": [
+      {
+        "color": "#dadada"
+      }
+    ]
+  },
+  {
+    "featureType": "road.highway",
+    "elementType": "labels.text.fill",
+    "stylers": [
+      {
+        "color": "#616161"
+      }
+    ]
+  },
+  {
+    "featureType": "road.local",
+    "elementType": "labels.text.fill",
+    "stylers": [
+      {
+        "color": "#9e9e9e"
+      }
+    ]
+  },
+  {
+    "featureType": "transit.line",
+    "elementType": "geometry",
+    "stylers": [
+      {
+        "color": "#e5e5e5"
+      }
+    ]
+  },
+  {
+    "featureType": "transit.station",
+    "elementType": "geometry",
+    "stylers": [
+      {
+        "color": "#eeeeee"
+      }
+    ]
+  },
+  {
+    "featureType": "water",
+    "elementType": "geometry",
+    "stylers": [
+      {
+        "color": "#c9c9c9"
+      }
+    ]
+  },
+  {
+    "featureType": "water",
+    "elementType": "labels.text.fill",
+    "stylers": [
+      {
+        "color": "#9e9e9e"
+      }
+    ]
+  }
+]
   });
+
 
 var locations = events
 console.log(locations)
 
+// var test = new google.maps.Marker({
+//     map: map,
+//     icon: {
+//         path: fontawesome.markers.MUSIC,
+//         scale: 0.5,
+//         strokeWeight: 0.2,
+//         strokeColor: 'black',
+//         strokeOpacity: 1,
+//         fillColor: '#f8ae5f',
+//         fillOpacity: 0.7,
+//     },
+//     clickable: false,
+//     position: new google.maps.LatLng(currentuserlat, currentuserlng)
+// });
+
 
 var currentmarker = new google.maps.Marker({
     position: new google.maps.LatLng(currentuserlat, currentuserlng),
-    map: map
+    map: map,
+    icon: {
+      path: fontawesome.markers.MAP_PIN,
+      scale: 0.5,
+      strokeWeight: 1.0,
+      strokeColor: '#ffc815',
+      strokeOpacity: 0.5,
+      fillColor: '#ffc815',
+      fillOpacity: .8,
+      },
   });
+
 
 var currentcontentString = 'You are here!';
 
@@ -48,12 +234,22 @@ for (i = 0; i < locations.length; i++) {
   marker = new google.maps.Marker({
     position: new google.maps.LatLng(locations[i][2], locations[i][3]),
     animation: google.maps.Animation.DROP,
-    map: map
+    map: map,
+    icon: {
+        path: fontawesome.markers.MAP_PIN,
+        scale: 0.4,
+        strokeWeight: 0.6,
+        strokeColor: '#585858',
+        strokeOpacity: 0.8,
+        fillColor: '#585858',
+        fillOpacity: 0.9,
+    },
   });
 
   markers.push(marker);
 
   markers.push(currentmarker);
+
 
   google.maps.event.addListener(marker, 'click', (function(marker, i) {
     return function() {

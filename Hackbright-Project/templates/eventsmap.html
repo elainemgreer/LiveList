@@ -3,44 +3,87 @@
 
   <style>
        /* Set the size of the div element that contains the map */
-       #map {
-        height: 500px;  /* The height is 400 pixels */
-        width: 100%;  /* The width is the width of the web page */
-       /* display: inline-block;*/
+/*       #map {
+        height: 500px;  
+        width: 100%;   
       }
 
        #eventlist {
         height: 700px;
         overflow: scroll;
-       }
+       }*/
 
        .border-heart{
-        color: red;
+        color:  #ffc815;
         font-size: 21px;
       }
 
       .selected-heart{
-        color: red;
+        color:  #ffc815;
         font-size: 22px;
       }
+
+
     </style>
 
 {% endblock %}
 {% block body %}
 
 
-<h3>Events Map</h3>
 
-  <div id="map"></div><br>
 
-    <h3>Events</h3>
+<section class="container1 container-fluid">
+
+        <div class="row">
+
+          <div class="col-6" align="center">
+
+            <br>
+            <div class='map'id="map"></div><br>
+            <br>
+            </div>
+
+          <div class="col-6" align="center">
+           <br>
+           <div class='eventslist' id='eventslist'>
+          {% for event in close_events %}
+          <div id='{{ event[4] }}'>
+              {{ event[0] }}
+              <br>
+           {{ event[1] }}
+           <br>
+            {% if event[6] != None %}
+            {{ event[6] }}
+            <br>
+            {% endif %}
+             <a href="{{ event[7] }}">Link</a>
+              {% if session.get('user_id') %}
+              <div class='buttons'>
+                <div class='button' id={{ event[4] }} name="events" value={{ event[4] }}><i class="far fa-heart border-heart"></i></div></div>
+                <hr>
+              {% endif %}
+          </div>
+        {% endfor %}
+
+          </div>
+
+          </div>
+        </div>
+     
+      </section>
+
+<!--   <div id="map"></div><br> -->
+
+   <!--  <h3>Events</h3>
 
       
         {% for event in close_events %}
           <div id='{{ event[4] }}'>
             <li>{{ event[0] }}</li>
             <li>{{ event[1] }}</li>
+            {% if event[6] != None %}
             <li>{{ event[6] }}</li>
+            {% endif %}
             <li> <a href="{{ event[7] }}">Link</a></li>
               {% if session.get('user_id') %}
               <div class='buttons'>
@@ -48,12 +91,14 @@
               {% endif %}
           </div>
         {% endfor %}
+         -->
   <div id='eventlist'><script> var events = {{ close_events | tojson }} </script></div>
   <div id='position'><script> var currentuserlat = {{ user_lat | tojson }} </script></div>
   <div id='position2'><script> var currentuserlng = {{ user_lng | tojson }} </script></div>
 
 
 <script type="text/javascript" src="/static/eventsmapscript.js"></script>
+<script src="/static/fontawesome-markers.min.js"></script>
 
 <script src="https://kit.fontawesome.com/c00ec74898.js" crossorigin="anonymous"></script>
 <script src="https://kit.fontawesome.com/c00ec74898.js" crossorigin="anonymous"></script>
@@ -88,7 +133,6 @@ allButtonsOnPage.forEach(function(button) {
 $('.button').on('click',function() {
   $(this).find("i").toggleClass("far fas selected-heart border-heart");
 });
-
 
 </script>
 

@@ -1,0 +1,88 @@
+
+.homepage nav {
+  position: fixed;
+  top: 0;
+  left: 0;
+}
+
+.nav-transparent {
+  background: #585858;
+  /*linear-gradient(rgba(0, 0, 0, 0.8), transparent);*/
+  font-size: 1.0em;
+  z-index: 100;
+}
+
+.nav-transparent .nav-link,
+.nav-transparent .navbar-brand, 
+.nav-transparent p {
+  color:  #ffc815;
+}
+
+.nav-transparent .navbar-brand {
+  font-weight: bold;
+}
+
+.navbar-brand{
+  font-size: 1.8em;
+}
+
+.nav-transparent .navbar-brand:hover,
+.nav-transparent .nav-link:hover {
+  color: white;
+}
+
+.homepage > section.container-fluid,
+.homepage > section.container {
+  width: 100vw;
+  height: 100vh;
+  padding-top: 56px;
+}
+
+.demo1 {
+  width: 100vw;
+  height: 100vh;
+  padding-top: 56px;
+  background: no-repeat center/cover url('/static/images/instrumentspicture.jpg');
+}
+
+.eventslist {
+  height: 700px;
+  overflow: scroll;
+  font-family: 'roboto';
+}
+
+.map {
+  height: 700px;
+
+}
+
+.container1 {
+  width: 100vw;
+  height: 100vh;
+  padding-top: 56px;
+   background: white;
+
+}
+
+.searchrow {
+  background: #585858;
+}
+
+hr {
+  border-top: 1px dashed;
+  color: #ffc815;
+}
+
+  .border-heart{
+        color:  #ffc815;
+        font-size: 21px;
+      }
+
+    .selected-heart{
+        color:  #ffc815;
+        font-size: 22px;
+      }
+
+/*  .searcharea {
+    background: #ffc815
+  }*/

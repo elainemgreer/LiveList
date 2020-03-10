@@ -1,0 +1,87 @@
+/*html, body {
+  width: 100%;
+  height: 100%;
+  overflow: scroll;
+}*/
+
+/*body {
+  background-image: url('/static/images/instrumentspicture.jpg');
+  background-size: cover;
+  background-repeat: no-repeat;
+  background-position: center center;
+  color: #000;
+  line-height: 1.3;
+  -webkit-font-smoothing: antialiased;
+}*/
+
+.col {
+  background: rgba(16, 10, 4, 0.6)
+}
+
+.card {
+  background: rgba(16, 10, 4, 0.2)
+}
+
+/*.card-body {
+  
+color: #e7d1bc;
+  font-family: 'Playfair Display', serif;
+  font-weight: 900;
+  font-style: italic;
+ font-size:88px;
+  text-align: right;
+  padding-top: 40px;
+  padding-bottom: 75px;
+  margin-right:25px;
+
+}*/
+
+.homepage nav {
+  position: fixed;
+  top: 0;
+  left: 0;
+}
+
+.nav-transparent {
+  background: linear-gradient(rgba(0, 0, 0, 0.4), transparent);
+  font-size: 1.2em;
+  z-index: 100;
+}
+
+.nav-transparent .nav-link,
+.nav-transparent .navbar-brand, 
+.nav-transparent p {
+  color: #ffec5c;
+}
+
+.nav-transparent .navbar-brand {
+  font-weight: bold;
+}
+
+.navbar-brand{
+  font-size: 1.6em;
+}
+
+.nav-transparent .navbar-brand:hover,
+.nav-transparent .nav-link:hover {
+  color: white;
+}
+
+.homepage > section.container-fluid,
+.homepage > section.container {
+  width: 100vw;
+  height: 100vh;
+  padding-top: 56px;
+}
+
+.demo-1 {
+  background: no-repeat center/cover url('/static/images/instrumentspicture.jpg');
+}
+
+.btn { 
+color: #ffec5c;
+ }
+
+
+
+
