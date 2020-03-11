@@ -67,8 +67,19 @@ def get_map():
     """Display map showing events based on geolocation of user."""
 
     location = request.args.get("location")
+
+    if location == "" or location == False or location == None:
+        return redirect('/geoindex')
+
     min_date = request.args.get("mind")
+
+    if min_date == "" or min_date == False or min_date == None:
+        return redirect('/geoindex')
+
     max_date = request.args.get("maxd")
+
+    if max_date == "" or max_date == False or max_date == None:
+        return redirect('/geoindex')
 
     
     print("*******", min_date)

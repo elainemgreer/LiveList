@@ -49,6 +49,7 @@
   height: 700px;
   overflow: scroll;
   font-family: 'roboto';
+  font-size: 15px;
 }
 
 
@@ -123,3 +124,20 @@ hr {
     bottom: 0;
     width: 100%;
 }
+
+.frontpagetext1 {
+  color:   #585858;
+  font-family: 'yellowtail';
+  font-size: 70px;
+}
+
+.frontpagetext2 {
+  color: #585858;
+  font-family: 'helvetica';
+  font-size: 30px;
+}
+
+.searchbox {
+  color:#585858;
+}
+

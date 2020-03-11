@@ -1,55 +1,13 @@
 {% extends 'base.html' %}
 {% block head %}
 
-  <style>
-       /* Set the size of the div element that contains the map */
-/*       #map {
-        height: 700px;  /* The height is 400 pixels */
-        /*width: 100%;*/  /* The width is the width of the web page */
-       /* display: inline-block;*/
-      
-      
- /*      #eventlist {
-        height: 700px;
-        overflow: scroll;
-       }
 
-       .border-heart{
-        color: red;
-        font-size: 21px;
-      }
-
-      .selected-heart{
-        color: red;
-        font-size: 22px;
-      }*/
-    </style>
 
 {% endblock %}
 {% block body %}
 
 
-<!-- <h3>Events Map</h3>
 
-  <div id="map"></div><br>
-
-    <h3>Events</h3>
-
-      
-        {% for event in close_events %}
-          <div id={{ event[4] }}>
-            <li>{{ event[0] }}</li>
-            <li>{{ event[1] }}</li>
-            {% if event[6] != None %}
-            <li>{{ event[6] }}</li>
-            {% endif %}
-
-            <li> <a href="{{ event[7] }}">Link</a></li>
-              {% if session.get('user_id') %}
-                <div class='button' id={{ event[4] }} name="events" value={{ event[4] }}><i class="far fa-heart border-heart"></i></div>
-              {% endif %}
-          </div>
-        {% endfor %} -->
         <section class="container1 container-fluid">
 
         <div class="row">
@@ -66,7 +24,7 @@
            <div class='eventslist' id='eventslist'>
           {% for event in close_events %}
           <div id='{{ event[4] }}'>
-              {{ event[0] }}
+             {{ event[0] }}
               <br>
            {{ event[1] }}
            <br>
@@ -79,7 +37,7 @@
             </div>
               {% if session.get('user_id') %}
               <div class='buttons'>
-                <div class='button' id={{ event[4] }} name="events" value={{ event[4] }}><i class="far fa-heart border-heart"></i></div></div>
+                <div class='button' id={{ event[4] }} name="events" value={{ event[4] }}>Save?  <i class="far fa-heart border-heart"></i></div></div>
                 <hr>
               {% endif %}
           </div>
