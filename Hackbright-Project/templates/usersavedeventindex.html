@@ -1,6 +1,15 @@
 {% extends 'base.html' %}
 {% block head %}
 
+<style>
+
+
+        .eventslist {
+            font-family: 'arial';
+        }
+
+
+</style>/
 
     
 {% endblock %}
@@ -8,57 +17,46 @@
 
 
 
- <section class="container1 container-fluid">
-
-    <div class="row">
+<section class="container1 container-fluid">
+<div class="row">
 
     {% if events %}
-
-
-
-
         <div class="col-12" align="center">
           
            <div class="eventslist">
-
-        
                     {% for event in events %}
-
                     <div id='event' class='event'>
                         <br>
                         <br>
-                    {{ event.event_name }}<br>
-                    {{ event.event_venue }}<br>
-                    {{ event.event_date }} /
-                    {{ event.event_time }}<br>
-                     <a href="{{ event.event_url }}">Tickets + More Info</a><br>
+                        {{ event.event_name }}<br>
+                        {{ event.event_venue }}<br>
+                        {{ event.event_date }} /
+                        {{ event.event_time }}<br>
+                        <div class="example-box my-2">
+                        <a class="line-wipe" href="{{ event.event_url }}">Tickets + More Info</a>
+                        </div>
 
                         <form action='/showme'>
-                    <input type="hidden" value={{ event.event_id }} name="event" id="event">
-                    <button type='submit' id={{ event.event_id }} name='event' value={{ event.event_id }}>Take Me There!</button>
-                    </form>
+                            <input type="hidden" value={{ event.event_id }} name="event" id="event">
+                            <button type='submit' id={{ event.event_id }} name='event' value={{ event.event_id }}>Take Me There!</button>
+                        </form>
 
-                    <div class='buttons'>
-                    <br><div class='button' id={{ event.event_id }} name="events" value={{ event.event_id }}>
-                    <i class="fas fa-heart selected-heart"></i></div>
-                    </div>
-
-
-                 
-
-                    <hr>
+                        <div class='buttons'>
+                            <br>
+                            <div class='button' id={{ event.event_id }} name="events" value={{ event.event_id }}>
+                            <i class="fas fa-heart selected-heart"></i></div>
+                        </div>
+                        <hr>
                     {% endfor %}
-                </div>
-
+                    </div>
+            </div>
         </div>
 
     {% else %}
     <h1> You have not saved any events yet, or your events have already passed! </h1>
     {% endif %}
 
-    </div>
-       
-     
+</div>
 </section>
 
 

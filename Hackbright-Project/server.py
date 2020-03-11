@@ -35,7 +35,7 @@ app.secret_key = "ABC"
 app.jinja_env.undefined = StrictUndefined
 
 
-@app.route('/landing')
+@app.route('/')
 def get_landing_page():
 
     return render_template("landingpage2.html")
@@ -44,7 +44,7 @@ def get_landing_page():
 
 
 
-@app.route('/')
+@app.route('/geoindex')
 def geolocationindex():
     """Geolocation search homepage"""
 
@@ -70,6 +70,7 @@ def get_map():
     min_date = request.args.get("mind")
     max_date = request.args.get("maxd")
 
+    
     print("*******", min_date)
     print("********", max_date)
     print("LOCATION", location)
@@ -97,6 +98,7 @@ def get_map():
 
 
     return render_template("eventsmap.html", close_events=close_events, user_lat=user_lat, user_lng=user_lng)
+
 
 
 

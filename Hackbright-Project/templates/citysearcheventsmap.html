@@ -74,7 +74,9 @@
             {{ event[6] }}
             <br>
             {% endif %}
-             <a href="{{ event[7] }}">Link</a>
+            <div class="example-box my-2">
+            <a class="line-wipe" href="{{ event[7] }}">Tickets + More Info</a>
+            </div>
               {% if session.get('user_id') %}
               <div class='buttons'>
                 <div class='button' id={{ event[4] }} name="events" value={{ event[4] }}><i class="far fa-heart border-heart"></i></div></div>
@@ -104,7 +106,7 @@ allButtonsOnPage.forEach(function(button) {
     }
 
     $.post('/saveevents', formInputs, (res) => {
-      console.log('Event has been saved!');
+      alert('Event has been saved!');
     })
   });
 });

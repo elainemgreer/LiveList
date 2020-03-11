@@ -222,7 +222,7 @@ var currentinfowindow = new google.maps.InfoWindow({
   
 currentinfowindow.open(map, currentmarker);
  
-google.maps.event.addListener(currentmarker, 'click', function() {
+google.maps.event.addListener(currentmarker, 'mouseover', function() {
 });   
 
 var infowindow = new google.maps.InfoWindow();
@@ -251,7 +251,7 @@ for (i = 0; i < locations.length; i++) {
   markers.push(currentmarker);
 
 
-  google.maps.event.addListener(marker, 'click', (function(marker, i) {
+  google.maps.event.addListener(marker, 'mouseover', (function(marker, i) {
     return function() {
       infowindow.setContent('<div id="content">' + "EVENT: " + locations[i][0] + '<br>' + 
   "VENUE: " + locations[i][1] + '<br>' +  "DATE: " + locations[i][5] + '<br>' + "TIME: " +

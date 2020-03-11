@@ -51,6 +51,7 @@
   font-family: 'roboto';
 }
 
+
 .map {
   height: 700px;
 
@@ -73,16 +74,52 @@ hr {
   color: #ffc815;
 }
 
-  .border-heart{
-        color:  #ffc815;
-        font-size: 21px;
-      }
+.border-heart{
+    color:  #ffc815;
+    font-size: 21px;
+  }
 
-    .selected-heart{
-        color:  #ffc815;
-        font-size: 22px;
-      }
+.selected-heart{
+    color:  #ffc815;
+    font-size: 22px;
+  }
 
-/*  .searcharea {
-    background: #ffc815
-  }*/
+
+.line-wipe {
+  position: relative;
+  color: #ffc815;
+  text-decoration: none !important;
+  display: inline-block;
+}
+
+.line-wipe:after {
+  content: "";
+  position: absolute;
+  left: 0;
+  width: 0;
+  height: 100%;
+  border-bottom: 2px solid rgb(55, 170, 243);
+  transition: 0.5s width;
+}
+
+.line-wipe:hover:after {
+  width: 100%;
+  border-bottom-color: rgb(0, 86, 179);
+}
+
+.fade-in-color {
+  color: rgb(243, 55, 181);;
+  transition: 0.5s color ease;
+}
+
+.fade-in-color:hover {
+  color: rgb(55, 170, 243);
+  text-decoration: none;
+}
+
+.searcharea {
+    position: fixed;
+    height: 80px;
+    bottom: 0;
+    width: 100%;
+}

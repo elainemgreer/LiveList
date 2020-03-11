@@ -200,7 +200,7 @@ for (i = 0; i < locations.length; i++) {
   markers.push(marker);
 
 
-  google.maps.event.addListener(marker, 'click', (function(marker, i) {
+  google.maps.event.addListener(marker, 'mouseover', (function(marker, i) {
     return function() {
       infowindow.setContent('<div id="content">' + "EVENT: " + locations[i][0] + '<br>' + 
   "VENUE: " + locations[i][1] + '<br>' +  "DATE: " + locations[i][5] + '<br>' + "TIME: " +
