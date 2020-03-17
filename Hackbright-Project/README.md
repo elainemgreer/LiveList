@@ -5,7 +5,8 @@ This project was made at Hackbright Academy in San Francisco over four weeks in 
 
 ![alt text](https://github.com/elainemgreer/Hackbright-Project/blob/master/Hackbright-Project/static/images/landingpage.png "Homepage")
 
-## Contents
+# Contents
+
 - Technologies
 - Features
 - Installation
@@ -17,7 +18,8 @@ Tech Stack: Python, JavaScript, HTML, CSS, Flask, Jinja, jQuery, AJAX, PostgreSQ
 
 APIs: Google Maps JavaScript, Google Maps Directions, Songkick API
 
-### Features:
+## Features:
+
 - Registration, Login, Logout
 - Geolocation Search
 - City Search with Autocomplete
@@ -28,19 +30,17 @@ APIs: Google Maps JavaScript, Google Maps Directions, Songkick API
 - Directions
 - Hashed Passwords
 
-
-Geolocation Search:
+### Geolocation Search:
 
 ![alt text](https://github.com/elainemgreer/Hackbright-Project/blob/master/Hackbright-Project/static/images/searchpage.png "search page")
 
-Search Results (Map + List View):
+### Search Results (Map + List View):
 
 ![](websitegif.gif)
 
-Saved Events Page:
+### Saved Events Page:
 
 ![alt text](https://github.com/elainemgreer/Hackbright-Project/blob/master/Hackbright-Project/static/images/savedeventspage.png "saved events")
-
 
 ## <a name="installation"></a>Installation
 
@@ -86,9 +86,12 @@ $ python server.py
 
 ```
 
+## About the Engineer
+
+Elaine Greer is a native Texan, former educator, and musician with a degree in philosophy. Before entering into the world of software engineering, Elaine worked at a Beijing based online education start-up company in teacher management and curriculum design. Before that, she taught in the classroom for several years. Elaine has experience working in varied cultural environments and is highly adaptable, as she has lived and worked in both France and China. Coming from a creative background, Elaine is resourceful in her approach to solving problems and is excited about working in a field that presents intellectual challenges and endless opportunities for continued learning and growth. Most recently, Elaine attended the 12-week immersive full-stack 
+software engineering program at Hackbright Academy in San Francisco.
 
 Elaine Greer – [LinkedIn](https://www.linkedin.com/in/elainemgreer/) – elainemichellegreer@gmail.com
 
-
-[https://github.com/elainemgreer/](https://github.com/elainemgreer/)
+[Github](https://github.com/elainemgreer/)
 
