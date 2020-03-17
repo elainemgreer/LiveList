@@ -3,35 +3,27 @@
 
 <style>
 
-       #map {
-        height: 640px;  /* The height is 400 pixels */
-        width: 100%;  /* The width is the width of the web page */
-       /* display: inline-block;*/
-      }
+  #map {
+    height: 640px; 
+    width: 100%;  
+  }
 
-  
 </style>
-
-
 
 {% endblock %}
 {% block body %}
-
-
-
-
 
 <div id='map'></div>
 
 <div>
   <br>
 <strong>    Mode of Travel: </strong>
-<select id="mode" onchange="calcRoute();">
-  <option value="DRIVING">Driving</option>
-  <option value="WALKING">Walking</option>
-  <option value="BICYCLING">Bicycling</option>
-  <option value="TRANSIT">Transit</option>
-</select>
+  <select id="mode" onchange="calcRoute();">
+    <option value="DRIVING">Driving</option>
+    <option value="WALKING">Walking</option>
+    <option value="BICYCLING">Bicycling</option>
+    <option value="TRANSIT">Transit</option>
+  </select>
 </div>
 
 <script>
@@ -220,9 +212,6 @@ function calcRoute() {
   var request = {
       origin: user,
       destination: event,
-      // Note that JavaScript allows us to access the constant
-      // using square brackets and a string value as its
-      // "property."
       travelMode: google.maps.TravelMode[selectedMode]
   };
   directionsService.route(request, function(response, status) {
@@ -233,8 +222,6 @@ function calcRoute() {
 }
 
 </script>
-
-<script src="https://code.jquery.com/jquery-3.4.1.js"></script>
 
 <script async defer
 src="https://maps.googleapis.com/maps/api/js?key=AIzaSyB1u15AdnG9Vd7D0uxI5lk5xp9h5UhvQZM&callback=initMap">

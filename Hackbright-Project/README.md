@@ -67,9 +67,8 @@ Install dependencies:
 ```
 $ pip install -r requirements.txt
 ```
-Add your Songkick API key into the header script in server.py. Add Google Maps API key in scripts in static/templates ...
+Add your Songkick API key into the header script in server.py. Add Google Maps API key to scripts in templates: homepage.html, citysearchpage.html, citysearcheventsmap.html, eventsmap.html, individualeventpage.html.
 <br><br>
-
 
 Create database 'users':
 ```

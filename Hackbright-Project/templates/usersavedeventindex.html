@@ -3,73 +3,51 @@
 
 <style>
 
-
-        .eventslist {
-            font-family: 'arial';
+    .eventslist {
+        font-family: 'arial';
         }
-
 
 </style>/
 
-    
 {% endblock %}
 {% block body %}
 
-
-
 <section class="container1 container-fluid">
-<div class="row">
-
+    <div class="row">
     {% if events %}
         <div class="col-12" align="center">
-          
-           <div class="eventslist">
-                    {% for event in events %}
-                    <div id='event' class='event'>
-                        <br>
-                        {{ event.event_name }}<br>
-                        {{ event.event_venue }}<br>
-                        {{ event.event_date }} /
-                        {{ event.event_time }}<br>
-                        <div class="example-box my-2">
-                        <a class="line-wipe" href="{{ event.event_url }}">Tickets + More Info</a>
-                        </div>
-
-                        <form action='/showme'>
-                            <input type="hidden" value={{ event.event_id }} name="event" id="event">
-                            <button type='submit' id={{ event.event_id }} name='event' value={{ event.event_id }}>Take Me There!</button>
-                        </form>
-
-                        <div class='buttons'>
-                            <br>
-                            <div class='button' id={{ event.event_id }} name="events" value={{ event.event_id }}> Remove Event?
-                            <i class="fas fa-heart selected-heart"></i></div>
-                        </div>
-                        <hr>
-                    {% endfor %}
+            <div class="eventslist">
+                {% for event in events %}
+                <div id='event' class='event'>
+                    <br>
+                    {{ event.event_name }}<br>
+                    {{ event.event_venue }}<br>
+                    {{ event.event_date }} /
+                    {{ event.event_time }}<br>
+                    <div class="example-box my-2">
+                    <a class="line-wipe" href="{{ event.event_url }}">Tickets + More Info</a>
                     </div>
+
+                    <form action='/showme'>
+                        <input type="hidden" value={{ event.event_id }} name="event" id="event">
+                        <button type='submit' id={{ event.event_id }} name='event' value={{ event.event_id }}>Take Me There!</button>
+                    </form>
+
+                    <div class='buttons'>
+                        <br>
+                        <div class='button' id={{ event.event_id }} name="events" value={{ event.event_id }}> Remove Event?
+                        <i class="fas fa-heart selected-heart"></i></div>
+                    </div>
+                    <hr>
+                {% endfor %}
+                </div>
             </div>
-
-            {% else %}
-            You have not saved any events yet, or your events have already passed! 
-            {% endif %}
-
-        </div>
-
-
-</div>
+    {% else %}
+        You have not saved any events yet, or your events have already passed! 
+    {% endif %}
+    </div>
+    </div>
 </section>
-
-
-
-
-
-
-
-
-<script src="https://code.jquery.com/jquery-3.4.1.js"></script>
-
-<script src="https://kit.fontawesome.com/c00ec74898.js" crossorigin="anonymous"></script>
 
 <script>
 
@@ -90,13 +68,10 @@ allButtonsOnPage.forEach(function(button) {
     $.post('/removeevents', formInputs, (res) => {
     console.log('You have removed an event!')
     location.reload();
-      // console.log(events)
     })
-// use response to repopulate list with user's updated show list
   });
 });
 
 </script>
-
 
 {% endblock %}

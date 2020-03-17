@@ -1,40 +1,16 @@
 {% extends 'base.html' %}
-
 {% block head %}
+
     <style>
-       /* Set the size of the div element that contains the map */
-/*       #geosearch {
-        color: black;
-        display: inline-block;
-           
-       }
 
-       #citysearch {
-        color: black;
-        display: inline-block;
-        
-       }  
-
-       #mind {
-        display: inline-block;
-
-       }
-
-       #maxd {
-        display: inline-block;
-       }
-       */
-
-       #map {
+        #map {
         height: 560px;  
-        width: 100%;  /* The width is the width of the web page */
-       /* display: inline-block;*/
-      }
+        width: 100%; 
+        }
 
     </style>
+
 {% endblock %}
-
-
 {% block body %}
 
 <section class="container1 container-fluid">
@@ -53,7 +29,6 @@
             </div>
           </div>
 
-   
           <div class='col-4'>
          
             <div id="maxd">
@@ -68,14 +43,10 @@
             <input hidden id="location" type="text" name="location">
             <input id="submit" type="submit" value="Submit" class="searchbox">
           </div>
-</div>
+        </div>
       </form>
     </div>
- 
-</section>
-
-
-
+ </section>
 
 <script src="https://code.jquery.com/jquery-3.4.1.js"></script>
 
@@ -84,6 +55,5 @@ src="https://maps.googleapis.com/maps/api/js?key=AIzaSyB1u15AdnG9Vd7D0uxI5lk5xp9
 </script>
 
 <script src="/static/homescript.js"></script>
-
 
 {% endblock %}

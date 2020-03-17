@@ -1,13 +1,9 @@
 "use strict"
 
-"use strict"
-
-
 function initMap() {
-  // The location of Uluru
 
   var center = {lat: 30.662608, lng: -37.918198};
-  // The map, centered at Uluru
+ 
   var map = new google.maps.Map(
       document.getElementById('map'), {zoom: 3, center: center,
       styles: [
@@ -173,15 +169,11 @@ function initMap() {
       }); 
 }
 
-
 var today = new Date().toISOString().split('T')[0];
 document.getElementsByName("mind")[0].setAttribute('min', today);
 
-
 var today = new Date().toISOString().split('T')[0];
 document.getElementsByName("maxd")[0].setAttribute('min', today);
-
-
 
 var source = ['New York', 'Los Angeles', 'Chicago', 'Houston', 'Philadelphia', 'Phoenix',
 'San Antonio', 'San Diego', 'Dallas', 'San Jose', 'Austin', 'Jacksonville', 'San Francisco',
@@ -191,7 +183,6 @@ var source = ['New York', 'Los Angeles', 'Chicago', 'Houston', 'Philadelphia', '
 'Kansas City', 'Long Beach', 'Mesa', 'Atlanta', 'Colorado Springs', 'Virginia Beach',
 'Raleigh', 'Omaha', 'Miami', 'Oakland', 'Minneapolis', 'Tulsa', 'Wichita', 'New Orleans', 'Arlington',
 'Paris', 'London', 'Zurich', 'Lisbon', 'Rome', 'Mexico City', 'Toronto', 'Montreal']
-
 
 $("input#city").autocomplete({
     source: source,

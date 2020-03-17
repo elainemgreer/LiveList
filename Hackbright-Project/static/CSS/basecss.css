@@ -7,7 +7,6 @@
 
 .nav-transparent {
   background: #585858;
-  /*linear-gradient(rgba(0, 0, 0, 0.8), transparent);*/
   font-size: 1.0em;
   z-index: 100;
 }

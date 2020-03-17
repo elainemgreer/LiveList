@@ -1,14 +1,11 @@
 "use strict"
 
-// script for limiting dates on calendar
 var today = new Date().toISOString().split('T')[0];
 document.getElementsByName("mind")[0].setAttribute('min', today);
 
 var today = new Date().toISOString().split('T')[0];
 document.getElementsByName("maxd")[0].setAttribute('min', today);
 
-
-//google maps 
 var map;
 
 function initMap() {

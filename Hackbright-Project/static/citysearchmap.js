@@ -1,14 +1,9 @@
 "use strict"
 
-
 var eventsToGet = $('#eventlist').html()
-
-console.log(events)
-
 
 function initMap() {
 
- 
 var map = new google.maps.Map(document.getElementById('map'), {
     zoom: 10,
     styles: [
@@ -198,7 +193,6 @@ for (i = 0; i < locations.length; i++) {
   });
 
   markers.push(marker);
-
 
   google.maps.event.addListener(marker, 'mouseover', (function(marker, i) {
     return function() {

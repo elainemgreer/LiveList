@@ -1,125 +1,68 @@
 {% extends 'base.html' %}
-
 {% block head %}
+
   <link rel="stylesheet" href="//code.jquery.com/ui/1.11.2/themes/smoothness/jquery-ui.css">
   <script src="//code.jquery.com/jquery-1.10.2.js"></script>
   <script src="//code.jquery.com/ui/1.11.2/jquery-ui.js"></script>
   <script type="text/javascript" src="js/jquery-ui-1.8.custom"></script>
-
     
-
 <style>
- 
-       /*#citysearch {
-        color: black;
-        display: inline-block;
-        
-       }  
 
-       #mind {
-        display: inline-block;
+   #map {
+    height: 560px;  
+    width: 100%; 
+    }
 
-       }
-
-       #maxd {
-        display: inline-block;
-       }*/
-       
-
-       #map {
-        height: 560px;  /* The height is 400 pixels */
-        width: 100%;  /* The width is the width of the web page */
-       /* display: inline-block;*/
-      }
-
-      
 </style>
 
-
 {% endblock %}
-
-
-
 {% block body %}
 
-
 <section class="container1 container-fluid">
-  
-    <div class="row">
-    <div id="map"></div>
-    </div>
-
-<div id="citysearch" class="searcharea">
- <form id='#citysearch' action="/citymap">
-
   <div class="row">
+    <div id="map"></div>
+  </div>
+
+  <div id="citysearch" class="searcharea">
+    <form id='#citysearch' action="/citymap">
+      <div class="row">
 
           <div class="col-4" align="center">
             <br>
-           <div class="ui-widget">
-            <label> <b>Enter City: </b> </label>
-          <input id="city" type="text" name="city" class="searchbox">
+             <div class="ui-widget">
+              <label> <b>Enter City: </b> </label>
+            <input id="city" type="text" name="city" class="searchbox">
+            </div>
           </div>
-        </div>
 
-        <div class="col-3">
-        <div id="mind">
-       <br>
-            <b>Start Date: </b><input id="mind" type="date" name="mind" min="min" class="searchbox"><br>
-          </div>
-        </div>
-
-        <div class="col-3">
-        <div id="maxd">
-          <br>
-        <b>End Date: </b><input id="maxd" type="date" name="maxd" min="min" class="searchbox"><br>
-         </div>
-       </div>
-
-        <div class="col-1">
-          <br>
-        <input id="submit" type="submit" disabled="disabled" class="searchbox"/>
-      </div>
-
-  </div>
-
-</form>
-</div>
-
-    <!--   <form id='#dateform' action="/map"><br>
-        <div class="row">
-
-          <div class='col-3' align="center">
+          <div class="col-3">
             <div id="mind">
-            Min Date: <input id="mind" type="date" name="mind" min="min">
+            <br>
+            <b>Start Date: </b><input id="mind" type="date" name="mind" min="min" class="searchbox"><br>
             </div>
           </div>
 
-   
-          <div class='col-3' align="center">
+          <div class="col-3">
             <div id="maxd">
-            Max Date: <input id="maxd" type="date" name="maxd" min="min">
-            </div>
+            <br>
+            <b>End Date: </b><input id="maxd" type="date" name="maxd" min="min" class="searchbox"><br>
+           </div>
           </div>
-         
 
-            <input hidden id="location" type="text" name="location">
-            <input id="submit" type="submit" value="Submit">
-</div>
-      </form> -->
- 
+          <div class="col-1">
+            <br>
+            <input id="submit" type="submit" disabled="disabled" class="searchbox"/>
+          </div>
+
+      </div>
+    </form>
+  </div>
 </section>
-
-
 
 
 <script async defer
 src="https://maps.googleapis.com/maps/api/js?key=AIzaSyB1u15AdnG9Vd7D0uxI5lk5xp9h5UhvQZM&callback=initMap">
 </script>
-
-<!-- <script src="/static/citysearchmap.js"></script> -->
-
 <script src="/static/citysearchpage.js"></script>
-
 
 {% endblock %}

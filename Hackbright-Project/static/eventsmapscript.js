@@ -1,19 +1,11 @@
 "use strict"
 
-
 var eventsToGet = $('#eventlist').html()
 var pos = $('#position').html()
 var pos2 = $('#position2').html()
-console.log(pos)
-console.log(currentuserlat)
-console.log(currentuserlng)
-
-console.log(events)
-
 
 function initMap() {
 
- 
 var map = new google.maps.Map(document.getElementById('map'), {
     zoom: 15,
     center: new google.maps.LatLng(currentuserlat, currentuserlng),
@@ -183,22 +175,6 @@ var map = new google.maps.Map(document.getElementById('map'), {
 var locations = events
 console.log(locations)
 
-// var test = new google.maps.Marker({
-//     map: map,
-//     icon: {
-//         path: fontawesome.markers.MUSIC,
-//         scale: 0.5,
-//         strokeWeight: 0.2,
-//         strokeColor: 'black',
-//         strokeOpacity: 1,
-//         fillColor: '#f8ae5f',
-//         fillOpacity: 0.7,
-//     },
-//     clickable: false,
-//     position: new google.maps.LatLng(currentuserlat, currentuserlng)
-// });
-
-
 var currentmarker = new google.maps.Marker({
     position: new google.maps.LatLng(currentuserlat, currentuserlng),
     map: map,
@@ -212,7 +188,6 @@ var currentmarker = new google.maps.Marker({
       fillOpacity: .8,
       },
   });
-
 
 var currentcontentString = 'You are here';
 
