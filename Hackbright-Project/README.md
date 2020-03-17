@@ -16,7 +16,7 @@ APIs: Google Maps JavaScript, Google Maps Directions, Songkick API
 
 ## Overview
 
-Features:
+###Features:
 - Registration, Login, Logout
 - Geolocation Search
 - City Search with Autocomplete
@@ -42,13 +42,52 @@ Saved Events Page:
 
 
 
-## Development setup
+## <a name="installation"></a>Installation
+
+### Prerequisites
+
+You must have the following installed to run LiveList:
+
+- PostgreSQL
+- Python 3.x
+- API key for Google Maps JavaScript API, Google Maps Places API, Songkick API
+
+### Run LiveList on your local computer
+
+Clone or fork repository:
+```
+$ git clone https://github.com/elainemgreer/LiveList
+```
+Create and activate a virtual environment inside your livelist directory:
+```
+$ virtualenv env
+$ source env/bin/activate
+```
+Install dependencies:
+```
+$ pip install -r requirements.txt
+```
+Add your Songkick API key into the header script in server.py. Add Google Maps API key in scripts in static/templates ...
+<br><br>
 
 
+Create database 'users':
+```
+$ createdb users
+```
+Run model.py interactively in the terminal, and create database tables:
+```
+$ python3 -i model.py
+>>> db.create_all()
+>>> quit()
+```
+Run the app from the command line.
 
+```
+$ python server.py
 
+```
 
-## Meta
 
 Elaine Greer – [LinkedIn](https://www.linkedin.com/in/elainemgreer/) – elainemichellegreer@gmail.com
 
