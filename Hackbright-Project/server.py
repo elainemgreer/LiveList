@@ -120,7 +120,15 @@ def get_city_map():
 
     city = request.args.get("city")
     min_date = request.args.get("mind")
+
+    if min_date == "" or min_date == False or min_date == None:
+        return redirect('/cityindex')
+
     max_date = request.args.get("maxd")
+
+    if max_date == "" or max_date == False or max_date == None:
+        return redirect('/cityindex')
+
     print("*****", min_date)
     print("*****", max_date)
     # pass city in to get metro ID

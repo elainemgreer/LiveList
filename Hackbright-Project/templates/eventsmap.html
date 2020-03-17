@@ -82,7 +82,7 @@ allButtonsOnPage.forEach(function(button) {
     console.log(formInputs)
 
     $.post('/saveevents', formInputs, (res) => {
-      alert('Event has been saved!');
+      console.log('Event has been saved!');
     })
 
   });

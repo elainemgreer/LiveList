@@ -4,7 +4,7 @@
 <style>
 
        #map {
-        height: 600px;  /* The height is 400 pixels */
+        height: 640px;  /* The height is 400 pixels */
         width: 100%;  /* The width is the width of the web page */
        /* display: inline-block;*/
       }
@@ -13,13 +13,19 @@
 </style>
 
 
+
 {% endblock %}
 {% block body %}
+
+
+
+
 
 <div id='map'></div>
 
 <div>
-<strong>Mode of Travel: </strong>
+  <br>
+<strong>    Mode of Travel: </strong>
 <select id="mode" onchange="calcRoute();">
   <option value="DRIVING">Driving</option>
   <option value="WALKING">Walking</option>

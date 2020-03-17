@@ -27,7 +27,6 @@
                     {% for event in events %}
                     <div id='event' class='event'>
                         <br>
-                        <br>
                         {{ event.event_name }}<br>
                         {{ event.event_venue }}<br>
                         {{ event.event_date }} /
@@ -43,18 +42,20 @@
 
                         <div class='buttons'>
                             <br>
-                            <div class='button' id={{ event.event_id }} name="events" value={{ event.event_id }}> Remove Event? 
+                            <div class='button' id={{ event.event_id }} name="events" value={{ event.event_id }}> Remove Event?
                             <i class="fas fa-heart selected-heart"></i></div>
                         </div>
                         <hr>
                     {% endfor %}
                     </div>
             </div>
+
+            {% else %}
+            You have not saved any events yet, or your events have already passed! 
+            {% endif %}
+
         </div>
 
-    {% else %}
-    <h1> You have not saved any events yet, or your events have already passed! </h1>
-    {% endif %}
 
 </div>
 </section>
@@ -87,7 +88,7 @@ allButtonsOnPage.forEach(function(button) {
     console.log(formInputs)
 
     $.post('/removeevents', formInputs, (res) => {
-    alert('You have removed an event!')
+    console.log('You have removed an event!')
     location.reload();
       // console.log(events)
     })

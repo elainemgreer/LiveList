@@ -188,7 +188,7 @@ function initMap() {
   });
 
   //set infowindow content
-  var contentString = 'You are here!';
+  var contentString = 'You are here';
   var infowindow = new google.maps.InfoWindow({
    content: contentString
    });

@@ -214,7 +214,7 @@ var currentmarker = new google.maps.Marker({
   });
 
 
-var currentcontentString = 'You are here!';
+var currentcontentString = 'You are here';
 
 var currentinfowindow = new google.maps.InfoWindow({
  content: currentcontentString
@@ -254,8 +254,7 @@ for (i = 0; i < locations.length; i++) {
   google.maps.event.addListener(marker, 'mouseover', (function(marker, i) {
     return function() {
       infowindow.setContent('<div id="content">' + "EVENT: " + locations[i][0] + '<br>' + 
-  "VENUE: " + locations[i][1] + '<br>' +  "DATE: " + locations[i][5] + '<br>' + "TIME: " +
-  locations[i][6] + "<br>" + "URL: " + "<a href=" + locations[i][7] + ">Buy Tickets</a>")
+  "VENUE: " + locations[i][1] + '<br>' +  "DATE: " + locations[i][5] + '<br>' + "URL: " + "<a href=" + locations[i][7] + ">Buy Tickets</a>")
 
   infowindow.open(map, marker);
  }
