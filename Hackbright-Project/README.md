@@ -6,7 +6,33 @@ This project was made at Hackbright Academy in San Francisco over four weeks in 
 ![alt text](https://github.com/elainemgreer/Hackbright-Project/blob/master/Hackbright-Project/static/images/landingpage.png "Homepage")
 
 
-## Features
+## Technologies
+
+
+Tech Stack: Python, JavaScript, HTML, CSS, Flask, Jinja, jQuery, AJAX, PostgreSQL, SQLAlchemy, Bootstrap, Geopy, Hashlib
+
+APIs: Google Maps JavaScript, Google Maps Directions, Songkick API
+
+
+## Overview
+
+Features:
+- Registration, login, logout
+- Geolocation Search
+- City Search with autocomplete
+- Event map and list
+- Like button heart toggle
+- GeoPy sorted events list 
+- Ability to manage and remove events
+- Directions
+- Hashed passwords
+
+
+Geolocation Search:
+![alt text](https://github.com/elainemgreer/Hackbright-Project/blob/master/Hackbright-Project/static/images/searchpage.png "search page")
+
+Search Results (Map + List View):
+![alt text](https://github.com/elainemgreer/Hackbright-Project/blob/master/Hackbright-Project/static/images/searchresults page.png "search results")
 
 
 
