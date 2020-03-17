@@ -17,30 +17,30 @@ APIs: Google Maps JavaScript, Google Maps Directions, Songkick API
 ## Overview
 
 Features:
-- Registration, login, logout
+- Registration, Login, Logout
 - Geolocation Search
-- City Search with autocomplete
-- Event map and list
-- Like button heart toggle
-- GeoPy sorted events list 
-- Ability to manage and remove events
+- City Search with Autocomplete
+- Event Map and List
+- Like Heart Button
+- GeoPy Sorted Events List 
+- Ability to Manage and Remove Events
 - Directions
-- Hashed passwords
+- Hashed Passwords
 
 
 Geolocation Search:
+
 ![alt text](https://github.com/elainemgreer/Hackbright-Project/blob/master/Hackbright-Project/static/images/searchpage.png "search page")
 
 Search Results (Map + List View):
-![alt text](https://github.com/elainemgreer/Hackbright-Project/blob/master/Hackbright-Project/static/images/searchresults page.png "search results")
+
+![alt text](https://github.com/elainemgreer/Hackbright-Project/blob/master/Hackbright-Project/static/images/searchresultspage.png "search results")
+
+Saved Events Page:
+
+![alt text](https://github.com/elainemgreer/Hackbright-Project/blob/master/Hackbright-Project/static/images/savedeventspage.png "saved events")
 
 
-
-## Usage example
-
-A few motivating and useful examples of how your product can be used. Spice this up with code blocks and potentially more screenshots.
-
-_For more examples and usage, please refer to the [Wiki][wiki]._
 
 ## Development setup
 
@@ -55,8 +55,8 @@ npm test
 
 ## Meta
 
-Your Name – [@YourTwitter](https://twitter.com/dbader_org) – YourEmail@example.com
+Elaine Greer – [LinkedIn](https://www.linkedin.com/in/elainemgreer/) – elainemichellegreer@gmail.com
 
 
-[https://github.com/yourname/github-link](https://github.com/dbader/)
+[https://github.com/elainemgreer/](https://github.com/elainemgreer/)
 
