@@ -5,18 +5,19 @@ This project was made at Hackbright Academy in San Francisco over four weeks in 
 
 ![alt text](https://github.com/elainemgreer/Hackbright-Project/blob/master/Hackbright-Project/static/images/landingpage.png "Homepage")
 
+## Contents
+- Technologies
+- Features
+- Installation
+- About the Engineer
 
 ## Technologies
 
-
-Tech Stack: Python, JavaScript, HTML, CSS, Flask, Jinja, jQuery, AJAX, PostgreSQL, SQLAlchemy, Bootstrap, Geopy, Hashlib
+Tech Stack: Python, JavaScript, HTML, CSS, Flask, Jinja, jQuery, AJAX, PostgreSQL, SQLAlchemy, Bootstrap
 
 APIs: Google Maps JavaScript, Google Maps Directions, Songkick API
 
-
-## Overview
-
-###Features:
+### Features:
 - Registration, Login, Logout
 - Geolocation Search
 - City Search with Autocomplete
@@ -34,12 +35,11 @@ Geolocation Search:
 
 Search Results (Map + List View):
 
-![alt text](https://github.com/elainemgreer/Hackbright-Project/blob/master/Hackbright-Project/static/images/searchresultspage.png "search results")
+![](websitegif.gif)
 
 Saved Events Page:
 
 ![alt text](https://github.com/elainemgreer/Hackbright-Project/blob/master/Hackbright-Project/static/images/savedeventspage.png "saved events")
-
 
 
 ## <a name="installation"></a>Installation
@@ -69,7 +69,6 @@ $ pip install -r requirements.txt
 ```
 Add your Songkick API key into the header script in server.py. Add Google Maps API key to scripts in templates: homepage.html, citysearchpage.html, citysearcheventsmap.html, eventsmap.html, individualeventpage.html.
 <br><br>
-
 Create database 'users':
 ```
 $ createdb users
