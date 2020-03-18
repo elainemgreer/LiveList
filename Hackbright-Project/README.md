@@ -91,5 +91,6 @@ Elaine Greer is a native Texan, former educator, and musician with a degree in p
 software engineering program at Hackbright Academy in San Francisco.
 
 [LinkedIn](https://www.linkedin.com/in/elainemgreer/) – [Github](https://github.com/elainemgreer/)
+<br>
 elainemichellegreer@gmail.com
 
