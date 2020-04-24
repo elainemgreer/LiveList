@@ -257,6 +257,7 @@ def register_process():
 
     name = request.form.get('name')
     email = request.form.get('email')
+    # phone = request.form.get('phone_number')
     password = request.form.get('password')
 
     if User.query.filter_by(email=email).all():

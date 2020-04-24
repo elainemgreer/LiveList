@@ -33,6 +33,11 @@
                         <button type='submit' id={{ event.event_id }} name='event' value={{ event.event_id }}>Take Me There!</button>
                     </form>
 
+                          <form action='/sendalert'>
+                        <input type="hidden" value={{ event.event_id }} name="event" id="event">
+                        <button type='submit' id={{ event.event_id }} name='event' value={{ event.event_id }}>Send Alert</button>
+                    </form>
+
                     <div class='buttons'>
                         <br>
                         <div class='button' id={{ event.event_id }} name="events" value={{ event.event_id }}> Remove Event?
