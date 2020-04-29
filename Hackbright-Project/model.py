@@ -16,6 +16,7 @@ class User(db.Model):
     name = db.Column(db.String(64), nullable=True)
     email = db.Column(db.String(64), nullable=True)
     password = db.Column(db.String(64), nullable=True)
+    phone = db.Column(db.String(11), nullable=True)
     # default_location = db.Column(db.String(64), nullable=True)
    
 

@@ -1,24 +1,15 @@
 from jinja2 import StrictUndefined
-
 from flask import (Flask, render_template, redirect, request, flash, session, jsonify)
-
 from flask_debugtoolbar import DebugToolbarExtension
-
 from model import connect_to_db, db, User, Event, UserEvent
-
 import requests
-
 from helperfunctions import get_events_list_by_metro_area_and_date, get_metro_id_by_lat_lng, get_locations, get_metro_id_by_city, get_event_from_ids, get_distances, get_db_events_by_user_id, get_db_events_by_event_id, make_date_object, make_time_object
-
 import json
-
-from datetime import datetime
-
+from datetime import datetime, date
 import os
-
 import hashlib
-
 from geopy import distance
+from send_sms import send_message
 
 
 
@@ -238,6 +229,37 @@ def show_event():
     return render_template('individualeventpage.html', user_lat=user_lat, user_lng=user_lng, event_lat=event_lat, event_lng=event_lng )
 
 
+@app.route("/sendalert")
+def send_alert():
+
+    event_id = request.args.get('event')
+    print(event_id)
+
+    event = Event.query.filter_by(event_id=event_id).first()
+
+    if "user_id" in session:
+            user_id = session["user_id"]
+            user = User.query.get(user_id)
+
+     
+    time_object = event.event_time
+    time_string = datetime.strftime(time_object, "%I:%M %p")
+    event.event_time = time_string
+
+    event_date = event.event_date
+    date_string = date.strftime(event_date, "%b %d %Y")
+    event.event_date = date_string
+
+
+    send_message(user.name, user.phone, event.event_name, event.event_time, event.event_date, 
+        event.event_venue, event.event_lat, event.event_lng)
+
+
+    return redirect('/')
+
+
+    
+
 
 # REGISTRATION AND USER LOGIN  *******************************************
 
@@ -257,8 +279,10 @@ def register_process():
 
     name = request.form.get('name')
     email = request.form.get('email')
-    # phone = request.form.get('phone_number')
+    phone = request.form.get('phone')
     password = request.form.get('password')
+
+    phone = int(phone)
 
     if User.query.filter_by(email=email).all():
         flash(f'Already registered! Please login.')
@@ -268,7 +292,7 @@ def register_process():
         # add to database
         hashed_pw = hashlib.md5(password.encode()).hexdigest()
 
-        user = User(email=email, password=hashed_pw, name=name)
+        user = User(email=email, password=hashed_pw, name=name, phone=phone)
         db.session.add(user)
         db.session.commit()
      

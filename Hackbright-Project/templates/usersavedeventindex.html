@@ -30,12 +30,12 @@
 
                     <form action='/showme'>
                         <input type="hidden" value={{ event.event_id }} name="event" id="event">
-                        <button type='submit' id={{ event.event_id }} name='event' value={{ event.event_id }}>Take Me There!</button>
+                        <button type='submit' id={{ event.event_id }} name='event' value={{ event.event_id }}>Directions</button>
                     </form>
-
+                    <br>
                           <form action='/sendalert'>
                         <input type="hidden" value={{ event.event_id }} name="event" id="event">
-                        <button type='submit' id={{ event.event_id }} name='event' value={{ event.event_id }}>Send Alert</button>
+                        <button type='submit' id={{ event.event_id }} name='event' value={{ event.event_id }}>Send Reminder</button>
                     </form>
 
                     <div class='buttons'>
