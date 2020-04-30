@@ -1,4 +1,3 @@
-# Download the helper library from https://www.twilio.com/docs/python/install
 import os
 from twilio.rest import Client
 from model import User, Event
@@ -9,16 +8,15 @@ auth_token = os.environ['TWILIO_API_KEY']
 client = Client(account_sid, auth_token)
 
 
-def send_message(user_name, phone, event_name, event_time, event_date, event_venue, event_lat, event_lng):
-
-    print(user_name, phone, event_name, event_time, event_date)
+def send_message(user, event):
+    """Sends message to user with event details."""
     
 
     message = client.messages \
                     .create(
-                         body=f"Hi { user_name }, You have an event coming up soon! {event_name}, {event_date}, {event_time}",
+                         body=f"Hi { user.name }, You have an event coming up soon! { event.event_name }, {event.event_date}, { event.event_time}",
                          from_='+12058462350',
-                         to=phone
+                         to=user.phone
                      )
 
 

@@ -233,7 +233,6 @@ def show_event():
 def send_alert():
 
     event_id = request.args.get('event')
-    print(event_id)
 
     event = Event.query.filter_by(event_id=event_id).first()
 
@@ -251,8 +250,10 @@ def send_alert():
     event.event_date = date_string
 
 
-    send_message(user.name, user.phone, event.event_name, event.event_time, event.event_date, 
-        event.event_venue, event.event_lat, event.event_lng)
+    # send_message(user.name, user.phone, event.event_name, event.event_time, event.event_date, 
+    #     event.event_venue, event.event_lat, event.event_lng)
+
+    send_message(user, event)
 
 
     return redirect('/')

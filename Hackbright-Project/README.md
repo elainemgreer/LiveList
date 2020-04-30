@@ -16,7 +16,7 @@ This project was made at Hackbright Academy in San Francisco over four weeks in 
 
 Tech Stack: Python, JavaScript, HTML, CSS, Flask, Jinja, jQuery, AJAX, PostgreSQL, SQLAlchemy, Bootstrap
 
-APIs: Google Maps JavaScript, Google Maps Directions, Songkick API
+APIs: Google Maps JavaScript, Google Maps Directions, Songkick API, Twilio API
 
 ## Features:
 
@@ -28,6 +28,7 @@ APIs: Google Maps JavaScript, Google Maps Directions, Songkick API
 - GeoPy Sorted Events List 
 - Ability to Manage and Remove Events
 - Directions
+- SMS Event Reminders
 - Hashed Passwords
 
 ### Geolocation Search:
