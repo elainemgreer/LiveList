@@ -37,8 +37,17 @@ def get_landing_page():
 @app.route('/geoindex')
 def geolocationindex():
     """Geolocation search homepage"""
+    
+    if "user_lat" in session and "user_lng" in session:
+        user_lat = session["user_lat"]
+        user_lng = session["user_lng"]
+        print(user_lat, user_lng)
 
-    return render_template("homepage.html")
+        return render_template("homepage.html", user_lat=user_lat, user_lng=user_lng)
+
+    else:
+
+        return render_template("homepage.html")
 
 
 

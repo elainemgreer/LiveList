@@ -1,5 +1,10 @@
 "use strict"
 
+var pos = $('#position').html()
+var pos2 = $('#position2').html()
+
+console.log(pos, pos2)
+
 var today = new Date().toISOString().split('T')[0];
 document.getElementsByName("mind")[0].setAttribute('min', today);
 
@@ -9,6 +14,7 @@ document.getElementsByName("maxd")[0].setAttribute('min', today);
 var map;
 
 function initMap() {
+  
 
     if (navigator.geolocation) {
       navigator.geolocation.getCurrentPosition(function(position) {
@@ -219,4 +225,5 @@ function initMap() {
                           'Error: Your browser doesn\'t support geolocation.');
     infoWindow.open(map);
   }
-}}
+}
+}
