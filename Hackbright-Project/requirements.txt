@@ -20,7 +20,7 @@ post==1.0.2
 psycopg2-binary==2.7.5
 public==1.0.3
 pyrsistent==0.15.7
-PyYAML==5.3
+PyYAML==5.4
 query-string==1.0.2
 request==1.0.2
 requests==2.22.0
